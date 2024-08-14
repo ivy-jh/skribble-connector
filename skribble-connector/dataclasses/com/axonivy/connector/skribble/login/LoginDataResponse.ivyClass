@@ -1,0 +1,4 @@
+LoginDataResponse #class
+com.axonivy.connector.skribble.login #namespace
+core javax.ws.rs.core.Response #field
+core PERSISTENT #fieldModifier

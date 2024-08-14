@@ -1,0 +1,9 @@
+LoginDataParameters #class
+com.axonivy.connector.skribble.login #namespace
+username String #field
+username PERSISTENT #fieldModifier
+apikey String #field
+apikey PERSISTENT #fieldModifier
+accessToken String #field
+accessToken 'Upon a successful login, a Token will be returned' #fieldComment
+accessToken PERSISTENT #fieldModifier

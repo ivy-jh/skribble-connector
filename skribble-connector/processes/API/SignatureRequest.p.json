@@ -1,0 +1,93 @@
+{
+  "format" : "10.0.0",
+  "id" : "19150ED527CCE86A",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.skribble.signaturerequest.SignatureRequestData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "createSimpleSignatureRequest(String,String,File,List<CreateSignature>)",
+      "config" : {
+        "callSignature" : "createSimpleSignatureRequest",
+        "input" : {
+          "params" : [
+            { "name" : "title", "type" : "String" },
+            { "name" : "message", "type" : "String" },
+            { "name" : "file", "type" : "java.io.File" },
+            { "name" : "signatures", "type" : "List<com.skribble.api.v2.client.CreateSignature>" }
+          ],
+          "map" : {
+            "out.createSignatureRequest.message" : "param.message",
+            "out.createSignatureRequest.signatures" : "param.signatures",
+            "out.createSignatureRequest.title" : "param.title"
+          },
+          "code" : [
+            "import java.util.Base64;",
+            "import java.io.FileInputStream;",
+            "",
+            "FileInputStream fis = new FileInputStream(param.file);",
+            "//out.createSignatureRequest.content = fis.readAllBytes();",
+            "//out.createSignatureRequest.content = Base64.getEncoder().encode(fis.readAllBytes());",
+            "out.createSignatureRequest.custom = Base64.getEncoder().encodeToString(fis.readAllBytes());"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 576, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "name" : "signature-requests",
+      "config" : {
+        "bodyRaw" : [
+          "{",
+          "    \"title\": \"<%=in.createSignatureRequest.title%>\",",
+          "    \"message\": \"<%=in.createSignatureRequest.message%>\",",
+          "    \"content\": \"<%=in.createSignatureRequest.custom%>\",",
+          "    \"signatures\": [",
+          "        {            ",
+          "           \"account_email\" : \"jens.hartmann@axonivy.com\"",
+          "        }      ",
+          "    ]",
+          "}"
+        ],
+        "path" : "/signature-requests",
+        "bodyObjectMapping" : {
+          "param" : "in.createSignatureRequest"
+        },
+        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "method" : "POST",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "bodyObjectCode" : [
+          "/* ",
+          "import com.skribble.api.v2.client.CreateSignature;",
+          "import java.util.Base64;",
+          "",
+          "param.content = Base64.getEncoder().encode(in.file.readBinary());",
+          "",
+          "param.signatures.clear();",
+          "CreateSignature cs = new CreateSignature();",
+          "cs.accountEmail = \"jens.hartmann@axonivy.com\";",
+          "cs.sequence = 1;",
+          "param.signatures.add(cs);",
+          "*/"
+        ],
+        "bodyInputType" : "RAW"
+      },
+      "visual" : {
+        "at" : { "x" : 360, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}

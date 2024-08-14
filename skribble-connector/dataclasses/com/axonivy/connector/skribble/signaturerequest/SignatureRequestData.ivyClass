@@ -1,0 +1,6 @@
+SignatureRequestData #class
+com.axonivy.connector.skribble.signaturerequest #namespace
+createSignatureRequest com.skribble.api.v2.client.CreateSignatureRequest #field
+createSignatureRequest PERSISTENT #fieldModifier
+file File #field
+file PERSISTENT #fieldModifier

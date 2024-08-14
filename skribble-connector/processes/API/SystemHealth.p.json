@@ -1,0 +1,43 @@
+{
+  "format" : "10.0.0",
+  "id" : "1914F7F222E41F81",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.skribble.systemhealth.SystemHealthData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "getSystemHealthStatus()",
+      "config" : {
+        "callSignature" : "getSystemHealthStatus"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 424, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "RestClientCall",
+      "name" : "getHealthStatus",
+      "config" : {
+        "path" : "/management/health",
+        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "method" : "POST",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "resultType" : "java.lang.String",
+        "bodyInputType" : "RAW"
+      },
+      "visual" : {
+        "at" : { "x" : 256, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}
