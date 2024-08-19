@@ -220,18 +220,6 @@
         ],
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "description": "Accept",
-            "required": true,
-            "type": "array",
-            "items": {
-              "$ref": "#/definitions/MediaType"
-            },
-            "collectionFormat": "multi",
-            "default": "*/*"
-          },
-          {
             "name": "id",
             "in": "path",
             "description": "Document ID",
@@ -299,13 +287,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -347,13 +328,6 @@
             "description": "PDF document loading error: the document is either corrupt or encrypted"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -454,13 +428,6 @@
             "type": "string",
             "allowEmptyValue": false,
             "x-example": "open"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -501,10 +468,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/SignatureRequest«object»"
-            }
+            "description": "OK"
           },
           "400": {
             "description": "Either `content_type`+`content` or `file_url` or `document_id` are required."
@@ -513,13 +477,6 @@
             "description": "PDF document loading error: the document is either corrupt or encrypted"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       },
       "put": {
@@ -547,19 +504,9 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/SignatureRequest«object»"
-            }
+            "description": "OK"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -581,30 +528,13 @@
             "required": true,
             "type": "string",
             "x-example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
-          },
-          {
-            "name": "version",
-            "in": "path",
-            "description": "version",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/SignatureRequest«object»"
-            }
+            "description": "OK"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       },
       "delete": {
@@ -631,13 +561,6 @@
             "description": "OK"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -671,13 +594,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -709,13 +625,6 @@
             "description": "OK"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -753,19 +662,9 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/SignatureRequest«object»"
-            }
+            "description": "OK"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -802,13 +701,6 @@
             "description": "OK"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -847,13 +739,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -886,13 +771,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -930,19 +808,9 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/SignatureRequest«object»"
-            }
+            "description": "OK"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -979,13 +847,6 @@
             "description": "OK"
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -1025,13 +886,6 @@
             }
           }
         },
-        "security": [
-          {
-            "Access Token": [
-              "global"
-            ]
-          }
-        ],
         "deprecated": false
       }
     },
@@ -1069,10 +923,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/SignatureRequest«object»"
-            }
+            "description": "OK"
           }
         },
         "deprecated": false
