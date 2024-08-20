@@ -1,0 +1,280 @@
+{
+  "format" : "10.0.0",
+  "id" : "1916EC2B0FB351D0",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "com.axonivy.connector.skribble.demo.Overview.OverviewData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "callSignature" : "start",
+        "guid" : "1916EC2B0FDF2869"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f7", "to" : "f2" }
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 368, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "close",
+      "config" : {
+        "guid" : "1916EC2B10A1914C"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 144 }
+      },
+      "connect" : { "id" : "f5", "to" : "f4" }
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 368, "y" : 144 }
+      }
+    }, {
+      "id" : "f8",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "downloadDocument(SignatureRequest)",
+      "config" : {
+        "callSignature" : "downloadDocument",
+        "input" : {
+          "params" : [
+            { "name" : "sr", "type" : "com.skribble.api.v2.client.SignatureRequest" }
+          ],
+          "map" : {
+            "out.selectedSignatureRequest" : "param.sr"
+          }
+        },
+        "guid" : "1916EEC9E82BB30E"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 336 }
+      },
+      "connect" : { "id" : "f19", "to" : "f18" }
+    }, {
+      "id" : "f9",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 544, "y" : 336 }
+      }
+    }, {
+      "id" : "f18",
+      "type" : "SubProcessCall",
+      "name" : [
+        "API/Documents",
+        "getDocumentById"
+      ],
+      "config" : {
+        "processCall" : "API/Documents:getDocumentMetaDataById(String)",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.document" : "result.document"
+          }
+        },
+        "call" : {
+          "params" : [
+            { "name" : "documentId", "type" : "String" }
+          ],
+          "map" : {
+            "param.documentId" : "in.selectedSignatureRequest.documentId"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 232, "y" : 336 }
+      },
+      "connect" : { "id" : "f21", "to" : "f20" }
+    }, {
+      "id" : "f20",
+      "type" : "SubProcessCall",
+      "name" : [
+        "API/Documents",
+        "ContentData"
+      ],
+      "config" : {
+        "processCall" : "API/Documents:getDocumentContentDataById(String)",
+        "call" : {
+          "params" : [
+            { "name" : "documentId", "type" : "String" }
+          ],
+          "map" : {
+            "param.documentId" : "in.selectedSignatureRequest.documentId"
+          }
+        },
+        "output" : {
+          "code" : [
+            "import java.util.Base64;",
+            "",
+            "try{",
+            "  out.content = null;",
+            "  out.file = null;",
+            "  ",
+            "  out.content = result.content;",
+            "  ",
+            "  out.file = new File(\"Skribble/temp/\"+in.document.title+\".pdf\", true);",
+            "  ",
+            "  Binary base64 = Base64.getDecoder().decode(result.content);",
+            "  out.file.writeBinary(base64);",
+            "",
+            "} catch(Exception e){",
+            "  ivy.log.error(e);",
+            "}  "
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 416, "y" : 336 }
+      },
+      "connect" : { "id" : "f10", "to" : "f9" }
+    }, {
+      "id" : "f2",
+      "type" : "SubProcessCall",
+      "name" : [
+        "API/",
+        "getAllSignatureRequest"
+      ],
+      "config" : {
+        "processCall" : "API/SignatureRequest:getAllSignatureRequest(com.skribble.api.v2.client.SignatureRequest)",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.signatureRequests" : "result.signatureRequests"
+          }
+        },
+        "call" : {
+          "params" : [
+            { "name" : "signatureRequest", "type" : "com.skribble.api.v2.client.SignatureRequest" }
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 232, "y" : 64 }
+      },
+      "connect" : { "id" : "f22", "to" : "f1" }
+    }, {
+      "id" : "f23",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "deleteSignerRequest(SignatureRequest)",
+      "config" : {
+        "callSignature" : "deleteSignerRequest",
+        "input" : {
+          "params" : [
+            { "name" : "sr", "type" : "com.skribble.api.v2.client.SignatureRequest" }
+          ],
+          "map" : {
+            "out.selectedSignatureRequest" : "param.sr"
+          }
+        },
+        "guid" : "19171498866F8FC3"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 432 }
+      },
+      "connect" : { "id" : "f27", "to" : "f26" }
+    }, {
+      "id" : "f24",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 544, "y" : 432 }
+      }
+    }, {
+      "id" : "f26",
+      "type" : "SubProcessCall",
+      "name" : [
+        "API/",
+        "getAllSignatureRequest"
+      ],
+      "config" : {
+        "processCall" : "API/SignatureRequest:deleteSignatureRequest(com.skribble.api.v2.client.SignatureRequest)",
+        "call" : {
+          "params" : [
+            { "name" : "signatureRequest", "type" : "com.skribble.api.v2.client.SignatureRequest" }
+          ],
+          "map" : {
+            "param.signatureRequest" : "in.selectedSignatureRequest"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 232, "y" : 432 }
+      },
+      "connect" : { "id" : "f29", "to" : "f28" }
+    }, {
+      "id" : "f28",
+      "type" : "SubProcessCall",
+      "name" : [
+        "API/",
+        "getAllSignatureRequest"
+      ],
+      "config" : {
+        "processCall" : "API/SignatureRequest:getAllSignatureRequest(com.skribble.api.v2.client.SignatureRequest)",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.signatureRequests" : "result.signatureRequests"
+          }
+        },
+        "call" : {
+          "params" : [
+            { "name" : "signatureRequest", "type" : "com.skribble.api.v2.client.SignatureRequest" }
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 408, "y" : 432 }
+      },
+      "connect" : { "id" : "f25", "to" : "f24" }
+    }, {
+      "id" : "f6",
+      "type" : "HtmlDialogEventStart",
+      "name" : "refresh",
+      "config" : {
+        "guid" : "19171714749E480D"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 248 }
+      },
+      "connect" : { "id" : "f14", "to" : "f13" }
+    }, {
+      "id" : "f11",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 544, "y" : 248 }
+      }
+    }, {
+      "id" : "f13",
+      "type" : "SubProcessCall",
+      "name" : [
+        "API/",
+        "getAllSignatureRequest"
+      ],
+      "config" : {
+        "processCall" : "API/SignatureRequest:getAllSignatureRequest(com.skribble.api.v2.client.SignatureRequest)",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.signatureRequests" : "result.signatureRequests"
+          }
+        },
+        "call" : {
+          "params" : [
+            { "name" : "signatureRequest", "type" : "com.skribble.api.v2.client.SignatureRequest" }
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 232, "y" : 248 }
+      },
+      "connect" : { "id" : "f12", "to" : "f11" }
+    } ]
+}

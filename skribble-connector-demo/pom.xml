@@ -6,6 +6,14 @@
   <artifactId>skribble-connector-demo</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>iar</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>com.axonivy.connector.skribble</groupId>
+      <artifactId>skribble-connector</artifactId>
+      <version>${project.version}</version>
+      <type>iar</type>
+    </dependency>
+  </dependencies>
   <build>
     <plugins>
       <plugin>
