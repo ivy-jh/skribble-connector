@@ -1,0 +1,170 @@
+{
+  "format" : "10.0.0",
+  "id" : "1916B6CA7C4F939C",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.skribble.documents.DocumentsData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "getDocumentMetaDataById(String)",
+      "config" : {
+        "callSignature" : "getDocumentMetaDataById",
+        "input" : {
+          "params" : [
+            { "name" : "documentId", "type" : "String" }
+          ],
+          "map" : {
+            "out.document.id" : "param.documentId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "document", "type" : "com.skribble.api.v2.client.Document" }
+          ],
+          "map" : {
+            "result.document" : "in.document"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f14", "to" : "f4" }
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 624, "y" : 64 }
+      }
+    }, {
+      "id" : "f4",
+      "type" : "RestClientCall",
+      "name" : [
+        "get document ",
+        "Metadata"
+      ],
+      "config" : {
+        "bodyRaw" : [
+          "{",
+          "    \"title\": \"<%=in.createSignatureRequest.title%>\",",
+          "    \"message\": \"<%=in.createSignatureRequest.message%>\",",
+          "    \"content\": \"<%=in.createSignatureRequest.content%>\",",
+          "    \"signatures\": [",
+          "        {            ",
+          "           \"account_email\" : \"jens.hartmann@axonivy.com\"",
+          "        }      ",
+          "    ] ",
+          "}"
+        ],
+        "bodyForm" : {
+          "" : ""
+        },
+        "path" : "/documents/{id}",
+        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "method" : "GET",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "responseMapping" : {
+          "out.document" : "result"
+        },
+        "templateParams" : {
+          "id" : "in.document.id"
+        },
+        "resultType" : "com.skribble.api.v2.client.Document",
+        "bodyInputType" : "ENTITY"
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      },
+      "connect" : { "id" : "f9", "to" : "f1" }
+    }, {
+      "id" : "f2",
+      "type" : "CallSubStart",
+      "name" : "getDocumentContentDataById(String)",
+      "config" : {
+        "callSignature" : "getDocumentContentDataById",
+        "input" : {
+          "params" : [
+            { "name" : "documentId", "type" : "String" }
+          ],
+          "map" : {
+            "out.document.id" : "param.documentId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "content", "type" : "String" }
+          ],
+          "map" : {
+            "result.content" : "in.content"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 184 }
+      },
+      "connect" : { "id" : "f6", "to" : "f5" }
+    }, {
+      "id" : "f3",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 624, "y" : 184 }
+      }
+    }, {
+      "id" : "f5",
+      "type" : "RestClientCall",
+      "name" : [
+        "get document",
+        "content"
+      ],
+      "config" : {
+        "bodyRaw" : [
+          "{",
+          "    \"title\": \"<%=in.createSignatureRequest.title%>\",",
+          "    \"message\": \"<%=in.createSignatureRequest.message%>\",",
+          "    \"content\": \"<%=in.createSignatureRequest.content%>\",",
+          "    \"signatures\": [",
+          "        {            ",
+          "           \"account_email\" : \"jens.hartmann@axonivy.com\"",
+          "        }      ",
+          "    ] ",
+          "}"
+        ],
+        "headers" : {
+          "Accept" : "application/json"
+        },
+        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "method" : "GET",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "bodyInputType" : "ENTITY",
+        "responseCode" : [
+          "import com.google.gson.Gson;",
+          "import com.google.gson.JsonObject;",
+          "import java.util.Base64;",
+          "",
+          "try{",
+          "  JsonObject jsonObject = new Gson().fromJson(result, JsonObject.class) as JsonObject ;",
+          "  out.content = jsonObject.get(\"content\").getAsString();",
+          "",
+          "} catch(Exception e){",
+          "  ivy.log.error(e);",
+          "}   "
+        ],
+        "bodyForm" : {
+          "" : ""
+        },
+        "path" : "/documents/{id}/content",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "templateParams" : {
+          "id" : "in.document.id"
+        },
+        "resultType" : "java.lang.String"
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 184 }
+      },
+      "connect" : { "id" : "f7", "to" : "f3" }
+    } ]
+}

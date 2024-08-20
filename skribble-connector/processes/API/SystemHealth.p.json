@@ -28,12 +28,12 @@
       "name" : "getHealthStatus",
       "config" : {
         "path" : "/management/health",
-        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "clientId" : "828adc47-4f88-4460-8330-af540209cf36",
         "clientErrorCode" : "ivy:error:rest:client",
-        "method" : "POST",
+        "method" : "GET",
         "statusErrorCode" : "ivy:error:rest:client",
         "resultType" : "java.lang.String",
-        "bodyInputType" : "RAW"
+        "bodyInputType" : "ENTITY"
       },
       "visual" : {
         "at" : { "x" : 256, "y" : 64 }

@@ -1,6 +1,7 @@
 RestClients:
   #The Skribble API v2 documentation describes the public available Skribble API version 2.
   #https://api-doc.skribble.com/#versions
+  #https://api.skribble.com/v2
   skribble api (Skribble API):
     UUID: 6c92d3d7-cb33-4cfa-964a-8242ad165742
     Url: https://api.skribble.com/v2
@@ -12,6 +13,12 @@ RestClients:
       AUTH.username: ${ivy.var.skribbleConnector.username}
       AUTH.key: ${ivy.var.skribbleConnector.authKey}
       AUTH.sessionToken: ${ivy.var.skribbleConnector.sessionToken}
+      JSON.Serialization.PROPERTY_INCLUSION: NON_NULL
     OpenAPI:
-      SpecUrl: file:///C:/Users/jh/Downloads/openapi3.json
+      SpecUrl: C:/Users/jh/git/skribble-connector/skribble-connector/src/com/skribble/openapi/openapi.json
       Namespace: com.skribble.api.v2.client
+  SkribbleHealth:
+    UUID: 828adc47-4f88-4460-8330-af540209cf36
+    Url: https://api.skribble.com/
+    Features:
+    - ch.ivyteam.ivy.rest.client.mapper.JsonFeature

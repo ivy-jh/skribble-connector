@@ -44,7 +44,7 @@ public class SkribbleAuthFeature implements Feature {
       
       if(token.isEmpty()) {
     	  token = Ivy.rest().client(UUID.fromString("6c92d3d7-cb33-4cfa-964a-8242ad165742"))
-    		  		.path("access/login").request()
+    		  		.path("/access/login").request()
     		  		.post(Entity.entity(login, MediaType.APPLICATION_JSON), String.class);
     	  
     	  Ivy.log().info("got token "+token);

@@ -1443,7 +1443,8 @@
             "example": "AES",
             "enum": [
               "AES",
-              "QES"
+              "QES",
+              "DEMO"
             ]
           },
           "signatures": {
@@ -1917,7 +1918,8 @@
             "example": "AES",
             "enum": [
               "AES",
-              "QES"
+              "QES",
+              "DEMO"
             ]
           },
           "signing_url": {
@@ -2107,7 +2109,8 @@
             "example": "AES",
             "enum": [
               "AES",
-              "QES"
+              "QES",
+              "DEMO"
             ]
           },
           "signing_url": {
@@ -2308,7 +2311,8 @@
             "example": "AES",
             "enum": [
               "AES",
-              "QES"
+              "QES",
+              "DEMO"
             ]
           },
           "signatures": {
