@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "//api.skribble.com/v1"
+      "url": "https://api.skribble.com/v2"
     }
   ],
   "tags": [
@@ -1313,7 +1313,7 @@
             "type": "string",
             "description": "Content type of bytes sent in `content`. Currently, only 'application/pdf' is supported. Must be used together with `content`.",
             "enum": [
-              "application/pdf"
+              "APPLICATION/PDF"
             ]
           },
           "content": {
@@ -1415,7 +1415,7 @@
             "type": "string",
             "description": "Content type of bytes sent in `content`. Currently, only 'application/pdf' is supported. Must be used together with `content`. This parameter is incompatible with `file_url` and `document_id`.",
             "enum": [
-              "application/pdf"
+              "APPLICATION/PDF"
             ]
           },
           "file_url": {
@@ -1540,7 +1540,7 @@
             "type": "string",
             "description": "Content type of document. Currently only 'application/pdf' is supported.",
             "enum": [
-              "application/pdf"
+              "APPLICATION/PDF"
             ]
           },
           "size": {
@@ -1782,13 +1782,13 @@
             "type": "string",
             "description": "Current status of signature.",
             "enum": [
-              "open",
-              "waiting",
-              "declined",
-              "withdrawn",
-              "signed",
-              "undefined",
-              "error"
+              "OPEN",
+              "WAITING",
+              "DECLINED",
+              "WITHDRAWN",
+              "SIGNED",
+              "UNDEFINED",
+              "ERROR"
             ]
           },
           "notify": {
@@ -1929,13 +1929,13 @@
             "type": "string",
             "description": "Signature request's status based on all requested signature's individual statuses.",
             "enum": [
-              "open",
-              "waiting",
-              "declined",
-              "withdrawn",
-              "signed",
-              "undefined",
-              "error"
+              "OPEN",
+              "WAITING",
+              "DECLINED",
+              "WITHDRAWN",
+              "SIGNED",
+              "UNDEFINED",
+              "ERROR"
             ]
           },
           "business": {
@@ -2119,13 +2119,13 @@
             "type": "string",
             "description": "Signature request's status based on all requested signature's individual statuses.",
             "enum": [
-              "open",
-              "waiting",
-              "declined",
-              "withdrawn",
-              "signed",
-              "undefined",
-              "error"
+              "OPEN",
+              "WAITING",
+              "DECLINED",
+              "WITHDRAWN",
+              "SIGNED",
+              "UNDEFINED",
+              "ERROR"
             ]
           },
           "business": {
