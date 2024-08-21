@@ -1,6 +1,0 @@
-LoginData #class
-com.axonivy.connector.skribble.login #namespace
-parameters com.axonivy.connector.skribble.login.LoginDataParameters #field
-parameters PERSISTENT #fieldModifier
-response com.axonivy.connector.skribble.login.LoginDataResponse #field
-response PERSISTENT #fieldModifier
