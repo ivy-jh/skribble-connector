@@ -26,10 +26,11 @@
           "map" : {
             "result.document" : "in.document"
           }
-        }
+        },
+        "tags" : "connector"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 64 }
+        "at" : { "x" : 120, "y" : 64 }
       },
       "connect" : { "id" : "f14", "to" : "f4" }
     }, {
@@ -100,10 +101,11 @@
           "map" : {
             "result.content" : "in.content"
           }
-        }
+        },
+        "tags" : "connector"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 184 }
+        "at" : { "x" : 120, "y" : 184 }
       },
       "connect" : { "id" : "f6", "to" : "f5" }
     }, {

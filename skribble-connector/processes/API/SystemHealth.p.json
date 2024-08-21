@@ -10,7 +10,8 @@
       "type" : "CallSubStart",
       "name" : "getSystemHealthStatus()",
       "config" : {
-        "callSignature" : "getSystemHealthStatus"
+        "callSignature" : "getSystemHealthStatus",
+        "tags" : "connector"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }

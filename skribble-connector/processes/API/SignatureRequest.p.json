@@ -30,17 +30,18 @@
             "FileInputStream fis = new FileInputStream(param.file);",
             "out.createSignatureRequest.content = Base64.getEncoder().encodeToString(fis.readAllBytes());"
           ]
-        }
+        },
+        "tags" : "connector"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 64 }
       },
-      "connect" : { "id" : "f14", "to" : "f4" }
+      "connect" : { "id" : "f6", "to" : "f2" }
     }, {
       "id" : "f1",
       "type" : "CallSubEnd",
       "visual" : {
-        "at" : { "x" : 576, "y" : 64 }
+        "at" : { "x" : 584, "y" : 64 }
       }
     }, {
       "id" : "f3",
@@ -88,92 +89,13 @@
           "map" : {
             "result.signatureRequest" : "in.signatureRequest"
           }
-        }
+        },
+        "tags" : "connector"
       },
       "visual" : {
         "at" : { "x" : 96, "y" : 168 }
       },
       "connect" : { "id" : "f22", "to" : "f3" }
-    }, {
-      "id" : "f6",
-      "type" : "Script",
-      "name" : "test mapping",
-      "config" : {
-        "output" : {
-          "code" : [
-            "import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;",
-            "import com.fasterxml.jackson.databind.json.JsonMapper;",
-            "import com.skribble.api.v2.client.SignatureRequest;",
-            "import com.fasterxml.jackson.databind.ObjectMapper;",
-            "",
-            "",
-            "ObjectMapper mapper = JsonMapper.builder()",
-            "                                .addModule(new JavaTimeModule())",
-            "                                .build();",
-            "   ",
-            "SignatureRequest sr = mapper.readValue(in.response, SignatureRequest.class) as SignatureRequest ;",
-            "",
-            "out.signatureRequest = sr;"
-          ]
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 1024, "y" : 168 }
-      }
-    }, {
-      "id" : "f4",
-      "type" : "RestClientCall",
-      "name" : [
-        "create signature-requests",
-        "raw"
-      ],
-      "config" : {
-        "bodyRaw" : [
-          "{",
-          "    \"title\": \"<%=in.createSignatureRequest.title%>\",",
-          "    \"message\": \"<%=in.createSignatureRequest.message%>\",",
-          "    \"content\": \"<%=in.createSignatureRequest.content%>\",",
-          "    \"signatures\": [",
-          "        {            ",
-          "           \"account_email\" : \"jens.hartmann@axonivy.com\"",
-          "        }      ",
-          "    ] ",
-          "}"
-        ],
-        "bodyForm" : {
-          "" : ""
-        },
-        "path" : "/signature-requests",
-        "bodyObjectMapping" : {
-          "param" : "in.createSignatureRequest"
-        },
-        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
-        "clientErrorCode" : "ivy:error:rest:client",
-        "method" : "POST",
-        "statusErrorCode" : "ivy:error:rest:client",
-        "bodyObjectType" : "com.skribble.api.v2.client.CreateSignatureRequest",
-        "bodyInputType" : "RAW"
-      },
-      "visual" : {
-        "at" : { "x" : 360, "y" : 64 }
-      },
-      "connect" : { "id" : "f9", "to" : "f1" }
-    }, {
-      "id" : "f2",
-      "type" : "Script",
-      "name" : [
-        "simulate Response",
-        "from var"
-      ],
-      "config" : {
-        "output" : {
-          "code" : "out.response = ivy.var.skribbleConnector_tempResponse;"
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 864, "y" : 168 }
-      },
-      "connect" : { "id" : "f7", "to" : "f6" }
     }, {
       "id" : "f12",
       "type" : "RestClientCall",
@@ -223,10 +145,11 @@
           "map" : {
             "result.signatureRequest" : "in.signatureRequest"
           }
-        }
+        },
+        "tags" : "connector"
       },
       "visual" : {
-        "at" : { "x" : 104, "y" : 272 }
+        "at" : { "x" : 96, "y" : 272 }
       },
       "connect" : { "id" : "f15", "to" : "f12" }
     }, {
@@ -242,45 +165,6 @@
         "at" : { "x" : 584, "y" : 272 }
       }
     }, {
-      "id" : "f11",
-      "type" : "RestClientCall",
-      "name" : "get signature-requests",
-      "config" : {
-        "bodyForm" : {
-          "" : ""
-        },
-        "path" : "/signature-requests/{id}",
-        "bodyObjectMapping" : {
-          "param" : "in.createSignatureRequest"
-        },
-        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
-        "clientErrorCode" : "ivy:error:rest:client",
-        "method" : "GET",
-        "statusErrorCode" : "ivy:error:rest:client",
-        "templateParams" : {
-          "id" : "in.signatureRequest.id",
-          "version" : "\"v2\""
-        },
-        "bodyInputType" : "ENTITY",
-        "responseCode" : [
-          "import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;",
-          "import com.fasterxml.jackson.databind.json.JsonMapper;",
-          "import com.skribble.api.v2.client.SignatureRequest;",
-          "import com.fasterxml.jackson.databind.ObjectMapper;",
-          "",
-          "out.response = response.readEntity(String.class) as String;  ",
-          "",
-          "ObjectMapper mapper = JsonMapper.builder()",
-          "                                .addModule(new JavaTimeModule())",
-          "                                .build();",
-          "   ",
-          "out.signatureRequest = mapper.readValue(out.response, SignatureRequest.class) as SignatureRequest ;"
-        ]
-      },
-      "visual" : {
-        "at" : { "x" : 896, "y" : 344 }
-      }
-    }, {
       "id" : "f19",
       "type" : "RestClientCall",
       "name" : "get All signature-requests",
@@ -291,8 +175,8 @@
         "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
         "method" : "GET",
         "queryParams" : {
-          "account_email" : "\"jens.hartmann@axonivy.com\"",
-          "created_by" : "",
+          "account_email" : "",
+          "created_by" : "ivy.var.skribbleConnector_username",
           "page_number" : "",
           "page_size" : "",
           "search" : "",
@@ -343,10 +227,11 @@
           "map" : {
             "result.signatureRequests" : "in.signatureRequests"
           }
-        }
+        },
+        "tags" : "connector"
       },
       "visual" : {
-        "at" : { "x" : 104, "y" : 384 }
+        "at" : { "x" : 96, "y" : 384 }
       },
       "connect" : { "id" : "f24", "to" : "f19" }
     }, {
@@ -405,10 +290,11 @@
           "map" : {
             "result.signatureRequests" : "in.signatureRequests"
           }
-        }
+        },
+        "tags" : "connector"
       },
       "visual" : {
-        "at" : { "x" : 104, "y" : 504 }
+        "at" : { "x" : 96, "y" : 504 }
       },
       "connect" : { "id" : "f30", "to" : "f17" }
     }, {
@@ -417,5 +303,30 @@
       "visual" : {
         "at" : { "x" : 584, "y" : 504 }
       }
+    }, {
+      "id" : "f2",
+      "type" : "RestClientCall",
+      "name" : "create signature-requests",
+      "config" : {
+        "bodyForm" : {
+          "" : ""
+        },
+        "path" : "/signature-requests",
+        "bodyObjectMapping" : {
+          "param" : "in.createSignatureRequest"
+        },
+        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "method" : "POST",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "bodyObjectType" : "com.skribble.api.v2.client.CreateSignatureRequest",
+        "resultType" : "com.skribble.api.v2.client.SignatureRequest",
+        "bodyInputType" : "ENTITY",
+        "responseCode" : "out.signatureRequest = result;"
+      },
+      "visual" : {
+        "at" : { "x" : 360, "y" : 64 }
+      },
+      "connect" : { "id" : "f4", "to" : "f1" }
     } ]
 }
