@@ -1,0 +1,83 @@
+{
+  "id" : "8b974da6-1b4f-a285-7be5-0e966beec7e3",
+  "title" : "Test-Title",
+  "message" : "Test-message",
+  "document_id" : "6a41f7b8-53df-a809-9549-eeddb8f85bf6",
+  "legislation" : "ZERTES",
+  "quality" : "DEMO",
+  "signing_url" : "https://my.skribble.com/view/8b974da6-1b4f-a285-7be5-0e966beec7e3",
+  "status_overall" : "OPEN",
+  "business" : "biz-e989cba7b6537b578963df30566fdbf9",
+  "signatures" : [ {
+    "sid" : "67fdacaa-5c28-2c0e-6df7-fb01fff67cbd",
+    "account_email" : "aea9800320694d9ebcbcdce8e6acffd3",
+    "signer_identity_data" : {
+      "first_name" : "Max",
+      "last_name" : "Muster",
+      "email_address" : "max.muster@yxz.com"
+    },
+    "sequence" : -1,
+    "status_code" : "OPEN",
+    "notify" : false,
+    "signing_url" : "https://my.skribble.com/view/8b974da6-1b4f-a285-7be5-0e966beec7e3/aea9800320694d9ebcbcdce8e6acffd3",
+    "visual_signature" : {
+      "position" : {
+        "x" : 100.0,
+        "y" : 600.0,
+        "width" : 160.0,
+        "height" : 60.0,
+        "page" : "0",
+        "rotation" : 0,
+        "invisible" : false
+      },
+      "positions" : [ {
+        "x" : 100.0,
+        "y" : 600.0,
+        "width" : 160.0,
+        "height" : 60.0,
+        "page" : "0",
+        "rotation" : 0,
+        "invisible" : false
+      } ]
+    }
+  }, {
+    "sid" : "2423a5bf-38ed-d872-066c-04cabd6eb464",
+    "account_email" : "c387e9d4892149d18fc9bc4ace45269c",
+    "signer_identity_data" : {
+      "first_name" : "Hans",
+      "last_name" : "Meier",
+      "email_address" : "hans.meier@yxz.com"
+    },
+    "sequence" : -1,
+    "status_code" : "OPEN",
+    "notify" : false,
+    "signing_url" : "https://my.skribble.com/view/8b974da6-1b4f-a285-7be5-0e966beec7e3/c387e9d4892149d18fc9bc4ace45269c",
+    "visual_signature" : {
+      "position" : {
+        "x" : 300.0,
+        "y" : 600.0,
+        "width" : 160.0,
+        "height" : 60.0,
+        "page" : "0",
+        "rotation" : 0,
+        "invisible" : false
+      },
+      "positions" : [ {
+        "x" : 300.0,
+        "y" : 600.0,
+        "width" : 160.0,
+        "height" : 60.0,
+        "page" : "0",
+        "rotation" : 0,
+        "invisible" : false
+      } ]
+    }
+  } ],
+  "cc_email_addresses" : [ ],
+  "attachments" : [ ],
+  "owner" : "api_demo_axonivy_e989_0",
+  "read_access" : [ "aea9800320694d9ebcbcdce8e6acffd3", "api_demo_axonivy_e989_0", "c387e9d4892149d18fc9bc4ace45269c" ],
+  "write_access" : [ "api_demo_axonivy_e989_0" ],
+  "created_at" : "2024-08-21T14:29:26.838Z",
+  "updated_at" : "2024-08-21T14:29:26.838Z"
+}
