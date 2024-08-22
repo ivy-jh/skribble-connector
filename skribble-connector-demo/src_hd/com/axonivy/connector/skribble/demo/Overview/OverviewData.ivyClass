@@ -6,9 +6,5 @@ selectedSignatureRequest com.skribble.api.v2.client.SignatureRequest #field
 selectedSignatureRequest PERSISTENT #fieldModifier
 file File #field
 file PERSISTENT #fieldModifier
-content String #field
-content PERSISTENT #fieldModifier
-streamedContent org.primefaces.model.StreamedContent #field
-streamedContent PERSISTENT #fieldModifier
 document com.skribble.api.v2.client.Document #field
 document PERSISTENT #fieldModifier

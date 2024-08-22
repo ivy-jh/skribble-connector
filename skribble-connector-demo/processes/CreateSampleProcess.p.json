@@ -17,7 +17,7 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 104 }
       },
-      "connect" : { "id" : "f6", "to" : "f5" }
+      "connect" : { "id" : "f10", "to" : "f8" }
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
@@ -47,55 +47,36 @@
       },
       "connect" : { "id" : "f2", "to" : "f1" }
     }, {
-      "id" : "f5",
+      "id" : "f8",
       "type" : "Script",
       "name" : "create Sample",
       "config" : {
         "output" : {
           "code" : [
-            "import java.io.FileInputStream;",
-            "import java.util.Base64;",
             "import com.skribble.api.v2.client.CreateSignature;",
-            "import com.axonivy.connector.skribble.demo.LocalResource;",
+            "import com.axonivy.connector.skribble.demo.SampleHelper;",
             "",
-            "//create testinput",
-            "out.createSignatureRequest.title = \"Document-Title\";",
-            "out.createSignatureRequest.message = \"this is your Document-Description\";",
+            "out.createSignatureRequest = SampleHelper.createSignatureRequestDocSample(\"Test-Title\", \"Test-message\");",
             "",
-            "//create BASE64 filestream",
-            "FileInputStream fis = new FileInputStream(new LocalResource(\"test.pdf\").asFile());",
-            "out.createSignatureRequest.content = Base64.getEncoder().encodeToString(fis.readAllBytes());",
+            "CreateSignature cs1 = new CreateSignature();",
+            "cs1 = SampleHelper.createSignature(\"max.muster@yxz.com\", false);",
+            "cs1.signerIdentityData = SampleHelper.createSignerIdentityData(\"max.muster@yxz.com\", \"Max\", \"Muster\");",
+            "cs1.visualSignature = SampleHelper.createVisualSignatureWithPositionX(100);",
             "",
-            "//create Signer",
-            "CreateSignature cs = new CreateSignature();",
-            "cs.accountEmail = \"yourMail@domain.com\";",
-            "cs.notify = true;",
-            "cs.sequence = 1;",
-            "cs.visualSignature.position.x = 100;",
-            "cs.visualSignature.position.y = 600;",
-            "cs.visualSignature.position.height = 60;",
-            "cs.visualSignature.position.width = 160;",
-            "out.createSignatureRequest.signatures.add(cs);",
+            "out.createSignatureRequest.signatures.add(cs1);",
             "",
-            "cs = new CreateSignature();",
-            "cs.accountEmail = \"john.doe@yxz.com\";",
-            "cs.signerIdentityData.emailAddress = \"john.doe@yxz.com\";",
-            "cs.signerIdentityData.firstName = \"John\";",
-            "cs.signerIdentityData.lastName = \"Doe\";",
-            "cs.language = \"German\";",
-            "cs.notify = false;",
-            "cs.sequence = 1;",
-            "cs.visualSignature.position.x = 300;",
-            "cs.visualSignature.position.y = 600;",
-            "cs.visualSignature.position.height = 60;",
-            "cs.visualSignature.position.width = 160;",
-            "out.createSignatureRequest.signatures.add(cs);"
+            "CreateSignature cs2 = new CreateSignature();",
+            "cs2 = SampleHelper.createSignature(\"hans.meier@yxz.com\", false);",
+            "cs2.signerIdentityData = SampleHelper.createSignerIdentityData(\"hans.meier@yxz.com\", \"Hans\", \"Meier\");",
+            "cs2.visualSignature = SampleHelper.createVisualSignatureWithPositionX(300);",
+            "",
+            "out.createSignatureRequest.signatures.add(cs2);"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 104 }
+        "at" : { "x" : 216, "y" : 104 }
       },
-      "connect" : { "id" : "f4", "to" : "f3" }
+      "connect" : { "id" : "f11", "to" : "f3" }
     } ]
 }
