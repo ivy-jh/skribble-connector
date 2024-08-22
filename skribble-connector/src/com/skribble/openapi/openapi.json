@@ -1,7 +1,6 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Skribble API",
     "description": "All requests to the Skribble API must be authorized. To obtain an access token, please use the <b>/access/login</b> resource. Then add the access token as a HTTP header like:<br><code>Authorization: Bearer &lt;token></code>",
     "contact": {
       "name": "Skribble Engineering",

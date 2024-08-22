@@ -2,7 +2,7 @@ RestClients:
   #The Skribble API v2 documentation describes the public available Skribble API version 2.
   #https://api-doc.skribble.com/#versions
   #https://api.skribble.com/v2
-  skribble api (Skribble API):
+  Skribble:
     UUID: 6c92d3d7-cb33-4cfa-964a-8242ad165742
     Url: https://api.skribble.com/v2
     Icon: res:/webContent/logo/logo.png

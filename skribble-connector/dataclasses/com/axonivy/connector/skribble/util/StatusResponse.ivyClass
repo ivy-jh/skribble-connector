@@ -1,0 +1,12 @@
+StatusResponse #class
+com.axonivy.connector.skribble.util #namespace
+type String #field
+type PERSISTENT #fieldModifier
+status Integer #field
+status PERSISTENT #fieldModifier
+message String #field
+message PERSISTENT #fieldModifier
+method String #field
+method PERSISTENT #fieldModifier
+path String #field
+path PERSISTENT #fieldModifier
