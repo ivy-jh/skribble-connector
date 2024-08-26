@@ -8,9 +8,9 @@
   "elements" : [ {
       "id" : "f0",
       "type" : "CallSubStart",
-      "name" : "getDocumentMetaDataById(String)",
+      "name" : "getMetaData(String)",
       "config" : {
-        "callSignature" : "getDocumentMetaDataById",
+        "callSignature" : "getMetaData",
         "input" : {
           "params" : [
             { "name" : "documentId", "type" : "String" }
@@ -83,9 +83,9 @@
     }, {
       "id" : "f2",
       "type" : "CallSubStart",
-      "name" : "getDocumentContentDataById(String)",
+      "name" : "getContentData(String)",
       "config" : {
-        "callSignature" : "getDocumentContentDataById",
+        "callSignature" : "getContentData",
         "input" : {
           "params" : [
             { "name" : "documentId", "type" : "String" }
@@ -161,9 +161,9 @@
     }, {
       "id" : "f8",
       "type" : "CallSubStart",
-      "name" : "getDocumentAsFileById(String)",
+      "name" : "getContentDataAsFile(String)",
       "config" : {
-        "callSignature" : "getDocumentAsFileById",
+        "callSignature" : "getContentDataAsFile",
         "input" : {
           "params" : [
             { "name" : "documentId", "type" : "String" }
@@ -174,12 +174,10 @@
         },
         "result" : {
           "params" : [
-            { "name" : "file", "type" : "File" },
-            { "name" : "content", "type" : "String" }
+            { "name" : "file", "type" : "File" }
           ],
           "map" : {
-            "result.file" : "in.file",
-            "result.content" : "in.content"
+            "result.file" : "in.file"
           }
         },
         "tags" : "connector"

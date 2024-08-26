@@ -29,10 +29,10 @@ class TestApiSubProcess {
   private static final BpmProcess DOCUMENTS = BpmProcess.name("Documents");
   
   private interface Start {
-    BpmElement GET_ALL_SIGNATURE_REQUEST = SIGNATURE_REQUEST.elementName("getAllSignatureRequest(SignatureRequestSearchParameters)"); // ElementName of Callprocess
-    BpmElement CREATE_SIGNATURE_REQUEST = SIGNATURE_REQUEST.elementName("createSignatureRequest(CreateSignatureRequest)");
-    BpmElement GET_DOCUMENT_CONTENT = DOCUMENTS.elementName("getDocumentContentDataById(String)");
-    BpmElement GET_DOCUMENT_META = DOCUMENTS.elementName("getDocumentMetaDataById(String)");
+    BpmElement GET_ALL_SIGNATURE_REQUEST = SIGNATURE_REQUEST.elementName("getAll(SignatureRequestSearchParameters)"); // ElementName of Callprocess
+    BpmElement CREATE_SIGNATURE_REQUEST = SIGNATURE_REQUEST.elementName("create(CreateSignatureRequest)");
+    BpmElement GET_DOCUMENT_CONTENT = DOCUMENTS.elementName("getContentData(String)");
+    BpmElement GET_DOCUMENT_META = DOCUMENTS.elementName("getMetaData(String)");
   }
 
   @BeforeEach
@@ -81,7 +81,7 @@ class TestApiSubProcess {
 	  //start Testcall
 	  var result = bpmClient.start()
 			.subProcess(Start.CREATE_SIGNATURE_REQUEST)
-			.withParam("createSignatureRequest", sample)
+			.withParam("create", sample)
 			.execute();	
 
    

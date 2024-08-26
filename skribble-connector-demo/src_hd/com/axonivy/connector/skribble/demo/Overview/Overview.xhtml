@@ -23,7 +23,8 @@
           		rowKey="#{sr.id}" 
           		paginator="true"
           		paginatorPosition="bottom"
-              	rowsPerPageTemplate="5,10,{ShowAll|'All'}"
+          		rows="5"
+              	rowsPerPageTemplate="15,10,{ShowAll|'All'}"
           		scrollable="true"
           		scrollHeight="600" >
 
@@ -40,13 +41,13 @@
 				</p:column>
 				
 				<p:column headerText="Created at" width="150" sortBy="#{sr.createdAt}">
-					<p:outputLabel value="#{dateTimeBean.getJavaDateTime(sr.createdAt)}"  >
+					<p:outputLabel value="#{dateTimeHelperBean.getJavaDate(sr.createdAt)}"  >
 						<f:convertDateTime pattern="yyy-MM-dd HH:mm" />
 					</p:outputLabel>
 				</p:column>	
 				 	
 				<p:column headerText="Updated at" width="150" sortBy="#{sr.updatedAt}">
-					<p:outputLabel value="#{dateTimeBean.getJavaDateTime(sr.updatedAt)}"  >
+					<p:outputLabel value="#{dateTimeHelperBean.getJavaDate(sr.updatedAt)}"  >
 						<f:convertDateTime pattern="yyy-MM-dd HH:mm" />
 					</p:outputLabel>
 				</p:column>	
@@ -82,11 +83,11 @@
 						<p:column headerText="Fullname" width="50" >
 							<p:outputLabel value="#{si.signerIdentityData.firstName} #{si.signerIdentityData.lastName}"  /> 
 						</p:column>
-						<!-- 
-						<p:column headerText="Mobilenr." width="50" >
+						
+						<p:column headerText="Mobilenumber" width="50" >
 							<p:outputLabel value="#{si.signerIdentityData.mobileNumber}"  />
 						</p:column>
-						-->
+						
 						<p:column headerText="Account Email" width="50" >
 							<p:outputLabel value="#{si.accountEmail}"  />
 						</p:column>

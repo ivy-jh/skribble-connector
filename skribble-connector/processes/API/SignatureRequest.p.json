@@ -8,9 +8,9 @@
   "elements" : [ {
       "id" : "f0",
       "type" : "CallSubStart",
-      "name" : "createSimpleSignatureRequest(String,String,File,List<CreateSignature>)",
+      "name" : "createSimple(String,String,File,List<CreateSignature>)",
       "config" : {
-        "callSignature" : "createSimpleSignatureRequest",
+        "callSignature" : "createSimple",
         "input" : {
           "params" : [
             { "name" : "title", "type" : "String" },
@@ -65,9 +65,9 @@
     }, {
       "id" : "f5",
       "type" : "CallSubStart",
-      "name" : "createSignatureRequest(CreateSignatureRequest)",
+      "name" : "create(CreateSignatureRequest)",
       "config" : {
-        "callSignature" : "createSignatureRequest",
+        "callSignature" : "create",
         "input" : {
           "params" : [
             { "name" : "createSignatureRequest", "type" : "com.skribble.api.v2.client.CreateSignatureRequest" }
@@ -121,9 +121,9 @@
     }, {
       "id" : "f10",
       "type" : "CallSubStart",
-      "name" : "getSignatureRequest(SignatureRequest)",
+      "name" : "get(SignatureRequest)",
       "config" : {
-        "callSignature" : "getSignatureRequest",
+        "callSignature" : "get",
         "input" : {
           "params" : [
             { "name" : "signatureRequest", "type" : "com.skribble.api.v2.client.SignatureRequest" }
@@ -202,9 +202,9 @@
     }, {
       "id" : "f20",
       "type" : "CallSubStart",
-      "name" : "getAllSignatureRequest(SignatureRequestSearchParameters)",
+      "name" : "getAll(SignatureRequestSearchParameters)",
       "config" : {
-        "callSignature" : "getAllSignatureRequest",
+        "callSignature" : "getAll",
         "input" : {
           "params" : [
             { "name" : "signatureRequestSearchParameters", "type" : "com.axonivy.connector.skribble.signaturerequest.SignatureRequestSearchParameters" }
@@ -284,9 +284,9 @@
     }, {
       "id" : "f26",
       "type" : "CallSubStart",
-      "name" : "deleteSignatureRequest(SignatureRequest)",
+      "name" : "delete(SignatureRequest)",
       "config" : {
-        "callSignature" : "deleteSignatureRequest",
+        "callSignature" : "delete",
         "input" : {
           "params" : [
             { "name" : "signatureRequest", "type" : "com.skribble.api.v2.client.SignatureRequest" }
