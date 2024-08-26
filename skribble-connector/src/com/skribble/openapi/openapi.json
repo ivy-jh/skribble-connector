@@ -8,39 +8,39 @@
       "email": "info@skribble.com"
     },
     "license": {
-      "name": "Skribble License Version 1.0"
+      "name": "Skribble License Version 2.0"
     },
-    "version": "1.0"
+    "version": "2.0"
   },
   "servers": [
     {
-      "url": "https://api.skribble.com/v2"
+      "url": "https://api.skribble.com"
     }
   ],
   "tags": [
     {
-      "name": "/access",
+      "name": "v2/access",
       "description": "Access Resource"
     },
     {
-      "name": "/documents",
+      "name": "v2/documents",
       "description": "Document Resource"
     },
     {
-      "name": "/seal",
+      "name": "v2/seal",
       "description": "Seal Resource"
     },
     {
-      "name": "/signature-requests",
+      "name": "v2/signature-requests",
       "description": "Signature Request Resource"
     },
     {
-      "name": "/user",
+      "name": "v2/user",
       "description": "User Resource"
     }
   ],
   "paths": {
-    "/access/login": {
+    "v2/access/login": {
       "post": {
         "tags": [
           "/access"
@@ -93,7 +93,7 @@
         "deprecated": false
       }
     },
-    "/documents": {
+    "v2/documents": {
       "get": {
         "tags": [
           "/documents"
@@ -158,7 +158,7 @@
         "x-codegen-request-body-name": "createDocument"
       }
     },
-    "/documents/{id}": {
+    "v2/documents/{id}": {
       "get": {
         "tags": [
           "/documents"
@@ -218,7 +218,7 @@
         "deprecated": false
       }
     },
-    "/documents/{id}/content": {
+    "v2/documents/{id}/content": {
       "get": {
         "tags": [
           "/documents"
@@ -269,7 +269,7 @@
         "deprecated": false
       }
     },
-    "/documents/{id}/pages/{pageNumber}": {
+    "v2/documents/{id}/pages/{pageNumber}": {
       "get": {
         "tags": [
           "/documents"
@@ -337,7 +337,7 @@
         ]
       }
     },
-    "/seal": {
+    "v2/seal": {
       "post": {
         "tags": [
           "/seal"
@@ -386,7 +386,7 @@
         "x-codegen-request-body-name": "seal"
       }
     },
-    "/signature-requests": {
+    "v2/signature-requests": {
       "get": {
         "tags": [
           "/signature-requests"
@@ -590,7 +590,7 @@
         "x-codegen-request-body-name": "createSignatureRequest"
       }
     },
-    "/signature-requests/{id}": {
+    "v2/signature-requests/{id}": {
       "get": {
         "tags": [
           "/signature-requests"
@@ -673,7 +673,7 @@
         ]
       }
     },
-    "/signature-requests/{id}/callbacks": {
+    "v2/signature-requests/{id}/callbacks": {
       "get": {
         "tags": [
           "/signature-requests"
@@ -716,7 +716,7 @@
         ]
       }
     },
-    "/signature-requests/{id}/remind": {
+    "v2/signature-requests/{id}/remind": {
       "post": {
         "tags": [
           "/signature-requests"
@@ -751,7 +751,7 @@
         ]
       }
     },
-    "/signature-requests/{id}/signatures": {
+    "v2/signature-requests/{id}/signatures": {
       "post": {
         "tags": [
           "/signature-requests"
@@ -804,7 +804,7 @@
         "x-codegen-request-body-name": "createSignatureDTO"
       }
     },
-    "/signature-requests/{id}/signatures/{sid}": {
+    "v2/signature-requests/{id}/signatures/{sid}": {
       "delete": {
         "tags": [
           "/signature-requests"
@@ -849,7 +849,7 @@
         ]
       }
     },
-    "/user/assurance": {
+    "v2/user/assurance": {
       "post": {
         "tags": [
           "/user"
@@ -893,7 +893,7 @@
         "x-codegen-request-body-name": "request"
       }
     },
-    "/user/signature-qualities": {
+    "v2/user/signature-qualities": {
       "get": {
         "tags": [
           "/user"
