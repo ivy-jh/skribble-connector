@@ -4,3 +4,5 @@ createSignatureRequest com.skribble.api.v2.client.CreateSignatureRequest #field
 createSignatureRequest PERSISTENT #fieldModifier
 signatureRequest com.skribble.api.v2.client.SignatureRequest #field
 signatureRequest PERSISTENT #fieldModifier
+nextView String #field
+nextView PERSISTENT #fieldModifier

@@ -11,6 +11,14 @@
       "name" : "start()",
       "config" : {
         "callSignature" : "start",
+        "result" : {
+          "params" : [
+            { "name" : "nextView", "type" : "String" }
+          ],
+          "map" : {
+            "result.nextView" : "in.nextView"
+          }
+        },
         "guid" : "1916EC2B0FDF2869"
       },
       "visual" : {
@@ -219,5 +227,28 @@
         "at" : { "x" : 96, "y" : 160 }
       },
       "connect" : { "id" : "f15", "to" : "f2", "via" : [ { "x" : 376, "y" : 160 } ] }
+    }, {
+      "id" : "f12",
+      "type" : "HtmlDialogEventStart",
+      "name" : "goToNewDoc",
+      "config" : {
+        "guid" : "1918EA67343404C6",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.nextView" : "\"newDocument\""
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 536 }
+      },
+      "connect" : { "id" : "f17", "to" : "f16" }
+    }, {
+      "id" : "f16",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 536, "y" : 536 }
+      }
     } ]
 }

@@ -16,14 +16,14 @@
         "case" : { }
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 104 }
+        "at" : { "x" : 96, "y" : 72 }
       },
       "connect" : { "id" : "f10", "to" : "f8" }
     }, {
       "id" : "f1",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 512, "y" : 104 }
+        "at" : { "x" : 512, "y" : 72 }
       }
     }, {
       "id" : "f3",
@@ -44,7 +44,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 384, "y" : 104 }
+        "at" : { "x" : 384, "y" : 72 }
       },
       "connect" : { "id" : "f2", "to" : "f1" }
     }, {
@@ -76,7 +76,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 216, "y" : 104 }
+        "at" : { "x" : 216, "y" : 72 }
       },
       "connect" : { "id" : "f11", "to" : "f3" }
     }, {
@@ -85,20 +85,25 @@
       "name" : "showOverview.ivp",
       "config" : {
         "callSignature" : "showOverview",
+        "input" : {
+          "map" : {
+            "out.nextView" : "\"overview\""
+          }
+        },
         "outLink" : "showOverview.ivp",
         "startName" : "Sample: Show Documents",
         "tags" : "demo",
         "case" : { }
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 200 }
+        "at" : { "x" : 96, "y" : 232 }
       },
-      "connect" : { "id" : "f9", "to" : "f6" }
+      "connect" : { "id" : "f18", "to" : "f12" }
     }, {
       "id" : "f5",
       "type" : "TaskEnd",
       "visual" : {
-        "at" : { "x" : 400, "y" : 200 }
+        "at" : { "x" : 400, "y" : 416 }
       }
     }, {
       "id" : "f6",
@@ -106,11 +111,84 @@
       "name" : "Overview",
       "config" : {
         "dialogId" : "com.axonivy.connector.skribble.demo.Overview",
-        "startMethod" : "start()"
+        "startMethod" : "start()",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.nextView" : "result.nextView"
+          }
+        }
       },
       "visual" : {
-        "at" : { "x" : 216, "y" : 200 }
+        "at" : { "x" : 400, "y" : 232 }
       },
-      "connect" : { "id" : "f7", "to" : "f5" }
+      "connect" : { "id" : "f21", "to" : "f19", "via" : [ { "x" : 520, "y" : 232 }, { "x" : 520, "y" : 176 }, { "x" : 232, "y" : 176 } ] }
+    }, {
+      "id" : "f12",
+      "type" : "Script",
+      "name" : "set attribute",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import ch.ivyteam.ivy.application.IApplication;",
+            "",
+            "String token = \"oyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ1QlU0SE0wcWpvQTBXQXV5YTVUQTFpQXhLZEhfd1paTF9lVnNQb0xFdVUwIn0.eyJleHAiOjE3MjQ2ODQwMTksImlhdCI6MTcyNDY4MjgxOSwianRpIjoiYzQxMTBhYjUtNWJhNi00YzViLTk3ZWQtMTA1OWU3NGY3OTJmIiwiaXNzIjoiaHR0cHM6Ly9rYy5za3JpYmJsZS5jb20vYXV0aC9yZWFsbXMvc2tyaWJibGUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMTk0MzY4NTUtN2ZhNS00ZTU3LTgxNTMtYTQwODg0NTNlNzBiIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibG9naW4iLCJzZXNzaW9uX3N0YXRlIjoiYjAzZTczNTktMDQ0NS00NzJmLTkxNDctNDhiZTczZjRmNGRhIiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtc2tyaWJibGUiLCJST0xFX1VTRVIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCBvcGVuaWQiLCJzaWQiOiJiMDNlNzM1OS0wNDQ1LTQ3MmYtOTE0Ny00OGJlNzNmNGY0ZGEiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1za3JpYmJsZSIsIlJPTEVfVVNFUiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXSwibmFtZSI6IkF4b24gSXZ5IiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYXBpX2RlbW9fYXhvbml2eV9lOTg5XzAiLCJnaXZlbl9uYW1lIjoiQXhvbiBJdnkiLCJwYWlkX2J5IjoiYml6LWU5ODljYmE3YjY1MzdiNTc4OTYzZGYzMDU2NmZkYmY5X2RlbW8ifQ.eKEp-_9GkdKKQzKR80q774tBb-9FLmdzye35B9rr1Sn1Iu9Jz3eTbzxu61V6D4l6zvPB-kN4oVRbfIK5F1m-xG1OQOB4WJV7b0mGJEylYFIIHj0466b1Py6RufpsG9UoOtimwCVXaAvp5QtySlwe4ujBDYF2RzsmS85TTQzBkDlnoGWLLGw8jqJiIZa_ZosWwrlQv4coD4LWeNDRMyAHvD7UdkSBJCR7lNvVfmnOTa1ilDItAaDHZx6VjYvO2iDATODqW_o9gjeta9cBXs7kPfdY3Qar1MBoHbWCYDXsUZCxpAwKY1L6iR4iT24Vzq9MOqrAEg_u7oZARZdNiUzD2wooJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ1QlU0SE0wcWpvQTBXQXV5YTVUQTFpQXhLZEhfd1paTF9lVnNQb0xFdVUwIn0.eyJleHAiOjE3MjQ2ODM2NTQsImlhdCI6MTcyNDY4MjQ1NCwianRpIjoiYTlmNDNlNmItMjMxNC00YThkLWFiNDktYTgwM2QzYThkZGUzIiwiaXNzIjoiaHR0cHM6Ly9rYy5za3JpYmJsZS5jb20vYXV0aC9yZWFsbXMvc2tyaWJibGUiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMTk0MzY4NTUtN2ZhNS00ZTU3LTgxNTMtYTQwODg0NTNlNzBiIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibG9naW4iLCJzZXNzaW9uX3N0YXRlIjoiNDhmYjk3NGEtM2FlMS00ZjA2LWIzZmYtMGM0ZDRmZmJlZTM1IiwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImRlZmF1bHQtcm9sZXMtc2tyaWJibGUiLCJST0xFX1VTRVIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCBvcGVuaWQiLCJzaWQiOiI0OGZiOTc0YS0zYWUxLTRmMDYtYjNmZi0wYzRkNGZmYmVlMzUiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1za3JpYmJsZSIsIlJPTEVfVVNFUiIsIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iXSwibmFtZSI6IkF4b24gSXZ5IiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYXBpX2RlbW9fYXhvbml2eV9lOTg5XzAiLCJnaXZlbl9uYW1lIjoiQXhvbiBJdnkiLCJwYWlkX2J5IjoiYml6LWU5ODljYmE3YjY1MzdiNTc4OTYzZGYzMDU2NmZkYmY5X2RlbW8ifQ.ZVKT13dlFcRc9CIb875ofME95EIJt0_vCRpQ28Exm36kET_UkJxE-cyIp4AzyQZ5baKWVtf41Q3S3KBwMzJP4HMAc0uBGsOtXjzsO2Kf0zpPVYeL1OYZQhyUytATBqkJIaImXwMhm5na6p16b4LPLh9Oh0Zo3UnvnWKqM-bX-QdVrM44kdKiOafFq9t9IkME69OxnhgzVtMDpMeCne3D69EbvZOz7K8ANn7L33BPMQ998IGI1ZwINyvOrk_7ZzKz_IITy-X1mAx-WaJa9ylTZAWmJ4uSBYTjoXAyZ80Ewlt9p5EbtMqVaiaYYhnJ0Ns2ClxtIi_H43iFuDlAra3ppg\";",
+            "",
+            "IApplication.current().setAttribute(\"skribble.auth.sessionToken\", token);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 272, "y" : 504 }
+      },
+      "connect" : { "id" : "f20", "to" : "f6" }
+    }, {
+      "id" : "f13",
+      "type" : "Script",
+      "name" : "getAttribute",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import ch.ivyteam.ivy.application.IApplication;",
+            "Object token = IApplication.current().getAttribute(\"skribble.auth.sessionToken\");",
+            "",
+            "ivy.log.fatal(\"sessionToken: \", token.toString());"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 448, "y" : 504 }
+      }
+    }, {
+      "id" : "f9",
+      "type" : "DialogCall",
+      "name" : "newDocument",
+      "config" : {
+        "dialogId" : "com.axonivy.connector.skribble.demo.newDocument",
+        "startMethod" : "start()",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.nextView" : "result.nextView"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 400, "y" : 320 }
+      },
+      "connect" : { "id" : "f17", "to" : "f19", "via" : [ { "x" : 520, "y" : 320 }, { "x" : 520, "y" : 176 }, { "x" : 232, "y" : 176 } ] }
+    }, {
+      "id" : "f19",
+      "type" : "Alternative",
+      "name" : "nextView?",
+      "visual" : {
+        "at" : { "x" : 232, "y" : 232 },
+        "labelOffset" : { "x" : -24, "y" : -16 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f6", "condition" : "in.nextView.contains(\"overview\")" },
+        { "id" : "f15", "to" : "f9", "via" : [ { "x" : 232, "y" : 320 } ], "condition" : "in.nextView.contains(\"newDocument\")" },
+        { "id" : "f7", "to" : "f5", "via" : [ { "x" : 232, "y" : 416 } ] }
+      ]
     } ]
 }

@@ -1,0 +1,295 @@
+{
+  "format" : "10.0.0",
+  "id" : "1918EA71B7CFD733",
+  "kind" : "HTML_DIALOG",
+  "config" : {
+    "data" : "com.axonivy.connector.skribble.demo.newDocument.newDocumentData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "HtmlDialogStart",
+      "name" : "start()",
+      "config" : {
+        "callSignature" : "start",
+        "result" : {
+          "params" : [
+            { "name" : "nextView", "type" : "String" }
+          ],
+          "map" : {
+            "result.nextView" : "in.nextView"
+          }
+        },
+        "guid" : "1916EC2B0FDF2869"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f6", "to" : "f2" }
+    }, {
+      "id" : "f1",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 536, "y" : 64 }
+      }
+    }, {
+      "id" : "f4",
+      "type" : "HtmlDialogExit",
+      "visual" : {
+        "at" : { "x" : 536, "y" : 168 }
+      }
+    }, {
+      "id" : "f2",
+      "type" : "Script",
+      "name" : "init",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.skribble.api.v2.client.CreateSignature;",
+            "import com.axonivy.connector.skribble.demo.SampleHelper;",
+            "",
+            "out.csr = SampleHelper.createSignatureRequestDocSample(\"TestDocument\", \"Your Message\");",
+            "out.csr.content = null;",
+            "",
+            "CreateSignature cs = SampleHelper.createSignature(\"signerEmail@yxz.com\", false);",
+            "",
+            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"signerEmail@yxz.com\", \"SignerName\", \"SignerLastName\");",
+            "cs.visualSignature = SampleHelper.createVisualSignatureWithPositionX(100);",
+            "",
+            "out.csr.signatures.add(cs);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 232, "y" : 64 }
+      },
+      "connect" : { "id" : "f7", "to" : "f1" }
+    }, {
+      "id" : "f8",
+      "type" : "HtmlDialogEventStart",
+      "name" : "update",
+      "config" : {
+        "guid" : "1918ECDE0BCB486C"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 256 }
+      },
+      "connect" : { "id" : "f10", "to" : "f9" }
+    }, {
+      "id" : "f9",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 224, "y" : 256 }
+      }
+    }, {
+      "id" : "f11",
+      "type" : "HtmlDialogEventStart",
+      "name" : "addSigner",
+      "config" : {
+        "guid" : "1918ED1ABB26007D"
+      },
+      "visual" : {
+        "at" : { "x" : 88, "y" : 472 }
+      },
+      "connect" : { "id" : "f20", "to" : "f19" }
+    }, {
+      "id" : "f12",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 472 }
+      }
+    }, {
+      "id" : "f14",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "uploadFile(FileUploadEvent)",
+      "config" : {
+        "callSignature" : "uploadFile",
+        "input" : {
+          "params" : [
+            { "name" : "fileUploadEvent", "type" : "org.primefaces.event.FileUploadEvent" }
+          ],
+          "map" : {
+            "out.fileUploadEvent" : "param.fileUploadEvent"
+          }
+        },
+        "guid" : "1918ED64091B0BDF"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 384 }
+      },
+      "connect" : { "id" : "f18", "to" : "f17" }
+    }, {
+      "id" : "f15",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 384 }
+      }
+    }, {
+      "id" : "f17",
+      "type" : "Script",
+      "name" : "create file",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import java.util.Base64;",
+            "import java.util.UUID;",
+            "",
+            "try{",
+            "  String filename = UUID.randomUUID().toString().substring(0, 10);",
+            "",
+            "  File f = new File(\"Skribble/\"+filename+\".pdf\", true);",
+            "  ",
+            "  f.writeBinary(in.fileUploadEvent.getFile().getContent());",
+            "  out.file = f;",
+            "  out.csr.content = Base64.getEncoder().encodeToString(f.readBinary());",
+            "",
+            "}catch (Exception e){",
+            "  ivy.log.warn(e);",
+            "",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 384 }
+      },
+      "connect" : { "id" : "f16", "to" : "f15" }
+    }, {
+      "id" : "f19",
+      "type" : "Script",
+      "name" : "add Signer",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.skribble.api.v2.client.CreateSignature;",
+            "import com.axonivy.connector.skribble.demo.SampleHelper;",
+            "",
+            "CreateSignature cs = SampleHelper.createSignature(\"signerEmail@yxz.com\", false);",
+            "",
+            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"signerEmail@yxz.com\", \"SignerName\", \"SignerLastName\");",
+            "cs.visualSignature = SampleHelper.createVisualSignatureWithPositionX(100);",
+            "",
+            "out.csr.signatures.add(cs);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 472 }
+      },
+      "connect" : { "id" : "f13", "to" : "f12" }
+    }, {
+      "id" : "f21",
+      "type" : "HtmlDialogEventStart",
+      "name" : "sendDoc",
+      "config" : {
+        "guid" : "1918EEA9CE6D9DF5"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 576 }
+      },
+      "connect" : { "id" : "f26", "to" : "f5" }
+    }, {
+      "id" : "f22",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 512, "y" : 576 }
+      }
+    }, {
+      "id" : "f24",
+      "type" : "SubProcessCall",
+      "name" : [
+        "API/",
+        "SignatureRequest"
+      ],
+      "config" : {
+        "processCall" : "API/SignatureRequest:create(com.skribble.api.v2.client.CreateSignatureRequest)",
+        "call" : {
+          "params" : [
+            { "name" : "createSignatureRequest", "type" : "com.skribble.api.v2.client.CreateSignatureRequest" }
+          ],
+          "map" : {
+            "param.createSignatureRequest" : "in.csr"
+          }
+        },
+        "output" : {
+          "code" : [
+            "import com.skribble.api.v2.client.CreateSignatureRequest;",
+            "import javax.faces.context.FacesContext;",
+            "import javax.faces.application.FacesMessage;",
+            "",
+            "if(!result.signatureRequest.id.isEmpty()){",
+            "  FacesContext.getCurrentInstance().addMessage(null, ",
+            "    new FacesMessage(FacesMessage.SEVERITY_INFO, \"Info!\", \"SignerRequest Created\"));  ",
+            "    ",
+            "  out.csr = new CreateSignatureRequest();  ",
+            "}",
+            "else{",
+            "  FacesContext.getCurrentInstance().addMessage(null, ",
+            "    new FacesMessage(FacesMessage.SEVERITY_WARN, \"Warn!\", \"something went wrong!\"));  ",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 320, "y" : 576 }
+      },
+      "connect" : { "id" : "f23", "to" : "f22" }
+    }, {
+      "id" : "f3",
+      "type" : "HtmlDialogEventStart",
+      "name" : "back",
+      "config" : {
+        "guid" : "1918EFB865E80896",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.nextView" : "\"overview\""
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 168 }
+      },
+      "connect" : { "id" : "f27", "to" : "f4" }
+    }, {
+      "id" : "f5",
+      "type" : "Alternative",
+      "name" : "is content empty?",
+      "visual" : {
+        "at" : { "x" : 192, "y" : 576 },
+        "labelOffset" : { "x" : 16, "y" : -16 }
+      },
+      "connect" : [
+        { "id" : "f32", "to" : "f28", "via" : [ { "x" : 192, "y" : 656 } ], "label" : {
+            "name" : "yes"
+          }, "condition" : "in.csr.content.isEmpty()" },
+        { "id" : "f29", "to" : "f24", "label" : {
+            "name" : "no"
+          } }
+      ]
+    }, {
+      "id" : "f28",
+      "type" : "Script",
+      "name" : "create Faces Message",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import javax.faces.application.FacesMessage;",
+            "import javax.faces.context.FacesContext;",
+            "",
+            "",
+            "FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, \"Warn!\", \"Filecontent is empty!\"));  "
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 320, "y" : 656 }
+      },
+      "connect" : { "id" : "f31", "to" : "f30" }
+    }, {
+      "id" : "f30",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 512, "y" : 656 }
+      }
+    } ]
+}

@@ -11,9 +11,12 @@
 	  <h:form id="form" >
        
       <p:panel header="Documents Overview" >
+      
 			<f:facet name="actions">
+				<p:commandButton value="new Document" icon="fa-solid fa-plus-square"  actionListener="#{logic.goToNewDoc}" />
 				<p:commandButton value="refresh" icon="fa-solid fa-refresh"  actionListener="#{logic.refresh}" update="@form" />
 				<p:commandButton value="close" icon="fa-solid fa-close" actionListener="#{logic.close}" update="@form" />
+				
 			</f:facet>
 			
           	<p:dataTable id="sr" 
@@ -24,7 +27,7 @@
           		paginator="true"
           		paginatorPosition="bottom"
           		rows="5"
-              	rowsPerPageTemplate="15,10,{ShowAll|'All'}"
+              	rowsPerPageTemplate="5,10,{ShowAll|'All'}"
           		scrollable="true"
           		scrollHeight="600" >
 
@@ -84,7 +87,7 @@
 							<p:outputLabel value="#{si.signerIdentityData.firstName} #{si.signerIdentityData.lastName}"  /> 
 						</p:column>
 						
-						<p:column headerText="Mobilenumber" width="50" >
+						<p:column headerText="Mobilenumber" width="50"  rendered="false" >
 							<p:outputLabel value="#{si.signerIdentityData.mobileNumber}"  />
 						</p:column>
 						
@@ -92,8 +95,10 @@
 							<p:outputLabel value="#{si.accountEmail}"  />
 						</p:column>
 		          			          		
-						<p:column headerText="Signed at" width="50" >
-							<p:outputLabel value="#{si.signedAt}"  />
+						<p:column headerText="Signed at" width="50" sortBy="#{si.signedAt}" >
+							<p:outputLabel value="#{dateTimeHelperBean.getJavaDate(si.signedAt)}"  >
+								<f:convertDateTime pattern="yyy-MM-dd HH:mm" />
+							</p:outputLabel>
 						</p:column>
 		          		
 		          		

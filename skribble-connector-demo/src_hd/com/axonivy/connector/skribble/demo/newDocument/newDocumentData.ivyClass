@@ -1,0 +1,10 @@
+newDocumentData #class
+com.axonivy.connector.skribble.demo.newDocument #namespace
+csr com.skribble.api.v2.client.CreateSignatureRequest #field
+csr PERSISTENT #fieldModifier
+file File #field
+file PERSISTENT #fieldModifier
+nextView String #field
+nextView PERSISTENT #fieldModifier
+fileUploadEvent org.primefaces.event.FileUploadEvent #field
+fileUploadEvent PERSISTENT #fieldModifier

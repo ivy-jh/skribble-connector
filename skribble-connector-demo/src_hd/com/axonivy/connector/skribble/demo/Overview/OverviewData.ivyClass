@@ -8,3 +8,5 @@ file File #field
 file PERSISTENT #fieldModifier
 document com.skribble.api.v2.client.Document #field
 document PERSISTENT #fieldModifier
+nextView String #field
+nextView PERSISTENT #fieldModifier
