@@ -42,21 +42,35 @@
       "type" : "RestClientCall",
       "name" : "create signature-requests",
       "config" : {
-        "bodyForm" : {
-          "" : ""
-        },
-        "path" : "/signature-requests",
         "bodyObjectMapping" : {
           "param" : "in.createSignatureRequest"
         },
         "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
-        "clientErrorCode" : "ivy:error:rest:client",
         "method" : "POST",
+        "queryParams" : {
+          "account_email" : "",
+          "created_by" : "",
+          "page_number" : "",
+          "page_size" : "",
+          "search" : "",
+          "signature_status" : "",
+          "signatures_count" : "",
+          "signer_email_address" : "",
+          "status_overall" : ""
+        },
         "statusErrorCode" : "ivy:error:rest:client",
         "bodyObjectType" : "com.skribble.api.v2.client.CreateSignatureRequest",
-        "resultType" : "com.skribble.api.v2.client.SignatureRequest",
         "bodyInputType" : "ENTITY",
-        "responseCode" : "out.signatureRequest = result;"
+        "responseCode" : "out.signatureRequest = result;",
+        "bodyForm" : {
+          "" : ""
+        },
+        "path" : "v2/signature-requests",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "templateParams" : {
+          "version" : "\"\""
+        },
+        "resultType" : "com.skribble.api.v2.client.SignatureRequest"
       },
       "visual" : {
         "at" : { "x" : 360, "y" : 64 }
@@ -98,7 +112,7 @@
         "bodyForm" : {
           "" : ""
         },
-        "path" : "/signature-requests/{id}",
+        "path" : "v2/signature-requests/{id}",
         "bodyObjectMapping" : {
           "param" : "in.createSignatureRequest"
         },
@@ -185,7 +199,7 @@
         "bodyForm" : {
           "" : ""
         },
-        "path" : "/signature-requests",
+        "path" : "v2/signature-requests",
         "clientErrorCode" : "ivy:error:rest:client",
         "responseMapping" : {
           "out.signatureRequests" : "result"
@@ -269,7 +283,7 @@
         "bodyForm" : {
           "" : ""
         },
-        "path" : "/signature-requests/{id}",
+        "path" : "v2/signature-requests/{id}",
         "clientErrorCode" : "ivy:error:rest:client",
         "templateParams" : {
           "id" : "in.signatureRequest.id",

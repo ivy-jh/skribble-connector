@@ -62,7 +62,7 @@
         "bodyForm" : {
           "" : ""
         },
-        "path" : "/documents/{id}",
+        "path" : "v2/documents/{id}",
         "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
         "clientErrorCode" : "ivy:error:rest:client",
         "method" : "GET",
@@ -147,7 +147,7 @@
         "bodyForm" : {
           "" : ""
         },
-        "path" : "/documents/{id}/content",
+        "path" : "v2/documents/{id}/content",
         "clientErrorCode" : "ivy:error:rest:client",
         "templateParams" : {
           "id" : "in.document.id"
@@ -223,7 +223,7 @@
         "bodyForm" : {
           "" : ""
         },
-        "path" : "/documents/{id}/content",
+        "path" : "v2/documents/{id}/content",
         "clientErrorCode" : "ivy:error:rest:client",
         "templateParams" : {
           "id" : "in.document.id"
