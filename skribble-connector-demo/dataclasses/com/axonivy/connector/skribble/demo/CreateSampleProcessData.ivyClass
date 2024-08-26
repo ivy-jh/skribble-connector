@@ -1,6 +1,0 @@
-CreateSampleProcessData #class
-com.axonivy.connector.skribble.demo #namespace
-createSignatureRequest com.skribble.api.v2.client.CreateSignatureRequest #field
-createSignatureRequest PERSISTENT #fieldModifier
-signatureRequest com.skribble.api.v2.client.SignatureRequest #field
-signatureRequest PERSISTENT #fieldModifier

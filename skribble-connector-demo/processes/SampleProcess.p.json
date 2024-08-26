@@ -1,0 +1,116 @@
+{
+  "format" : "10.0.0",
+  "id" : "191739E06E060E63",
+  "config" : {
+    "data" : "com.axonivy.connector.skribble.demo.SampleProcessData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "createSample.ivp",
+      "config" : {
+        "callSignature" : "createSample",
+        "outLink" : "createSample.ivp",
+        "startName" : "Sample: Create Signature Document",
+        "tags" : "demo",
+        "case" : { }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 104 }
+      },
+      "connect" : { "id" : "f10", "to" : "f8" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 512, "y" : 104 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "SubProcessCall",
+      "name" : [
+        "API/Post",
+        "SignatureRequest"
+      ],
+      "config" : {
+        "processCall" : "API/SignatureRequest:create(com.skribble.api.v2.client.CreateSignatureRequest)",
+        "call" : {
+          "params" : [
+            { "name" : "createSignatureRequest", "type" : "com.skribble.api.v2.client.CreateSignatureRequest" }
+          ],
+          "map" : {
+            "param.createSignatureRequest" : "in.createSignatureRequest"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 384, "y" : 104 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f8",
+      "type" : "Script",
+      "name" : "create Sample",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import com.skribble.api.v2.client.CreateSignature;",
+            "import com.axonivy.connector.skribble.demo.SampleHelper;",
+            "",
+            "out.createSignatureRequest = SampleHelper.createSignatureRequestDocSample(\"Test-Title\", \"Test-message\");",
+            "",
+            "CreateSignature cs1 = new CreateSignature();",
+            "cs1 = SampleHelper.createSignature(\"max.muster@yxz.com\", false);",
+            "cs1.signerIdentityData = SampleHelper.createSignerIdentityData(\"max.muster@yxz.com\", \"Max\", \"Muster\");",
+            "cs1.visualSignature = SampleHelper.createVisualSignatureWithPositionX(100);",
+            "",
+            "out.createSignatureRequest.signatures.add(cs1);",
+            "",
+            "CreateSignature cs2 = new CreateSignature();",
+            "cs2 = SampleHelper.createSignature(\"hans.meier@yxz.com\", false);",
+            "cs2.signerIdentityData = SampleHelper.createSignerIdentityData(\"hans.meier@yxz.com\", \"Hans\", \"Meier\");",
+            "cs2.visualSignature = SampleHelper.createVisualSignatureWithPositionX(300);",
+            "",
+            "out.createSignatureRequest.signatures.add(cs2);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 216, "y" : 104 }
+      },
+      "connect" : { "id" : "f11", "to" : "f3" }
+    }, {
+      "id" : "f4",
+      "type" : "RequestStart",
+      "name" : "showOverview.ivp",
+      "config" : {
+        "callSignature" : "showOverview",
+        "outLink" : "showOverview.ivp",
+        "startName" : "Sample: Show Documents",
+        "tags" : "demo",
+        "case" : { }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 200 }
+      },
+      "connect" : { "id" : "f9", "to" : "f6" }
+    }, {
+      "id" : "f5",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 400, "y" : 200 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "DialogCall",
+      "name" : "Overview",
+      "config" : {
+        "dialogId" : "com.axonivy.connector.skribble.demo.Overview",
+        "startMethod" : "start()"
+      },
+      "visual" : {
+        "at" : { "x" : 216, "y" : 200 }
+      },
+      "connect" : { "id" : "f7", "to" : "f5" }
+    } ]
+}
