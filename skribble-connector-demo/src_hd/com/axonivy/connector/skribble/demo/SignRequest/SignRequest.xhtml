@@ -29,7 +29,7 @@
 				</p:inputTextarea>
 				
 				<p:outputLabel value="Document: [#{data.file.name}]" />
-				<p:fileUpload label="selcet your Pdf or jpeg to be Sign on Skribble" 
+				<p:fileUpload label="select your pdf or jpeg to be sign on Skribble" 
 					listener="#{logic.uploadFile}" 
 					value="#{data.file}" 
 					mode="advanced" 
@@ -93,18 +93,26 @@
 							decimalPlaces="0" >
 							<p:ajax event="change" listener="#{logic.update}" update="@this" />
 						</p:inputNumber>
-						
 					</p:column>	
 						
 					<p:column headerText="Width" width="50" >	
-						<p:tooltip for="@next" value="The y valiuzince in pixel from the bottom." position="top"/>
+						<p:tooltip for="@next" value="The width of the visual signature appearance in pixel." position="top"/>
 						<p:inputNumber value="#{si.visualSignature.position.width}"
 							minValue="0" 
 							maxValue="1000" 
 							decimalPlaces="0" >
 							<p:ajax event="change" listener="#{logic.update}" update="@this" />
 						</p:inputNumber>
+					</p:column>		
 						
+					<p:column headerText="Height" width="50" >	
+						<p:tooltip for="@next" value="The height of the visual signature appearance in pixel." position="top"/>
+						<p:inputNumber value="#{si.visualSignature.position.height}"
+							minValue="0" 
+							maxValue="1000" 
+							decimalPlaces="0" >
+							<p:ajax event="change" listener="#{logic.update}" update="@this" />
+						</p:inputNumber>
 					</p:column>	
 								
 					<p:column headerText="Function" width="50" >	

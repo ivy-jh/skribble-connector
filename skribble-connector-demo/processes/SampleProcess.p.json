@@ -11,7 +11,7 @@
       "config" : {
         "callSignature" : "signNewDocument",
         "outLink" : "signNewDocument.ivp",
-        "startDescription" : "Upload your Document for Signing and define the requirement Signers",
+        "startDescription" : "Upload your document for signing and define the requirement signers",
         "startName" : "Upload document for signing",
         "tags" : "demo",
         "case" : { }
@@ -32,8 +32,8 @@
           }
         },
         "outLink" : "showOverview.ivp",
-        "startDescription" : "Loads all your Documents on the Skribbleplatform.",
-        "startName" : "Show Documents status",
+        "startDescription" : "Loads all your documents from the Skribble-platform.",
+        "startName" : "Show documents status",
         "tags" : "demo",
         "case" : { }
       },
