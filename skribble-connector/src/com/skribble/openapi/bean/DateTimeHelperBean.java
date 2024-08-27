@@ -20,7 +20,7 @@ public class DateTimeHelperBean{
     		date = Date.from(java.time.Instant.parse(instantStr));
     		
 	   	}catch(Exception e){
-	   		Ivy.log().warn(e);
+	   		return null;
 	   	}
 
     	return date;
