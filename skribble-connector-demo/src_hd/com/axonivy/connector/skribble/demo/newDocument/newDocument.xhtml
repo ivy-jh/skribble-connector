@@ -70,9 +70,9 @@
 						</p:inputText>
 					</p:column>
 					
-					<p:column headerText="Account Email" width="50" >
-						<p:inputText value="#{si.accountEmail}"  >
-							<p:ajax event="change" listener="#{logic.update}" update="@this" />
+					<p:column headerText="Email" width="50" >
+						<p:inputText value="#{si.signerIdentityData.emailAddress}"  >
+							<p:ajax event="change" listener="#{logic.updateEmail(si)}" update="@this" />
 						</p:inputText>
 					</p:column>
 
@@ -92,8 +92,14 @@
 							decimalPlaces="0" >
 							<p:ajax event="change" listener="#{logic.update}" update="@this" />
 						</p:inputNumber>
+						
 					</p:column>					
-					
+					<p:column headerText="Function" width="50" >	
+						<p:tooltip for="@next" value="delete" position="top"/>
+						<p:commandButton actionListener="#{logic.deleteSigner(si)}" 
+							icon="fa-solid fa-trash" 
+							update="@form msg" />
+					</p:column>	
 					
 					<!--  
 					<p:column headerText="Notify by Skribble Mail" width="50" >

@@ -60,11 +60,12 @@
 				</p:column>
 				
 				<p:column headerText="Status Overall" width="100" sortBy="#{sr.statusOverall}" >
-					<p:outputLabel value="#{sr.statusOverall}" />
+					<i class="#{sr.statusOverall == 'SIGNED' ? 'pi pi-check' : 'pi pi-inbox'}"  />
+					<p:outputLabel value=" #{sr.statusOverall}" />
 				</p:column>
-				
+			
 				<p:column headerText="Functions" width="120" >
- 					<p:tooltip for="@next" value="download Document" position="top"/>
+ 					<p:tooltip for="@next" value="view Document" position="top"/>
 					<p:commandButton actionListener="#{logic.downloadDocument(sr)}" 
 						icon="fa-solid fa-file-download"
 						oncomplete="PF('dlgDocumentViewer').show()"
@@ -87,12 +88,21 @@
 							<p:outputLabel value="#{si.signerIdentityData.firstName} #{si.signerIdentityData.lastName}"  /> 
 						</p:column>
 						
-						<p:column headerText="Mobilenumber" width="50"  rendered="false" >
+						<p:column headerText="Mobilenumber" width="100"  rendered="false" >
 							<p:outputLabel value="#{si.signerIdentityData.mobileNumber}"  />
 						</p:column>
 						
-						<p:column headerText="Account Email" width="50" >
-							<p:outputLabel value="#{si.accountEmail}"  />
+						<p:column headerText="Email" width="100" >
+							<p:outputLabel value="#{si.signerIdentityData.emailAddress}"  />
+						</p:column>
+					
+						<p:column headerText="Skribble Account Name" width="100" >
+							<p:outputLabel value="#{si.accountEmail}" />
+						</p:column>
+		          			          		
+						<p:column headerText="Status" width="50" sortBy="#{si.statusCode}" >
+							<i class="#{si.statusCode == 'SIGNED' ? 'pi pi-check' : 'pi pi-inbox'}"  />
+							<p:outputLabel value=" #{si.statusCode}" />
 						</p:column>
 		          			          		
 						<p:column headerText="Signed at" width="50" sortBy="#{si.signedAt}" >
@@ -103,7 +113,7 @@
 		          		
 		          		
 						<p:column headerText="Signed Legislation" width="50" >
-							<p:outputLabel value="#{si.signedLegislation}"  />
+							<p:outputLabel value="#{si.signedQuality}"  />
 						</p:column>
 		          		
 						<p:column headerText="Signing Url" width="50" >

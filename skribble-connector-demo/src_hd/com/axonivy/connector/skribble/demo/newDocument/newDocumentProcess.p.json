@@ -47,12 +47,12 @@
             "import com.skribble.api.v2.client.CreateSignature;",
             "import com.axonivy.connector.skribble.demo.SampleHelper;",
             "",
-            "out.csr = SampleHelper.createSignatureRequestDocSample(\"TestDocument\", \"Your Message\");",
+            "out.csr = SampleHelper.createSignatureRequestDocSample(\"Your Document Title\", \"Your Message\");",
             "out.csr.content = null;",
             "",
-            "CreateSignature cs = SampleHelper.createSignature(\"signerEmail@yxz.com\", false);",
+            "CreateSignature cs = SampleHelper.createSignature(\"firstSignerEmail@yxz.com\", false);",
             "",
-            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"signerEmail@yxz.com\", \"SignerName\", \"SignerLastName\");",
+            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"FirstSignerEmail@yxz.com\", \"FirstSignerName\", \"FirstSignerLastName\");",
             "cs.visualSignature = SampleHelper.createVisualSignatureWithPositionX(100);",
             "",
             "out.csr.signatures.add(cs);"
@@ -88,14 +88,14 @@
         "guid" : "1918ED1ABB26007D"
       },
       "visual" : {
-        "at" : { "x" : 88, "y" : 472 }
+        "at" : { "x" : 96, "y" : 584 }
       },
       "connect" : { "id" : "f20", "to" : "f19" }
     }, {
       "id" : "f12",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 352, "y" : 472 }
+        "at" : { "x" : 360, "y" : 584 }
       }
     }, {
       "id" : "f14",
@@ -114,14 +114,14 @@
         "guid" : "1918ED64091B0BDF"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 384 }
+        "at" : { "x" : 104, "y" : 496 }
       },
       "connect" : { "id" : "f18", "to" : "f17" }
     }, {
       "id" : "f15",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 352, "y" : 384 }
+        "at" : { "x" : 360, "y" : 496 }
       }
     }, {
       "id" : "f17",
@@ -150,7 +150,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 384 }
+        "at" : { "x" : 232, "y" : 496 }
       },
       "connect" : { "id" : "f16", "to" : "f15" }
     }, {
@@ -163,35 +163,35 @@
             "import com.skribble.api.v2.client.CreateSignature;",
             "import com.axonivy.connector.skribble.demo.SampleHelper;",
             "",
-            "CreateSignature cs = SampleHelper.createSignature(\"signerEmail@yxz.com\", false);",
+            "CreateSignature cs = SampleHelper.createSignature(\"NextSignerEmail@yxz.com\", false);",
             "",
-            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"signerEmail@yxz.com\", \"SignerName\", \"SignerLastName\");",
-            "cs.visualSignature = SampleHelper.createVisualSignatureWithPositionX(100);",
+            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"NextSignerEmail@yxz.com\", \"NextSignerName\", \"NextSignerLastName\");",
+            "cs.visualSignature = SampleHelper.createVisualSignatureWithPositionX(300);",
             "",
             "out.csr.signatures.add(cs);"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 472 }
+        "at" : { "x" : 232, "y" : 584 }
       },
       "connect" : { "id" : "f13", "to" : "f12" }
     }, {
-      "id" : "f21",
+      "id" : "f41",
       "type" : "HtmlDialogEventStart",
       "name" : "sendDoc",
       "config" : {
         "guid" : "1918EEA9CE6D9DF5"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 576 }
+        "at" : { "x" : 96, "y" : 344 }
       },
-      "connect" : { "id" : "f26", "to" : "f5" }
+      "connect" : { "id" : "f33", "to" : "f25" }
     }, {
       "id" : "f22",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 512, "y" : 576 }
+        "at" : { "x" : 672, "y" : 344 }
       }
     }, {
       "id" : "f24",
@@ -230,7 +230,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 320, "y" : 576 }
+        "at" : { "x" : 480, "y" : 344 }
       },
       "connect" : { "id" : "f23", "to" : "f22" }
     }, {
@@ -253,43 +253,110 @@
     }, {
       "id" : "f5",
       "type" : "Alternative",
-      "name" : "is content empty?",
+      "name" : "check ok?",
       "visual" : {
-        "at" : { "x" : 192, "y" : 576 },
+        "at" : { "x" : 352, "y" : 344 },
         "labelOffset" : { "x" : 16, "y" : -16 }
       },
       "connect" : [
-        { "id" : "f32", "to" : "f28", "via" : [ { "x" : 192, "y" : 656 } ], "label" : {
+        { "id" : "f28", "to" : "f24", "label" : {
             "name" : "yes"
-          }, "condition" : "in.csr.content.isEmpty()" },
-        { "id" : "f29", "to" : "f24", "label" : {
+          }, "condition" : "in.success" },
+        { "id" : "f29", "to" : "f30", "label" : {
             "name" : "no"
           } }
       ]
     }, {
-      "id" : "f28",
+      "id" : "f30",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 416 }
+      }
+    }, {
+      "id" : "f25",
       "type" : "Script",
-      "name" : "create Faces Message",
+      "name" : "check",
       "config" : {
         "output" : {
           "code" : [
             "import javax.faces.application.FacesMessage;",
             "import javax.faces.context.FacesContext;",
             "",
+            "out.success = null; ",
             "",
-            "FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, \"Warn!\", \"Filecontent is empty!\"));  "
+            "if(in.csr.title.isEmpty() ){",
+            "  out.success = false;",
+            "  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, \"Warn!\", \"Document Title is empty!\")); ",
+            "",
+            "}else if(in.csr.message.isEmpty() ){",
+            "  out.success = false;",
+            "  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, \"Warn!\", \"Message is empty!\")); ",
+            "",
+            "}else  if(in.csr.content.isEmpty() ){",
+            "  out.success = false;",
+            "  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, \"Warn!\", \"Filecontent is empty!\")); ",
+            "",
+            "}else if(in.csr.signatures.isEmpty() ){",
+            "  out.success = false;",
+            "  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, \"Warn!\", \"No Signers!\")); ",
+            "",
+            "}else{",
+            "  out.success = true;",
+            "}"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 320, "y" : 656 }
+        "at" : { "x" : 224, "y" : 344 }
       },
-      "connect" : { "id" : "f31", "to" : "f30" }
+      "connect" : { "id" : "f26", "to" : "f5" }
     }, {
-      "id" : "f30",
+      "id" : "f31",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "deleteSigner(CreateSignature)",
+      "config" : {
+        "callSignature" : "deleteSigner",
+        "input" : {
+          "params" : [
+            { "name" : "si", "type" : "com.skribble.api.v2.client.CreateSignature" }
+          ],
+          "code" : "out.csr.signatures.remove(param.si);"
+        },
+        "guid" : "19192796A31DCE7D"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 680 }
+      },
+      "connect" : { "id" : "f34", "to" : "f32" }
+    }, {
+      "id" : "f32",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 512, "y" : 656 }
+        "at" : { "x" : 224, "y" : 680 }
+      }
+    }, {
+      "id" : "f38",
+      "type" : "HtmlDialogMethodStart",
+      "name" : "updateEmail(CreateSignature)",
+      "config" : {
+        "callSignature" : "updateEmail",
+        "input" : {
+          "params" : [
+            { "name" : "si", "type" : "com.skribble.api.v2.client.CreateSignature" }
+          ],
+          "code" : "param.si.accountEmail = param.si.signerIdentityData.emailAddress;"
+        },
+        "guid" : "191929427C5DDFA0"
+      },
+      "visual" : {
+        "at" : { "x" : 88, "y" : 752 }
+      },
+      "connect" : { "id" : "f40", "to" : "f39" }
+    }, {
+      "id" : "f39",
+      "type" : "HtmlDialogEnd",
+      "visual" : {
+        "at" : { "x" : 216, "y" : 752 }
       }
     } ]
 }
