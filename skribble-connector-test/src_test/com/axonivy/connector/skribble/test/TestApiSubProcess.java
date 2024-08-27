@@ -74,7 +74,7 @@ class TestApiSubProcess {
 
 	  CreateSignature cs = SampleHelper.createSignature("max.muster@yxz.com", false);
 	  cs.setSignerIdentityData(SampleHelper.createSignerIdentityData("max.muster@yxz.com", "Max", "Muster"));
-	  cs.setVisualSignature(SampleHelper.createVisualSignatureWithPositionX(100));
+	  cs.setVisualSignature(SampleHelper.createVisualSignature(100, 100));
 
 	  sample.addSignaturesItem(cs);
 	  
