@@ -10,10 +10,9 @@
 	  <p:growl id="msg" showDetail="true" />
 	  <h:form id="form" >
        
-      <p:panel header="Documents Overview" >
+      <p:panel header="Skribble Documents Overview" >
       
 			<f:facet name="actions">
-				<p:commandButton value="new Document" icon="fa-solid fa-plus-square"  actionListener="#{logic.goToNewDoc}" />
 				<p:commandButton value="refresh" icon="fa-solid fa-refresh"  actionListener="#{logic.refresh}" update="@form" />
 				<p:commandButton value="close" icon="fa-solid fa-close" actionListener="#{logic.close}" update="@form" />
 				
@@ -65,13 +64,13 @@
 				</p:column>
 			
 				<p:column headerText="Functions" width="120" >
- 					<p:tooltip for="@next" value="view Document" position="top"/>
+ 					<p:tooltip for="@next" value="view document" position="top"/>
 					<p:commandButton actionListener="#{logic.downloadDocument(sr)}" 
 						icon="fa-solid fa-file-download"
 						oncomplete="PF('dlgDocumentViewer').show()"
 						update="@form" />
 					
- 					<p:tooltip for="@next" value="delete" position="top"/>
+ 					<p:tooltip for="@next" value="delete sign request" position="top"/>
 					<p:commandButton actionListener="#{logic.deleteSignerRequest(sr)}" icon="fa-solid fa-trash" update="@form msg" />
 
 				</p:column>		

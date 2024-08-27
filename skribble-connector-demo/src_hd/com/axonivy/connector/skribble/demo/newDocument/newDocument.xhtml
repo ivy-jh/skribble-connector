@@ -13,8 +13,7 @@
       <p:panel header="New Document" >
       
 			<f:facet name="actions">
-				<p:commandButton value="back" icon="fa-solid fa-angle-left" actionListener="#{logic.back}" immediate="true" />
-				<p:commandButton value="send" icon="pi pi-send" actionListener="#{logic.sendDoc}" update="@form msg" />
+				<p:commandButton value="send to Skribble" icon="pi pi-send" actionListener="#{logic.sendDoc}" update="@form msg" />
 				
 			</f:facet>
 			
@@ -30,7 +29,7 @@
 				</p:inputTextarea>
 				
 				<p:outputLabel value="Document: [#{data.file.name}]" />
-				<p:fileUpload label="new File.." 
+				<p:fileUpload label="selcet your Pdf or jpeg to be Sign on Skribble" 
 					listener="#{logic.uploadFile}" 
 					value="#{data.file}" 
 					mode="advanced" 
@@ -77,6 +76,7 @@
 					</p:column>
 
 					<p:column headerText="Position X" width="50" >
+						<p:tooltip for="@next" value="The x position indicates the distance in pixel from the left edge." position="top"/>
 						<p:inputNumber value="#{si.visualSignature.position.x}"
 							minValue="0" 
 							maxValue="1000" 
@@ -86,6 +86,7 @@
 					</p:column>
 						
 					<p:column headerText="Position Y" width="50" >	
+						<p:tooltip for="@next" value="The y value indicates the distance in pixel from the bottom." position="top"/>
 						<p:inputNumber value="#{si.visualSignature.position.y}"
 							minValue="0" 
 							maxValue="1000" 
@@ -93,7 +94,19 @@
 							<p:ajax event="change" listener="#{logic.update}" update="@this" />
 						</p:inputNumber>
 						
-					</p:column>					
+					</p:column>	
+						
+					<p:column headerText="Width" width="50" >	
+						<p:tooltip for="@next" value="The y valiuzince in pixel from the bottom." position="top"/>
+						<p:inputNumber value="#{si.visualSignature.position.width}"
+							minValue="0" 
+							maxValue="1000" 
+							decimalPlaces="0" >
+							<p:ajax event="change" listener="#{logic.update}" update="@this" />
+						</p:inputNumber>
+						
+					</p:column>	
+								
 					<p:column headerText="Function" width="50" >	
 						<p:tooltip for="@next" value="delete" position="top"/>
 						<p:commandButton actionListener="#{logic.deleteSigner(si)}" 

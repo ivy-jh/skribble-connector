@@ -11,14 +11,6 @@
       "name" : "start()",
       "config" : {
         "callSignature" : "start",
-        "result" : {
-          "params" : [
-            { "name" : "nextView", "type" : "String" }
-          ],
-          "map" : {
-            "result.nextView" : "in.nextView"
-          }
-        },
         "guid" : "1916EC2B0FDF2869"
       },
       "visual" : {
@@ -30,12 +22,6 @@
       "type" : "HtmlDialogEnd",
       "visual" : {
         "at" : { "x" : 536, "y" : 64 }
-      }
-    }, {
-      "id" : "f4",
-      "type" : "HtmlDialogExit",
-      "visual" : {
-        "at" : { "x" : 536, "y" : 168 }
       }
     }, {
       "id" : "f2",
@@ -53,7 +39,7 @@
             "CreateSignature cs = SampleHelper.createSignature(\"firstSignerEmail@yxz.com\", false);",
             "",
             "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"FirstSignerEmail@yxz.com\", \"FirstSignerName\", \"FirstSignerLastName\");",
-            "cs.visualSignature = SampleHelper.createVisualSignatureWithPositionX(100);",
+            "cs.visualSignature = SampleHelper.createVisualSignature(100, 600);",
             "",
             "out.csr.signatures.add(cs);"
           ]
@@ -166,7 +152,7 @@
             "CreateSignature cs = SampleHelper.createSignature(\"NextSignerEmail@yxz.com\", false);",
             "",
             "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"NextSignerEmail@yxz.com\", \"NextSignerName\", \"NextSignerLastName\");",
-            "cs.visualSignature = SampleHelper.createVisualSignatureWithPositionX(300);",
+            "cs.visualSignature = SampleHelper.createVisualSignature(300,200);",
             "",
             "out.csr.signatures.add(cs);"
           ]
@@ -233,23 +219,6 @@
         "at" : { "x" : 480, "y" : 344 }
       },
       "connect" : { "id" : "f23", "to" : "f22" }
-    }, {
-      "id" : "f3",
-      "type" : "HtmlDialogEventStart",
-      "name" : "back",
-      "config" : {
-        "guid" : "1918EFB865E80896",
-        "output" : {
-          "map" : {
-            "out" : "in",
-            "out.nextView" : "\"overview\""
-          }
-        }
-      },
-      "visual" : {
-        "at" : { "x" : 96, "y" : 168 }
-      },
-      "connect" : { "id" : "f27", "to" : "f4" }
     }, {
       "id" : "f5",
       "type" : "Alternative",

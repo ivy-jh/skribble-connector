@@ -11,10 +11,9 @@ import com.skribble.api.v2.client.VisualSignature;
 
 public class SampleHelper{
 	
-  private static float positionX = 100;
-  private static float positionY = 600;
-  private static float positionHeigh = 60;
-  private static float positionWidth = 160;
+  private static final float POSITION_HEIGH = 60;
+  private static final float POSITION_WIDTH = 160;
+  private static final String POSITION_PAGE = "0";
   
   public static CreateSignatureRequest createSignatureRequestDocSample(String title, String message){
 	  CreateSignatureRequest csr = new CreateSignatureRequest();
@@ -40,23 +39,13 @@ public class SampleHelper{
 	  return cs;
   }  
   
-  public static VisualSignature createVisualSignatureWithPositionX(float positionX){
+  public static VisualSignature createVisualSignature(float positionX, float positionY){
 	  VisualSignature vs = new VisualSignature();
-	  vs.setPosition(SampleHelper.createPosition(positionX, positionY, positionHeigh, positionWidth));
+	  vs.setPosition(SampleHelper.createPosition(positionX, positionY,  POSITION_PAGE, POSITION_HEIGH, POSITION_WIDTH));
 
 	  return vs;
-	  
   }  
   
-  public static Position createPosition(float x, float y, float height, float width){
-	  Position po = new Position();
-	  po.setHeight(height);
-	  po.setWidth(width);
-	  po.setX(x);
-	  po.setY(y);
-	  
-	  return po;  
-  } 
   public static SignerIdentityData createSignerIdentityData(String email, String fistname, String lastname){
 	  SignerIdentityData si = new SignerIdentityData();
 	  si.setEmailAddress(email);
@@ -65,4 +54,15 @@ public class SampleHelper{
 	  
 	  return si;  
   } 
+  
+  private static Position createPosition(float x, float y, String page, float height, float width){
+	  Position po = new Position();
+	  po.setHeight(height);
+	  po.setWidth(width);
+	  po.setX(x);
+	  po.setY(y);
+	  po.setPage(page);
+	  return po;  
+  } 
+
 }
