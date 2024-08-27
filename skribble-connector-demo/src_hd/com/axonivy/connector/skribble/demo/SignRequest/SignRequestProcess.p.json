@@ -3,7 +3,7 @@
   "id" : "1918EA71B7CFD733",
   "kind" : "HTML_DIALOG",
   "config" : {
-    "data" : "com.axonivy.connector.skribble.demo.newDocument.newDocumentData"
+    "data" : "com.axonivy.connector.skribble.demo.SignRequest.SignRequestData"
   },
   "elements" : [ {
       "id" : "f0",
@@ -21,7 +21,7 @@
       "id" : "f1",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 536, "y" : 64 }
+        "at" : { "x" : 608, "y" : 64 }
       }
     }, {
       "id" : "f2",
@@ -36,12 +36,17 @@
             "out.csr = SampleHelper.createSignatureRequestDocSample(\"Your Document Title\", \"Your Message\");",
             "out.csr.content = null;",
             "",
-            "CreateSignature cs = SampleHelper.createSignature(\"firstSignerEmail@yxz.com\", false);",
+            "/* ",
+            "String fname = \"Signer_\" + in.csr.signatures.size();",
+            "String lname = \"Lastname\";",
+            "String email = fname+\"@yxz.com\";",
             "",
-            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"FirstSignerEmail@yxz.com\", \"FirstSignerName\", \"FirstSignerLastName\");",
-            "cs.visualSignature = SampleHelper.createVisualSignature(100, 600);",
+            "CreateSignature cs = SampleHelper.createSignature(email, false);",
+            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(email, fname, lname);",
+            "cs.visualSignature = SampleHelper.createVisualSignature(100,250);",
             "",
-            "out.csr.signatures.add(cs);"
+            "out.csr.signatures.add(cs);",
+            "*/"
           ]
         }
       },
@@ -57,14 +62,14 @@
         "guid" : "1918ECDE0BCB486C"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 256 }
+        "at" : { "x" : 96, "y" : 152 }
       },
       "connect" : { "id" : "f10", "to" : "f9" }
     }, {
       "id" : "f9",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 224, "y" : 256 }
+        "at" : { "x" : 224, "y" : 152 }
       }
     }, {
       "id" : "f11",
@@ -74,14 +79,14 @@
         "guid" : "1918ED1ABB26007D"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 584 }
+        "at" : { "x" : 96, "y" : 496 }
       },
       "connect" : { "id" : "f20", "to" : "f19" }
     }, {
       "id" : "f12",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 360, "y" : 584 }
+        "at" : { "x" : 360, "y" : 496 }
       }
     }, {
       "id" : "f14",
@@ -100,14 +105,14 @@
         "guid" : "1918ED64091B0BDF"
       },
       "visual" : {
-        "at" : { "x" : 104, "y" : 496 }
+        "at" : { "x" : 96, "y" : 408 }
       },
       "connect" : { "id" : "f18", "to" : "f17" }
     }, {
       "id" : "f15",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 360, "y" : 496 }
+        "at" : { "x" : 360, "y" : 408 }
       }
     }, {
       "id" : "f17",
@@ -136,7 +141,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 232, "y" : 496 }
+        "at" : { "x" : 232, "y" : 408 }
       },
       "connect" : { "id" : "f16", "to" : "f15" }
     }, {
@@ -149,17 +154,37 @@
             "import com.skribble.api.v2.client.CreateSignature;",
             "import com.axonivy.connector.skribble.demo.SampleHelper;",
             "",
-            "CreateSignature cs = SampleHelper.createSignature(\"NextSignerEmail@yxz.com\", false);",
+            "String fname = \"Signer_\" + in.csr.signatures.size()+1;",
+            "String lname = \"Lastname\";",
+            "String email = fname+\"@yxz.com\";",
             "",
-            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(\"NextSignerEmail@yxz.com\", \"NextSignerName\", \"NextSignerLastName\");",
-            "cs.visualSignature = SampleHelper.createVisualSignature(300,200);",
+            "CreateSignature cs = SampleHelper.createSignature(email, false);",
+            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(email, fname, lname);",
+            "",
+            "",
+            "if(in.csr.signatures.size() == 0){",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(100,250);",
+            "  ",
+            "}else if(in.csr.signatures.size() == 1){",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(350,250);",
+            "  ",
+            "}else if(in.csr.signatures.size() == 2){",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(100,100);",
+            "  ",
+            "}else if(in.csr.signatures.size() == 3){",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(350,100);",
+            "  ",
+            "}else{",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(0,0);",
+            "}",
+            "",
             "",
             "out.csr.signatures.add(cs);"
           ]
         }
       },
       "visual" : {
-        "at" : { "x" : 232, "y" : 584 }
+        "at" : { "x" : 232, "y" : 496 }
       },
       "connect" : { "id" : "f13", "to" : "f12" }
     }, {
@@ -170,14 +195,14 @@
         "guid" : "1918EEA9CE6D9DF5"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 344 }
+        "at" : { "x" : 96, "y" : 256 }
       },
       "connect" : { "id" : "f33", "to" : "f25" }
     }, {
       "id" : "f22",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 672, "y" : 344 }
+        "at" : { "x" : 608, "y" : 256 }
       }
     }, {
       "id" : "f24",
@@ -216,7 +241,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 480, "y" : 344 }
+        "at" : { "x" : 488, "y" : 256 }
       },
       "connect" : { "id" : "f23", "to" : "f22" }
     }, {
@@ -224,7 +249,7 @@
       "type" : "Alternative",
       "name" : "check ok?",
       "visual" : {
-        "at" : { "x" : 352, "y" : 344 },
+        "at" : { "x" : 360, "y" : 256 },
         "labelOffset" : { "x" : 16, "y" : -16 }
       },
       "connect" : [
@@ -239,7 +264,7 @@
       "id" : "f30",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 352, "y" : 416 }
+        "at" : { "x" : 360, "y" : 328 }
       }
     }, {
       "id" : "f25",
@@ -276,7 +301,7 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 224, "y" : 344 }
+        "at" : { "x" : 224, "y" : 256 }
       },
       "connect" : { "id" : "f26", "to" : "f5" }
     }, {
@@ -294,14 +319,14 @@
         "guid" : "19192796A31DCE7D"
       },
       "visual" : {
-        "at" : { "x" : 96, "y" : 680 }
+        "at" : { "x" : 96, "y" : 592 }
       },
       "connect" : { "id" : "f34", "to" : "f32" }
     }, {
       "id" : "f32",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 224, "y" : 680 }
+        "at" : { "x" : 360, "y" : 592 }
       }
     }, {
       "id" : "f38",
@@ -318,14 +343,14 @@
         "guid" : "191929427C5DDFA0"
       },
       "visual" : {
-        "at" : { "x" : 88, "y" : 752 }
+        "at" : { "x" : 96, "y" : 664 }
       },
       "connect" : { "id" : "f40", "to" : "f39" }
     }, {
       "id" : "f39",
       "type" : "HtmlDialogEnd",
       "visual" : {
-        "at" : { "x" : 216, "y" : 752 }
+        "at" : { "x" : 360, "y" : 664 }
       }
     } ]
 }

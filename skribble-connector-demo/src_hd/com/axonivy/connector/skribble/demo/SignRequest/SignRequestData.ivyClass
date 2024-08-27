@@ -1,5 +1,5 @@
-newDocumentData #class
-com.axonivy.connector.skribble.demo.newDocument #namespace
+SignRequestData #class
+com.axonivy.connector.skribble.demo.SignRequest #namespace
 csr com.skribble.api.v2.client.CreateSignatureRequest #field
 csr PERSISTENT #fieldModifier
 fileUploadEvent org.primefaces.event.FileUploadEvent #field

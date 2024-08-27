@@ -6,10 +6,7 @@ Variables:
   #set all paramaters for Skribble-connector
   skribbleConnector:
     #username
-    username: ''
+    username: 'api_demo_axonivy_e989_0'
     #apikey
     #[password]
-    authKey: ''    
-    #sessionTokenkey
-    # [password]
-    sessionToken: '' 
+    authKey: ''

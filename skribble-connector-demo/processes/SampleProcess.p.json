@@ -67,7 +67,7 @@
       "type" : "DialogCall",
       "name" : "Upload document for signing",
       "config" : {
-        "dialogId" : "com.axonivy.connector.skribble.demo.newDocument",
+        "dialogId" : "com.axonivy.connector.skribble.demo.SignRequest",
         "startMethod" : "start()"
       },
       "visual" : {
