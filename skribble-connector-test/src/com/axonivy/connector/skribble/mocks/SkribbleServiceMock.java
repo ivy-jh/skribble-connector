@@ -37,7 +37,7 @@ public class SkribbleServiceMock {
   public static final String URI = "{"+IvyDefaultJaxRsTemplates.APP_URL+"}/api/"+PATH_SUFFIX;
 
   @GET
-  @Path("signature-requests")
+  @Path("v2/signature-requests")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getAllSignatureRequest(@QueryParam("version") String version) {
     // best practice: record a JSON response of your real service under test
@@ -48,7 +48,7 @@ public class SkribbleServiceMock {
   }
   
   @POST
-  @Path("signature-requests")
+  @Path("v2/signature-requests")
   @Produces(MediaType.APPLICATION_JSON)
   public Response createSignatureRequest(@QueryParam("version") String version) {
     // best practice: record a JSON response of your real service under test
@@ -59,7 +59,7 @@ public class SkribbleServiceMock {
   }
 
   @GET
-  @Path("documents/{id}/content") //documents/{id}/content
+  @Path("v2/documents/{id}/content") //documents/{id}/content
   @Produces(MediaType.APPLICATION_JSON)
   public Response getDocumentContentDataById(@PathParam("id") String version) {
     // best practice: record a JSON response of your real service under test
@@ -70,7 +70,7 @@ public class SkribbleServiceMock {
   }
   
   @GET
-  @Path("documents/{id}")
+  @Path("v2/documents/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getDocumentMetaDataById(@PathParam("id") String version) {
     // best practice: record a JSON response of your real service under test
