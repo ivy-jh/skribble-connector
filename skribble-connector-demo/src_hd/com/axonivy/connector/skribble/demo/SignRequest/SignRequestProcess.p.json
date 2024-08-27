@@ -154,7 +154,7 @@
             "import com.skribble.api.v2.client.CreateSignature;",
             "import com.axonivy.connector.skribble.demo.SampleHelper;",
             "",
-            "String fname = \"Signer_\" + in.csr.signatures.size()+1;",
+            "String fname = \"Signer_\" + (in.csr.signatures.size()+1);",
             "String lname = \"Lastname\";",
             "String email = fname+\"@yxz.com\";",
             "",
