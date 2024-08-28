@@ -8,10 +8,12 @@
 <body>
 	<ui:composition>
 		<p:dialog header="" widgetVar="dlgDocumentViewer" modal="true"
-			position="center center" width="80%" height="60%" >
-			
-			<pe:documentViewer height="800" zoom="90" url="#{ivy.html.fileref(data.file)}" />
-		
+			position="center center" width="80%" height="60%">
+
+			<pe:documentViewer height="800" zoom="90"
+				url="#{ivy.html.fileref(data.file)}" >
+			</pe:documentViewer>
+
 		</p:dialog>
 	</ui:composition>
 </body>

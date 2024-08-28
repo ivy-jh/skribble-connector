@@ -47,17 +47,14 @@ Before any signing interactions between the **Axon Ivy Engine** and the **Skribb
 
    ```
 	# == Variables ==
-	# 
-	# You can define here your project Variables.
-	#
 	Variables:
 	  #set all paramaters for Skribble-connector
 	  skribbleConnector:
 	    #username
-	    username: 'api_demo_xxxxx' 			#<-- paste here your username
+	    username: 'api_demo_xxxxx'   #<-- paste here your username
 	    #apikey
 	    #[password]
-	    authKey: ${decrypt:\u00AF\u00A8...} #<-- paste here your apikey and encrypt it
+	    authKey: ${decrypt:\u00AF\u00A8...}   #<-- paste here your apikey and encrypt it
 
    ```
 
