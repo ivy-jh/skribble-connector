@@ -20,12 +20,12 @@
 			<p:panelGrid layout="grid" columns="2" >
 				<p:outputLabel value="Title" />
 				<p:inputText value="#{data.csr.title}" required="true" requiredMessage="Title is empty" >
-					<p:ajax event="change" listener="#{logic.update}" update="@this" />
+					<p:ajax event="change" listener="#{logic.update}" update="@this msg" />
 				</p:inputText>
 				
 				<p:outputLabel value="Message" />
 				<p:inputTextarea value="#{data.csr.message}" required="true" requiredMessage="Message is empty" >
-					<p:ajax event="change" listener="#{logic.update}" update="@this" />
+					<p:ajax event="change" listener="#{logic.update}" update="@this msg" />
 				</p:inputTextarea>
 				
 				<p:outputLabel value="Document: [#{data.file.name}]" />
