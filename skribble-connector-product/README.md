@@ -23,7 +23,7 @@ If you created successfully a Request you will see it here.
 ![image](doc/img/overview1.png)
 
 Document view on the Skribbleplatform as a signer
-![image](doc/img/skribble_doc_view.png)
+![image](doc/img/skribble_doc_view1.png)
 
 Refresh the overviewpage and you will see the status on the signer and the overallstatus are changed.
 ![image](doc/img/overview2.png)
@@ -37,11 +37,11 @@ There are three options for signing verification: SES, AES and QES
 
 ## Setup
 
-Before any signing interactions between the **Axon Ivy Engine** and the **A-Trust HandySignatur** services can be run, they have to be introduced to each other. This can be done as follows:
+Before any signing interactions between the **Axon Ivy Engine** and the **Skribble-Platform** services can be run, they have to be introduced to each other. This can be done as follows:
 
-1. Create an **Account** account: **[here] https://my.skribble.com/business/signup/?lang=en**
+1. Create an **Account** account: **[here](https://my.skribble.com/business/signup/?lang=en) **
 
-2. Create an **demo API key** for more information jump to the admin documentation: **[here] https://docs.skribble.com/business-admin/api/apicreate#create-api-keys **
+2. Create an **demo API key** for more information jump to the admin documentation: **[here](https://docs.skribble.com/business-admin/api/apicreate#create-api-keys) **
 
 3. Open the `Configuration/variables.yaml` in your Designer and set the username and the apikey from which you get on the skribbleplattform
 
