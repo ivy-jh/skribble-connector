@@ -8,6 +8,7 @@
   <packaging>iar</packaging>
   <properties>
   	<tester.version>10.0.16</tester.version>
+  	<project.build.plugin.version>10.0.14</project.build.plugin.version>
   </properties>
   <dependencies>
     <dependency>
@@ -19,7 +20,7 @@
     <dependency>
       <groupId>com.axonivy.ivy.test</groupId>
       <artifactId>unit-tester</artifactId>
-      <version>10.0.16</version>
+      <version>${tester.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -45,7 +46,7 @@
       <plugin>
         <groupId>com.axonivy.ivy.ci</groupId>
         <artifactId>project-build-plugin</artifactId>
-        <version>${tester.version}</version>
+        <version>${project.build.plugin.version}</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
