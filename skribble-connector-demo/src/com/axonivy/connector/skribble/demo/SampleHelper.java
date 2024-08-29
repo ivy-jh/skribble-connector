@@ -21,10 +21,11 @@ public class SampleHelper {
 		csr.setMessage(message);
 
 		try {
-			FileInputStream fis = new FileInputStream(
-					new LocalResource("com/axonivy/connector/skribble/demo/docs/test.pdf").asFile());
-			csr.setContent(Base64.getEncoder().encodeToString(fis.readAllBytes()));
-
+			//FileInputStream fis = new FileInputStream(
+			//		new LocalResource("com/axonivy/connector/skribble/demo/docs/test.pdf").asFile());
+			//csr.setContent(Base64.getEncoder().encodeToString(fis.readAllBytes()));
+			
+			csr.setContent("JVBERi0xLjcNCiW1tbW1DQox..");	
 		} catch (Exception e) {
 			return null;
 		}
@@ -32,10 +33,10 @@ public class SampleHelper {
 		return csr;
 	}
 
-	public static CreateSignature createSignature(String accountEmail, boolean notifiy) {
+	public static CreateSignature createSignature(String accountEmail, boolean notify) {
 		CreateSignature cs = new CreateSignature();
 		cs.setAccountEmail(accountEmail);
-		cs.notify(notifiy);
+		cs.notify(notify);
 
 		return cs;
 	}

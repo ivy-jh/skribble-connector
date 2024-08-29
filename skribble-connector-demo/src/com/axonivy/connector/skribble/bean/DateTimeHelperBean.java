@@ -1,11 +1,9 @@
-package com.skribble.openapi.bean;
+package com.axonivy.connector.skribble.bean;
 
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import ch.ivyteam.ivy.environment.Ivy;
 
 @ViewScoped
 @ManagedBean
