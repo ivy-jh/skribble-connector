@@ -30,23 +30,13 @@
       "config" : {
         "output" : {
           "code" : [
-            "import com.skribble.api.v2.client.CreateSignature;",
+            "import com.axonivy.connector.skribble.demo.LocalFileLoader;",
             "import com.axonivy.connector.skribble.demo.SampleHelper;",
+            "import java.util.Base64;",
             "",
             "out.csr = SampleHelper.createSignatureRequestDocSample(\"Your Document Title\", \"Your Message\");",
-            "out.csr.content = null;",
-            "",
-            "/* ",
-            "String fname = \"Signer_\" + in.csr.signatures.size();",
-            "String lname = \"Lastname\";",
-            "String email = fname+\"@yxz.com\";",
-            "",
-            "CreateSignature cs = SampleHelper.createSignature(email, false);",
-            "cs.signerIdentityData = SampleHelper.createSignerIdentityData(email, fname, lname);",
-            "cs.visualSignature = SampleHelper.createVisualSignature(100,250);",
-            "",
-            "out.csr.signatures.add(cs);",
-            "*/"
+            "out.file = LocalFileLoader.loadFromWebContent(\"sample/rechnung.pdf\");",
+            "out.csr.content(Base64.getEncoder().encodeToString(out.file.readBinary()));"
           ]
         }
       },
@@ -163,16 +153,16 @@
             "",
             "",
             "if(in.csr.signatures.size() == 0){",
-            "  cs.visualSignature = SampleHelper.createVisualSignature(100,250);",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(60,220);",
             "  ",
             "}else if(in.csr.signatures.size() == 1){",
-            "  cs.visualSignature = SampleHelper.createVisualSignature(350,250);",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(340,220);",
             "  ",
             "}else if(in.csr.signatures.size() == 2){",
-            "  cs.visualSignature = SampleHelper.createVisualSignature(100,100);",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(60,130);",
             "  ",
             "}else if(in.csr.signatures.size() == 3){",
-            "  cs.visualSignature = SampleHelper.createVisualSignature(350,100);",
+            "  cs.visualSignature = SampleHelper.createVisualSignature(340,130);",
             "  ",
             "}else{",
             "  cs.visualSignature = SampleHelper.createVisualSignature(0,0);",

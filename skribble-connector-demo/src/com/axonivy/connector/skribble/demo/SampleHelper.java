@@ -11,8 +11,8 @@ import com.skribble.api.v2.client.VisualSignature;
 
 public class SampleHelper {
 
-	private static final float POSITION_HEIGH = 60;
-	private static final float POSITION_WIDTH = 160;
+	private static final float POSITION_HEIGH = 40;
+	private static final float POSITION_WIDTH = 140;
 	private static final String POSITION_PAGE = "0";
 
 	public static CreateSignatureRequest createSignatureRequestDocSample(String title, String message) {
