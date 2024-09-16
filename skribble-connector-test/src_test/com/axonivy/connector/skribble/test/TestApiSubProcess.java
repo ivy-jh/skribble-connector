@@ -25,11 +25,14 @@ import ch.ivyteam.ivy.rest.client.security.CsrfHeaderFeature;
 @IvyProcessTest(enableWebServer = true)
 class TestApiSubProcess {
 
-  private static final BpmProcess SIGNATURE_REQUEST = BpmProcess.name("SignatureRequest"); // Process Path
+  private static final BpmProcess SIGNATURE_REQUEST = BpmProcess.name("SignatureRequest"); // Process
+                                                                                           // Path
   private static final BpmProcess DOCUMENTS = BpmProcess.name("Documents");
-  
+
   private interface Start {
-    BpmElement GET_ALL_SIGNATURE_REQUEST = SIGNATURE_REQUEST.elementName("getAll(SignatureRequestSearchParameters)"); // ElementName of Callprocess
+
+    BpmElement GET_ALL_SIGNATURE_REQUEST = SIGNATURE_REQUEST
+            .elementName("getAll(SignatureRequestSearchParameters)");
     BpmElement CREATE_SIGNATURE_REQUEST = SIGNATURE_REQUEST.elementName("create(CreateSignatureRequest)");
     BpmElement GET_DOCUMENT_CONTENT = DOCUMENTS.elementName("getContentData(String)");
     BpmElement GET_DOCUMENT_META = DOCUMENTS.elementName("getMetaData(String)");
@@ -37,79 +40,64 @@ class TestApiSubProcess {
 
   @BeforeEach
   void setup(AppFixture fixture) {
-    // changes the rest-client called 'customer-service', defined in the 'crm' project.
+    // changes the rest-client called 'customer-service', defined in the 'crm'
+    // project.
     fixture.config("RestClients.Skribble.Url", SkribbleServiceMock.URI);
-    fixture.config("RestClients.Skribble.Features", List.of(JsonFeature.class.getName(), CsrfHeaderFeature.class.getName())); //Doesn't includes the other Features, Problem with the Login Feauture
+    // Doesn't includes the other Features, Problem with the Login Feauture
+    fixture.config("RestClients.Skribble.Features",
+            List.of(JsonFeature.class.getName(), CsrfHeaderFeature.class.getName()));
     // the config key is the YAML path to any configuration:
-    // therefore also Features or Properties of RestClients can be changed with the config API.
+    // therefore also Features or Properties of RestClients can be changed with
+    // the
+    // config API.
   }
 
   /**
-   * Testing SubProcesses, rather than full Business Processes is best practice: <br/>
-   * - it reduces the scope of your test: clear in/out and less infrastructure to setup <br/>
-   * - it drives a component driven architecture, and makes your processes therefore easier to re-use <br/>
+   * Testing SubProcesses, rather than full Business Processes is best practice:
+   * <br/>
+   * - it reduces the scope of your test: clear in/out and less infrastructure
+   * to setup <br/>
+   * - it drives a component driven architecture, and makes your processes
+   * therefore easier to re-use <br/>
    */
   @Test
   void callSubProcess_getAllSignatureRequest(BpmClient bpmClient) {
-	  //var uri = Ivy.rest().client("Skribble").getUri();
-	  //System.out.println("uri: "+ uri);
-	  
-	  var result = bpmClient.start()
-			.subProcess(Start.GET_ALL_SIGNATURE_REQUEST)
-			.execute();
-    
-    
+    var result = bpmClient.start().subProcess(Start.GET_ALL_SIGNATURE_REQUEST).execute();
     SignatureRequestData data = result.data().last();
     assertThat(data.getSignatureRequests()).hasSize(1);
     assertThat(data.getSignatureRequests().get(0).getSignatures()).hasSize(2);
-    assertThat(data.getSignatureRequests().get(0).getSignatures().get(0).getSignerIdentityData().getFirstName()).contains("Max");
+    assertThat(
+            data.getSignatureRequests().get(0).getSignatures().get(0).getSignerIdentityData().getFirstName())
+                    .contains("Max");
   }
-  
 
   @Test
   void callSubProcess_createSignatureRequest(BpmClient bpmClient) {
-	  
-	  //init SampleRequest
-	  CreateSignatureRequest sample = SampleHelper.createSignatureRequestDocSample("Test-Title", "Test-message");
-
-	  CreateSignature cs = SampleHelper.createSignature("max.muster@yxz.com", false);
-	  cs.setSignerIdentityData(SampleHelper.createSignerIdentityData("max.muster@yxz.com", "Max", "Muster"));
-	  cs.setVisualSignature(SampleHelper.createVisualSignature(100, 100));
-
-	  sample.addSignaturesItem(cs);
-	  
-	  //start Testcall
-	  var result = bpmClient.start()
-			.subProcess(Start.CREATE_SIGNATURE_REQUEST)
-			.withParam("create", sample)
-			.execute();	
-
-   
-	  SignatureRequestData data = result.data().last();
-	  assertThat(data.getSignatureRequest().getDocumentId().startsWith("6a41f"));
+    CreateSignatureRequest sample = SampleHelper.createSignatureRequestDocSample("Test-Title",
+            "Test-message");
+    CreateSignature cs = SampleHelper.createSignature("max.muster@yxz.com", false);
+    cs.setSignerIdentityData(SampleHelper.createSignerIdentityData("max.muster@yxz.com", "Max", "Muster"));
+    cs.setVisualSignature(SampleHelper.createVisualSignature(100, 100));
+    sample.addSignaturesItem(cs);
+    var result = bpmClient.start().subProcess(Start.CREATE_SIGNATURE_REQUEST).withParam("create", sample)
+            .execute();
+    SignatureRequestData data = result.data().last();
+    assertThat(data.getSignatureRequest().getDocumentId().startsWith("6a41f"));
   }
-  
+
   @Test
   void callSubProcess_getDocumentContent(BpmClient bpmClient) {
-	  
-	  var result = bpmClient.start()
-			.subProcess(Start.GET_DOCUMENT_CONTENT)
-			.withParam("documentId", "20c535e0-4260-f52a-b2ba-a45eb280d9a3")
-			.execute();
-    
+    var result = bpmClient.start().subProcess(Start.GET_DOCUMENT_CONTENT)
+            .withParam("documentId", "20c535e0-4260-f52a-b2ba-a45eb280d9a3").execute();
     DocumentsData data = result.data().last();
     assertThat(data.getContent()).startsWith("JVBER");
-  }  
-  
+  }
+
   @Test
   void callSubProcess_getDocumentMeta(BpmClient bpmClient) {
-	  
-	  var result = bpmClient.start()
-			.subProcess(Start.GET_DOCUMENT_META)
-			.withParam("documentId", "20c535e0-4260-f52a-b2ba-a45eb280d9a3")
-			.execute();
-    
+    var result = bpmClient.start().subProcess(Start.GET_DOCUMENT_META)
+            .withParam("documentId", "20c535e0-4260-f52a-b2ba-a45eb280d9a3").execute();
     DocumentsData data = result.data().last();
     assertThat(data.getDocument().getTitle()).startsWith("Test-Title");
-  }  
+  }
 }
