@@ -1,14 +1,26 @@
 {
-  "id" : "1e4e0634-29e7-0f3a-18b8-ea2d869b2e0e",
-  "title" : "Test-Title",
-  "content_type" : "application/pdf",
-  "size" : 13917,
-  "page_count" : 1,
-  "page_width" : 595,
-  "page_height" : 842,
-  "owner" : "api_demo_axonivy_e989_0",
-  "read_access" : [ "max.muster@yxz.com", "api_demo_axonivy_e989_0", "hans.meier@yxz.com", "temp-d27163459e47490bbc5b1291daee37cc", "temp-35af655523d94130bde9fb9cf723e343" ],
-  "write_access" : [ "max.muster@yxz.com", "api_demo_axonivy_e989_0", "hans.meier@yxz.com", "temp-d27163459e47490bbc5b1291daee37cc", "temp-35af655523d94130bde9fb9cf723e343" ],
-  "created_at" : "2024-08-21T14:38:57.286Z",
-  "updated_at" : "2024-08-21T14:38:57.929Z"
+  "id": "1e4e0634-29e7-0f3a-18b8-ea2d869b2e0e",
+  "title": "Test-Title",
+  "content_type": "application/pdf",
+  "size": 13917,
+  "page_count": 1,
+  "page_width": 595,
+  "page_height": 842,
+  "owner": "api_demo_axonivy_e989_0",
+  "read_access": [
+    "max.muster@yxz.com",
+    "api_demo_axonivy_e989_0",
+    "hans.meier@yxz.com",
+    "temp-d27163459e47490bbc5b1291daee37cc",
+    "temp-35af655523d94130bde9fb9cf723e343"
+  ],
+  "write_access": [
+    "max.muster@yxz.com",
+    "api_demo_axonivy_e989_0",
+    "hans.meier@yxz.com",
+    "temp-d27163459e47490bbc5b1291daee37cc",
+    "temp-35af655523d94130bde9fb9cf723e343"
+  ],
+  "created_at": "2024-08-21T14:38:57.286Z",
+  "updated_at": "2024-08-21T14:38:57.929Z"
 }

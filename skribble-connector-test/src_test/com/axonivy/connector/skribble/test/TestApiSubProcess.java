@@ -25,8 +25,7 @@ import ch.ivyteam.ivy.rest.client.security.CsrfHeaderFeature;
 @IvyProcessTest(enableWebServer = true)
 class TestApiSubProcess {
 
-  private static final BpmProcess SIGNATURE_REQUEST = BpmProcess.name("SignatureRequest"); // Process
-                                                                                           // Path
+  private static final BpmProcess SIGNATURE_REQUEST = BpmProcess.name("SignatureRequest");
   private static final BpmProcess DOCUMENTS = BpmProcess.name("Documents");
 
   private interface Start {
@@ -40,26 +39,11 @@ class TestApiSubProcess {
 
   @BeforeEach
   void setup(AppFixture fixture) {
-    // changes the rest-client called 'customer-service', defined in the 'crm'
-    // project.
     fixture.config("RestClients.Skribble.Url", SkribbleServiceMock.URI);
-    // Doesn't includes the other Features, Problem with the Login Feauture
     fixture.config("RestClients.Skribble.Features",
             List.of(JsonFeature.class.getName(), CsrfHeaderFeature.class.getName()));
-    // the config key is the YAML path to any configuration:
-    // therefore also Features or Properties of RestClients can be changed with
-    // the
-    // config API.
   }
 
-  /**
-   * Testing SubProcesses, rather than full Business Processes is best practice:
-   * <br/>
-   * - it reduces the scope of your test: clear in/out and less infrastructure
-   * to setup <br/>
-   * - it drives a component driven architecture, and makes your processes
-   * therefore easier to re-use <br/>
-   */
   @Test
   void callSubProcess_getAllSignatureRequest(BpmClient bpmClient) {
     var result = bpmClient.start().subProcess(Start.GET_ALL_SIGNATURE_REQUEST).execute();
