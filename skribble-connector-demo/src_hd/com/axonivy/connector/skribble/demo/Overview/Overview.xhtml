@@ -1,0 +1,137 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition template="/layouts/frame-10-full-width.xhtml">
+		<ui:define name="title">Overview</ui:define>
+		<ui:define name="content">
+
+			<p:growl id="msg" showDetail="true" />
+			<h:form id="form">
+
+				<p:panel header="Skribble Documents Overview">
+					<f:facet name="actions">
+						<p:commandButton value="refresh" icon="fa-solid fa-refresh"
+							actionListener="#{logic.refresh}" update="@form" />
+							
+						<p:commandButton value="close" icon="fa-solid fa-close"
+							actionListener="#{logic.close}" update="@form" />
+					</f:facet>
+
+					<p:dataTable id="sr" var="sr" value="#{data.signatureRequests}"
+						lazy="false" rowKey="#{sr.id}" paginator="true"
+						paginatorPosition="bottom" rows="5"
+						rowsPerPageTemplate="5,10,{ShowAll|'All'}" scrollable="true"
+						scrollHeight="600">
+
+						<p:column width="15" headerText="+">
+							<p:rowToggler />
+						</p:column>
+
+						<p:column headerText="Document Title" width="150">
+							<p:outputLabel value="#{sr.title}" />
+						</p:column>
+
+						<p:column headerText="Document Description" width="200">
+							<p:outputLabel value="#{sr.message}" />
+						</p:column>
+
+						<p:column headerText="Created at" width="150"
+							sortBy="#{sr.createdAt}">
+							<p:outputLabel
+								value="#{dateTimeHelperBean.getJavaDate(sr.createdAt)}">
+								<f:convertDateTime pattern="yyy-MM-dd HH:mm" />
+							</p:outputLabel>
+						</p:column>
+
+						<p:column headerText="Updated at" width="150"
+							sortBy="#{sr.updatedAt}">
+							<p:outputLabel
+								value="#{dateTimeHelperBean.getJavaDate(sr.updatedAt)}">
+								<f:convertDateTime pattern="yyy-MM-dd HH:mm" />
+							</p:outputLabel>
+						</p:column>
+
+						<p:column headerText="Expired at" width="100"
+							sortBy="#{sr.expirationDate}">
+							<p:outputLabel value="#{sr.expirationDate}" />
+						</p:column>
+
+						<p:column headerText="Status Overall" width="100"
+							sortBy="#{sr.statusOverall}">
+							<i class="#{sr.statusOverall == 'SIGNED' ? 'pi pi-check' : 'pi pi-inbox'}" />
+							<p:outputLabel value=" #{sr.statusOverall}" />
+						</p:column>
+
+						<p:column headerText="Functions" width="120">
+							<p:tooltip for="@next" value="view document" position="top" />
+							<p:commandButton actionListener="#{logic.downloadDocument(sr)}"
+								icon="fa-solid fa-file-download"
+								oncomplete="PF('dlgDocumentViewer').show()" update="@form" />
+
+							<p:tooltip for="@next" value="delete sign request" position="top" />
+							<p:commandButton
+								actionListener="#{logic.deleteSignerRequest(sr)}"
+								icon="fa-solid fa-trash" update="@form msg" />
+						</p:column>
+
+						<p:rowExpansion>
+							<p:dataTable id="si" var="si" value="#{sr.signatures}"
+								lazy="false" rowKey="#{si.sid}">
+
+								<p:column headerText="Fullname" width="50">
+									<p:outputLabel
+										value="#{si.signerIdentityData.firstName} #{si.signerIdentityData.lastName}" />
+								</p:column>
+
+								<p:column headerText="Mobilenumber" width="100" rendered="false">
+									<p:outputLabel value="#{si.signerIdentityData.mobileNumber}" />
+								</p:column>
+
+								<p:column headerText="Email" width="100">
+									<p:outputLabel value="#{si.signerIdentityData.emailAddress}" />
+								</p:column>
+
+								<p:column headerText="Skribble Account Name" width="100">
+									<p:outputLabel value="#{si.accountEmail}" />
+								</p:column>
+
+								<p:column headerText="Status" width="50"
+									sortBy="#{si.statusCode}">
+									<i class="#{si.statusCode == 'SIGNED' ? 'pi pi-check' : 'pi pi-inbox'}" />
+									<p:outputLabel value=" #{si.statusCode}" />
+								</p:column>
+
+								<p:column headerText="Signed at" width="50"
+									sortBy="#{si.signedAt}">
+									<p:outputLabel
+										value="#{dateTimeHelperBean.getJavaDate(si.signedAt)}">
+										<f:convertDateTime pattern="yyy-MM-dd HH:mm" />
+									</p:outputLabel>
+								</p:column>
+
+								<p:column headerText="Signed Legislation" width="50">
+									<p:outputLabel value="#{si.signedQuality}" />
+								</p:column>
+
+								<p:column headerText="Signing Url" width="50">
+									<p:commandButton icon="fa fa-copy" id="CopySigningUrl"
+										disabled="#{si.signingUrl == null}" />
+									<pe:clipboard trigger="CopySigningUrl" action="copy"
+										text="#{si.signingUrl}" />
+								</p:column>
+
+							</p:dataTable>
+						</p:rowExpansion>
+					</p:dataTable>
+				</p:panel>
+				<ui:include src="dlgDocumentViewer.xhtml" />
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

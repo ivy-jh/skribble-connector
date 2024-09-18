@@ -1,0 +1,2495 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "description": "All requests to the Skribble API must be authorized. To obtain an access token, please use the <b>/access/login</b> resource. Then add the access token as a HTTP header like:<br><code>Authorization: Bearer &lt;token></code>",
+    "contact": {
+      "name": "Skribble Engineering",
+      "url": "https://api.skribble.com",
+      "email": "info@skribble.com"
+    },
+    "license": {
+      "name": "Skribble License Version 2.0"
+    },
+    "version": "2.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.skribble.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "v2/access",
+      "description": "Access Resource"
+    },
+    {
+      "name": "v2/documents",
+      "description": "Document Resource"
+    },
+    {
+      "name": "v2/seal",
+      "description": "Seal Resource"
+    },
+    {
+      "name": "v2/signature-requests",
+      "description": "Signature Request Resource"
+    },
+    {
+      "name": "v2/user",
+      "description": "User Resource"
+    }
+  ],
+  "paths": {
+    "v2/access/login": {
+      "post": {
+        "tags": [
+          "/access"
+        ],
+        "summary": "Login to receive an access token.",
+        "operationId": "loginUsingPOST",
+        "parameters": [
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "description": "User-Agent",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "api-key": {
+                    "type": "string",
+                    "description": "Your api-key or password",
+                    "example": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "Your username",
+                    "example": "Customer_A"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns an access token. All API calls are protected by an access token. Every other API call expects to receive an access token inside the 'Authorization' HTTP header with a 'Bearer' prefix.\n Example 'Authorization: Bearer &lt;token>'",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "v2/documents": {
+      "get": {
+        "tags": [
+          "/documents"
+        ],
+        "summary": "List all Documents.",
+        "operationId": "listUsingGET",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Document"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "/documents"
+        ],
+        "summary": "Create a Document.",
+        "operationId": "createUsingPOST",
+        "requestBody": {
+          "description": "createDocument",
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDocument"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Either `content_type`+`content` or `file_url` are required.",
+            "content": {}
+          },
+          "406": {
+            "description": "PDF document loading error: the document is either corrupt or encrypted",
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "x-codegen-request-body-name": "createDocument"
+      }
+    },
+    "v2/documents/{id}": {
+      "get": {
+        "tags": [
+          "/documents"
+        ],
+        "summary": "Get meta data of Document with ID {id}.",
+        "operationId": "getUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Document ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "/documents"
+        ],
+        "summary": "Delete Document with ID {id}.",
+        "operationId": "deleteUsingDELETE",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Document ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {}
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "v2/documents/{id}/content": {
+      "get": {
+        "tags": [
+          "/documents"
+        ],
+        "summary": "Get content of Document with ID {id}.",
+        "operationId": "contentUsingGET",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "description": "Accept",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/MediaType"
+              }
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Document ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "v2/documents/{id}/pages/{pageNumber}": {
+      "get": {
+        "tags": [
+          "/documents"
+        ],
+        "summary": "Get page {pageNumber} of Document with ID {id}.",
+        "operationId": "pageUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Document ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          },
+          {
+            "name": "pageNumber",
+            "in": "path",
+            "description": "Page number",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "example": 1
+          },
+          {
+            "name": "scale",
+            "in": "query",
+            "description": "Scaling factor",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "default": "100"
+            },
+            "example": "100"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/png": {
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "image/webp": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      }
+    },
+    "v2/seal": {
+      "post": {
+        "tags": [
+          "/seal"
+        ],
+        "summary": "Seal a document with a legal entity signature",
+        "operationId": "sealUsingPOST",
+        "requestBody": {
+          "description": "seal",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Seal"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SealResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The  user doesn't have a valid seal account associated",
+            "content": {}
+          },
+          "406": {
+            "description": "PDF document loading error: the document is either corrupt or encrypted",
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ],
+        "x-codegen-request-body-name": "seal"
+      }
+    },
+    "v2/signature-requests": {
+      "get": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "List all SignatureRequests.",
+        "operationId": "listUsingGET_1",
+        "parameters": [
+          {
+            "name": "account_email",
+            "in": "query",
+            "description": "Filter for 'signatures.account_email'",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "person_1@company_a.com"
+          },
+          {
+            "name": "created_by",
+            "in": "query",
+            "description": "Filter for 'created_by'",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "person_1@company_a.com"
+          },
+          {
+            "name": "page_number",
+            "in": "query",
+            "description": "Pagination - Page number",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": -1
+            },
+            "example": 0
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Pagination - Page size ",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            },
+            "example": 25
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Filter for 'title'",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "my search string"
+          },
+          {
+            "name": "signature_status",
+            "in": "query",
+            "description": "Filter for 'signatures.status_code'",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "open"
+          },
+          {
+            "name": "signatures_count",
+            "in": "query",
+            "description": "Filter for 'signatures_count'",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": -1
+            },
+            "example": 0
+          },
+          {
+            "name": "signer_email_address",
+            "in": "query",
+            "description": "Filter for 'signatures.signer_email_address'",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "person_1@company_a.com"
+          },
+          {
+            "name": "status_overall",
+            "in": "query",
+            "description": "Filter for 'status_overall'",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "open"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SignatureRequest"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Update SignatureRequest.",
+        "operationId": "updateV1UsingPUT",
+        "requestBody": {
+          "description": "updateSignatureRequest",
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSignatureRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignatureRequest"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-codegen-request-body-name": "updateSignatureRequest"
+      },
+      "post": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Create a SignatureRequest.",
+        "operationId": "createV1UsingPOST",
+        "requestBody": {
+          "description": "createSignatureRequest",
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSignatureRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignatureRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Either `content_type`+`content` or `file_url` or `document_id` are required.",
+            "content": {}
+          },
+          "406": {
+            "description": "PDF document loading error: the document is either corrupt or encrypted",
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "x-codegen-request-body-name": "createSignatureRequest"
+      }
+    },
+    "v2/signature-requests/{id}": {
+      "get": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Get meta data of SignatureRequest with ID {id}.",
+        "operationId": "getUsingGET_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "version",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignatureRequest«object»"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Delete SignatureRequest with ID {id}.",
+        "operationId": "deleteUsingDELETE_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      }
+    },
+    "v2/signature-requests/{id}/callbacks": {
+      "get": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "getCallbacks",
+        "operationId": "getCallbacksUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Callback"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      }
+    },
+    "v2/signature-requests/{id}/remind": {
+      "post": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Remind open signers of SignatureRequest with ID {id}.",
+        "operationId": "remindUsingPOST",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      }
+    },
+    "v2/signature-requests/{id}/signatures": {
+      "post": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Add signature to SignatureRequest with ID {id}.",
+        "operationId": "addSignatureUsingPOST",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "requestBody": {
+          "description": "createSignatureDTO",
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSignature"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignatureRequest«object»"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ],
+        "x-codegen-request-body-name": "createSignatureDTO"
+      }
+    },
+    "v2/signature-requests/{id}/signatures/{sid}": {
+      "delete": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Remove signature with SID {sid} from SignatureRequest with ID {id}.",
+        "operationId": "removeSignatureUsingDELETE",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          },
+          {
+            "name": "sid",
+            "in": "path",
+            "description": "Signature ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "55224466-ff00-4545-3210-0123456789999"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      }
+    },
+    "v2/user/assurance": {
+      "post": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Check the assurance level of a person.",
+        "operationId": "getAssuranceLevelUsingPOST",
+        "requestBody": {
+          "description": "request",
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/AssuranceLevelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns a person's highest assurance level known to Skribble per provider.",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssuranceLevelResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ],
+        "x-codegen-request-body-name": "request"
+      }
+    },
+    "v2/user/signature-qualities": {
+      "get": {
+        "tags": [
+          "/user"
+        ],
+        "summary": "Get a user's signature qualities",
+        "operationId": "getSignatureQualitiesUsingGET",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Optional username or e-mail.",
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string",
+              "default": "calling user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSignatureQualities"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      }
+    },
+    "/v2/signature-requests/{id}/attachments": {
+      "post": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "createAttachment",
+        "operationId": "createAttachmentUsingPOST",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "requestBody": {
+          "description": "createAttachmentDto",
+          "content": {
+            "application/json;charset=UTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAttachment"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignatureRequest«object»"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ],
+        "x-codegen-request-body-name": "createAttachmentDto"
+      }
+    },
+    "/v2/signature-requests/{id}/attachments/{attachmentId}": {
+      "delete": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Delete Attachment with ID {attachment_id}.",
+        "operationId": "deleteAttachmentUsingDELETE",
+        "parameters": [
+          {
+            "name": "attachmentId",
+            "in": "path",
+            "description": "Attachment ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {}
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      }
+    },
+    "/v2/signature-requests/{id}/attachments/{attachmentId}/content": {
+      "get": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Get content of Attachment with ID {attachmentId}.",
+        "operationId": "contentAttachmentUsingGET",
+        "parameters": [
+          {
+            "name": "attachmentId",
+            "in": "path",
+            "description": "Attachment ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "Access Token": [
+              "global"
+            ]
+          }
+        ]
+      }
+    },
+    "/v2/signature-requests/{id}/withdraw": {
+      "post": {
+        "tags": [
+          "/signature-requests"
+        ],
+        "summary": "Withdraw from SignatureRequest with ID {id}.",
+        "operationId": "withdrawUsingPOST",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "SignatureRequest ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "8229873d-d7c7-4e2b-a8a3-331353243d97"
+          }
+        ],
+        "requestBody": {
+          "description": "withdrawSignature",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WithdrawSignature"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignatureRequest«object»"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-codegen-request-body-name": "withdrawSignature"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AssuranceLevelRequest": {
+        "title": "AssuranceLevelRequest",
+        "required": [
+          "mobile_number"
+        ],
+        "type": "object",
+        "properties": {
+          "mobile_number": {
+            "type": "string",
+            "description": "Person's mobile phone number",
+            "example": "41791122333"
+          }
+        }
+      },
+      "AssuranceLevelResponse": {
+        "title": "AssuranceLevelResponse",
+        "type": "object",
+        "properties": {
+          "assurance_level": {
+            "type": "string",
+            "description": "A person's assurance level. Valid values are `qualified`, `advanced` or `none`",
+            "example": "qualified"
+          },
+          "provider": {
+            "type": "string",
+            "description": "The provider of the identity assurance.",
+            "example": "swisscom_ra_app"
+          },
+          "serial_number": {
+            "type": "string",
+            "description": "The serial number of the identity assurance.",
+            "example": "MIDCHEWAV7RHB4V0"
+          }
+        }
+      },
+      "Callback": {
+        "title": "Callback",
+        "required": [
+          "created_at",
+          "owner",
+          "read_access",
+          "signature_request_id",
+          "updated_at",
+          "write_access"
+        ],
+        "type": "object",
+        "properties": {
+          "signature_request_id": {
+            "type": "string",
+            "description": "Signature request's unique ID on Skribble.",
+            "format": "uuid",
+            "example": "b107da0e-db25-478a-8130-b85e6c57ae83"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of this callback (SUCCESS, UPDATE, ERROR).",
+            "example": "SUCCESS",
+            "enum": [
+              "SUCCESS",
+              "UPDATE",
+              "ERROR"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "description": "The status of this callback process (OPEN, COMPLETED, RESIGNATED).",
+            "example": "COMPLETED",
+            "enum": [
+              "OPEN",
+              "COMPLETED",
+              "RESIGNATED"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "description": "The called URL of this callback.",
+            "example": "http://ext-service:8080/callback_success"
+          },
+          "attempts": {
+            "type": "integer",
+            "description": "The attempts this callback was carried out.",
+            "format": "int32",
+            "example": 1
+          },
+          "messages": {
+            "type": "array",
+            "description": "Array of error messages in case that the callback failed",
+            "items": {
+              "type": "string"
+            }
+          },
+          "owner": {
+            "type": "string",
+            "description": "E-mail address of the object owner.",
+            "example": "api@company_a.com"
+          },
+          "read_access": {
+            "type": "array",
+            "description": "E-mail addresses with read access to the object.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "write_access": {
+            "type": "array",
+            "description": "E-mail addresses with write access to the object.",
+            "example": [
+              "person_1@company_a.com",
+              "person_2@company_b.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The time at which the object was created.",
+            "format": "date-time",
+            "example": "2018-11-28T11:51:58.637Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "The time at which the object was last changed.",
+            "format": "date-time",
+            "example": "2018-12-03T07:01:33.000Z"
+          }
+        }
+      },
+      "CreateAttachment": {
+        "title": "CreateAttachment",
+        "required": [
+          "content",
+          "content_type",
+          "filename"
+        ],
+        "type": "object",
+        "properties": {
+          "content_type": {
+            "type": "string",
+            "description": "Content type of bytes sent in `content`. Must be used together with `content`.",
+            "example": "image/png"
+          },
+          "filename": {
+            "type": "string",
+            "description": "Name of the attachment.",
+            "example": "TOU.pdf"
+          },
+          "content": {
+            "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+            "type": "string",
+            "description": "Base64 encoded bytes of content. Must be used together with `content_type`. The value is *Write Only*.",
+            "example": "JVBERi0xLjMKJcTl8uX ..."
+          },
+          "content_size": {
+            "type": "integer",
+            "description": "Size of `content` in bytes. Will be calculated by the storage system.",
+            "format": "int32",
+            "example": 3160
+          }
+        }
+      },
+      "CreateDocument": {
+        "title": "CreateDocument",
+        "required": [
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the document.",
+            "example": "NDA"
+          },
+          "content_type": {
+            "type": "string",
+            "description": "Content type of bytes sent in `content`. Currently, only 'application/pdf' is supported. Must be used together with `content`.",
+            "enum": [
+              "APPLICATION/PDF"
+            ]
+          },
+          "content": {
+            "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+            "type": "string",
+            "description": "Base64 encoded bytes of document. Must be used together with `content_type`.",
+            "example": "JVBERi0xLjMKJcTl8uX ..."
+          },
+          "file_url": {
+            "type": "string",
+            "description": "Publicly accessible URL for document download. This parameter is incompatible with `content`+`content_type`.",
+            "example": "https://api.company_a.com/user/345/doc/9472/print"
+          },
+          "read_access": {
+            "type": "array",
+            "description": "E-mail addresses with read access to the object.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "write_access": {
+            "type": "array",
+            "description": "E-mail addresses with write access to the object.",
+            "example": [
+              "person_1@company_a.com",
+              "person_2@company_b.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CreateSignature": {
+        "title": "CreateSignature",
+        "type": "object",
+        "properties": {
+          "account_email": {
+            "type": "string",
+            "description": "Signer's e-mail address.",
+            "example": "walter.demo@company_a.com"
+          },
+          "signer_identity_data": {
+            "$ref": "#/components/schemas/SignerIdentityData"
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order can be used as custom field to implement a custom order functionality. For Skribble signing sequence use 'sequence'.",
+            "format": "int32",
+            "example": 1
+          },
+          "sequence": {
+            "type": "integer",
+            "description": "Sequence in which this signer will sign starting with '1'. If no order is supplied, participants can sign in any order. If the field contains a number, Skribble will enforce an ascending order defined by `sequence` in which the signers sign the document.",
+            "format": "int32",
+            "example": 1
+          },
+          "notify": {
+            "type": "boolean",
+            "description": "Send e-mails to notify the signer about this signature request and for all updates to it's state. If set to `false`, no notifications will be sent by Skribble. Default is `true`",
+            "example": false
+          },
+          "visual_signature": {
+            "$ref": "#/components/schemas/VisualSignature"
+          },
+          "language": {
+            "type": "string",
+            "description": "Language of the email sent to the invitee"
+          }
+        }
+      },
+      "CreateSignatureRequest": {
+        "title": "CreateSignatureRequest",
+        "required": [
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the signature request.",
+            "example": "Please sign our NDA"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message sent to the other participants along with this signature request.",
+            "example": "As discussed yesterday ..."
+          },
+          "content": {
+            "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+            "type": "string",
+            "description": "Base64 encoded bytes of document. Must be used together with `content_type`. This parameter is incompatible with `file_url` and `document_id`.",
+            "example": "JVBERi0xLjMKJcTl8uX ..."
+          },
+          "content_type": {
+            "type": "string",
+            "description": "Content type of bytes sent in `content`. Currently, only 'application/pdf' is supported. Must be used together with `content`. This parameter is incompatible with `file_url` and `document_id`.",
+            "enum": [
+              "APPLICATION/PDF"
+            ]
+          },
+          "file_url": {
+            "type": "string",
+            "description": "Publicly accessible URL for document download. This parameter is incompatible with `content`+`content_type` and `document_id`.",
+            "example": "https://api.company_a.com/user/345/doc/9472/print"
+          },
+          "document_id": {
+            "type": "string",
+            "description": "Document ID of an existing document on Skribble. This parameter is incompatible with `content`+`content_type` and `file_url`.",
+            "example": "31d3dd7c-ea36-4948-8cb5-3e22a3d82933"
+          },
+          "legislation": {
+            "type": "string",
+            "description": "Legislation of the signatures for this signature request. Default: ZERTES",
+            "example": "ZERTES",
+            "enum": [
+              "EIDAS",
+              "ZERTES"
+            ]
+          },
+          "quality": {
+            "type": "string",
+            "description": "Minimal quality of the signatures for this signature request. Default: QES",
+            "example": "AES",
+            "enum": [
+              "AES",
+              "QES",
+              "DEMO"
+            ]
+          },
+          "signatures": {
+            "type": "array",
+            "description": "Which signatures should be created within this signature request.",
+            "items": {
+              "$ref": "#/components/schemas/CreateSignature"
+            }
+          },
+          "cc_email_addresses": {
+            "type": "array",
+            "description": "CC e-mail addresses notifications are sent to.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "callback_success_url": {
+            "type": "string",
+            "description": "Callback-URL which is called on overall success. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/success?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "callback_error_url": {
+            "type": "string",
+            "description": "Callback-URL which is called in case of an error. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/failure?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "callback_update_url": {
+            "type": "string",
+            "description": "Callback-URL which is called in case of an update. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/update?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "creator": {
+            "type": "string",
+            "description": "The email of the user you want to impersonate on creating the signature request.",
+            "example": "creator.user@skribble.com"
+          },
+          "attach_on_success": {
+            "type": "array",
+            "description": "Documents that will be attached additionally to the all-signatures-complete email.",
+            "example": "SIGNED_DOCUMENT",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SIGNED_DOCUMENT",
+                "SIGNATURE_PROTOCOL"
+              ]
+            }
+          },
+          "custom": {
+            "type": "string",
+            "description": "Custom field where own/customer settings related to this signature request can be stored for future actions. The field is limited to a maximum of 10000 characters.",
+            "example": "CustomFieldA=customID,CustomFieldB=customValue"
+          },
+          "write_access": {
+            "type": "array",
+            "description": "Give existing users full write access to this signature request.",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Document": {
+        "title": "Document",
+        "required": [
+          "created_at",
+          "owner",
+          "read_access",
+          "title",
+          "updated_at",
+          "write_access"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Document's unique ID on Skribble.",
+            "example": "b107da0e-db25-478a-8130-b85e6c57ae83"
+          },
+          "parent_id": {
+            "type": "string",
+            "description": "ID of document’s parent. Will not exist for the original document.",
+            "example": "1e471d90-a3a9-4950-b209-d5b6e6107c79"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the document.",
+            "example": "NDA"
+          },
+          "content_type": {
+            "type": "string",
+            "description": "Content type of document. Currently only 'application/pdf' is supported.",
+            "enum": [
+              "APPLICATION/PDF"
+            ]
+          },
+          "size": {
+            "type": "integer",
+            "description": "Content size in bytes.",
+            "format": "int32",
+            "example": 37540
+          },
+          "page_count": {
+            "type": "integer",
+            "description": "Number of pages in the document.",
+            "format": "int32",
+            "example": 2
+          },
+          "page_width": {
+            "type": "integer",
+            "description": "Page width",
+            "format": "int32",
+            "example": 596
+          },
+          "page_height": {
+            "type": "integer",
+            "description": "Page height",
+            "format": "int32",
+            "example": 843
+          },
+          "signature_fields": {
+            "type": "array",
+            "description": "Signature fields",
+            "example": [],
+            "items": {
+              "$ref": "#/components/schemas/SignatureFieldInfo"
+            }
+          },
+          "owner": {
+            "type": "string",
+            "description": "E-mail address of the object owner.",
+            "example": "api@company_a.com"
+          },
+          "read_access": {
+            "type": "array",
+            "description": "E-mail addresses with read access to the object.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "write_access": {
+            "type": "array",
+            "description": "E-mail addresses with write access to the object.",
+            "example": [
+              "person_1@company_a.com",
+              "person_2@company_b.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The time at which the object was created.",
+            "format": "date-time",
+            "example": "2018-11-28T11:51:58.637Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "The time at which the object was last changed.",
+            "format": "date-time",
+            "example": "2018-12-03T07:01:33.000Z"
+          }
+        }
+      },
+      "FieldImage": {
+        "title": "FieldImage",
+        "required": [
+          "content",
+          "content_type"
+        ],
+        "type": "object",
+        "properties": {
+          "content_type": {
+            "type": "string",
+            "description": "Content type of bytes sent in `content`. Must be used together with `content`.",
+            "example": "image/png"
+          },
+          "content": {
+            "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+            "type": "string",
+            "description": "Base64 encoded bytes of content. Must be used together with `content_type`. The value is *Write Only*.",
+            "example": "JVBERi0xLjMKJcTl8uX ..."
+          },
+          "content_size": {
+            "type": "integer",
+            "description": "Size of `content` in bytes. Will be calculated by the storage system.",
+            "format": "int32",
+            "example": 3160
+          }
+        },
+        "description": "Defines an image to be used inside a field."
+      },
+      "LoginRequest": {
+        "title": "LoginRequest",
+        "required": [
+          "api-key",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "The username of the users credentials to login.",
+            "example": "Customer_A"
+          },
+          "api-key": {
+            "type": "string",
+            "description": "The API key  of the users credentials to login.",
+            "example": "00000000-0000-0000-0000-000000000000"
+          }
+        }
+      },
+      "Position": {
+        "title": "Position",
+        "type": "object",
+        "properties": {
+          "invisible": {
+            "type": "boolean"
+          },
+          "x": {
+            "type": "number",
+            "format": "float",
+            "example": 10
+          },
+          "y": {
+            "type": "number",
+            "format": "float",
+            "example": 180
+          },
+          "width": {
+            "type": "number",
+            "format": "float",
+            "example": 200
+          },
+          "height": {
+            "type": "number",
+            "format": "float",
+            "example": 40
+          },
+          "page": {
+            "type": "string",
+            "description": "Page index starting at '0'.",
+            "example": "0"
+          },
+          "rotation": {
+            "type": "integer",
+            "description": "Defines a rotation of the field content. If used in context with a form field, then only the values 0, 90, 180, 270 are legal. Otherwise every value is legal. The rotation is applied counter clockwise. ",
+            "format": "int32",
+            "example": 0
+          }
+        },
+        "description": "A position in the PDF coordinate system."
+      },
+      "Seal": {
+        "title": "Seal",
+        "required": [
+          "content"
+        ],
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Title of the document, can be empty.",
+            "example": "Please sign our NDA"
+          },
+          "content": {
+            "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+            "type": "string",
+            "description": "Base64 encoded bytes of document.",
+            "example": "JVBERi0xLjMKJcTl8uX ..."
+          },
+          "visual_signature": {
+            "$ref": "#/components/schemas/VisualSignature"
+          },
+          "account_name": {
+            "type": "string",
+            "description": "Account name of the seal contract that should be used.",
+            "example": "ais_demo_seal"
+          }
+        }
+      },
+      "SealResult": {
+        "title": "SealResult",
+        "required": [
+          "document_id"
+        ],
+        "type": "object",
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "description": "ID of the sealed document.",
+            "example": "e4cde459-6e63-0095-10b8-55b39ec39f46"
+          }
+        }
+      },
+      "Signature": {
+        "title": "Signature",
+        "required": [
+          "account_email"
+        ],
+        "type": "object",
+        "properties": {
+          "sid": {
+            "type": "string",
+            "description": "ID of this signature",
+            "example": "acbd44ff-feef-effe-bad1-22b0111baca"
+          },
+          "account_email": {
+            "type": "string",
+            "description": "Signer's e-mail address.",
+            "example": "walter.demo@company_a.com"
+          },
+          "signer_identity_data": {
+            "$ref": "#/components/schemas/SignerIdentityData"
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order can be used as custom field to implement a custom order functionality. For Skribble signing sequence use 'sequence'.",
+            "format": "int32",
+            "example": 1
+          },
+          "sequence": {
+            "type": "integer",
+            "description": "Sequence in which this signer will sign starting with '1'. If no order is supplied, participants can sign in any order. If the field contains a number, Skribble will enforce an ascending order defined by `sequence` in which the signers sign the document.",
+            "format": "int32",
+            "example": 1
+          },
+          "status_code": {
+            "type": "string",
+            "description": "Current status of signature.",
+            "enum": [
+              "OPEN",
+              "WAITING",
+              "DECLINED",
+              "WITHDRAWN",
+              "SIGNED",
+              "UNDEFINED",
+              "ERROR"
+            ]
+          },
+          "notify": {
+            "type": "boolean",
+            "description": "Send e-mails to notify the signer about this signature request and for all updates to it's state. If set to `false`, no notifications will be sent by Skribble. Default is `true`",
+            "example": false
+          },
+          "signing_url": {
+            "type": "string"
+          },
+          "decline_message": {
+            "type": "string",
+            "description": "Decline message from the signature decliner.",
+            "example": "I declined because of a good reason."
+          },
+          "signed_at": {
+            "type": "string",
+            "description": "Time at which the signature was given.",
+            "format": "date-time",
+            "example": "2018-12-03T07:01:33.000Z"
+          },
+          "signed_legislation": {
+            "type": "string",
+            "description": "Time at which the signature was given.",
+            "example": "ZERTES",
+            "enum": [
+              "UNDEFINED",
+              "EIDAS",
+              "ZERTES"
+            ]
+          },
+          "signed_quality": {
+            "type": "string",
+            "description": "Time at which the signature was given.",
+            "example": "QES",
+            "enum": [
+              "QES",
+              "AES_MINIMAL",
+              "AES",
+              "PART11",
+              "SES",
+              "DEMO"
+            ]
+          },
+          "last_viewed_at": {
+            "type": "string",
+            "description": "The time at which the document was last opened in Skribble's viewer.",
+            "format": "date-time",
+            "example": "2018-12-03T07:01:33.000Z"
+          },
+          "visual_signature": {
+            "$ref": "#/components/schemas/VisualSignature"
+          },
+          "language": {
+            "type": "string",
+            "description": "Language of the invitation email.",
+            "example": "DE"
+          }
+        }
+      },
+      "SignatureFieldInfo": {
+        "title": "SignatureFieldInfo",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "positions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Position"
+            }
+          },
+          "signed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SignatureRequest": {
+        "title": "SignatureRequest",
+        "required": [
+          "created_at",
+          "document_id",
+          "id",
+          "owner",
+          "read_access",
+          "signatures",
+          "title",
+          "updated_at",
+          "write_access"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Signature request's unique ID on Skribble.",
+            "example": "b107da0e-db25-478a-8130-b85e6c57ae83"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the signature request.",
+            "example": "Please sign our NDA"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message sent to the other participants along with this signature request.",
+            "example": "As discussed yesterday ..."
+          },
+          "document_id": {
+            "type": "string",
+            "description": "The document to sign.",
+            "example": "1e471d90-a3a9-4950-b209-d5b6e6107c79"
+          },
+          "legislation": {
+            "type": "string",
+            "description": "Legislation of the signatures for this signature request. Default: ZERTES",
+            "example": "ZERTES",
+            "enum": [
+              "EIDAS",
+              "ZERTES"
+            ]
+          },
+          "quality": {
+            "type": "string",
+            "description": "Minimal quality of the signatures for this signature request. Default: QES",
+            "example": "AES",
+            "enum": [
+              "AES",
+              "QES",
+              "DEMO"
+            ]
+          },
+          "signing_url": {
+            "type": "string",
+            "description": "URL on Skribble's platform where authorized users can view and sign the signature request.",
+            "example": "https://my.skribble.com/sign?id=b107da0e-db25-478a-8130-b85e6c57ae83"
+          },
+          "status_overall": {
+            "type": "string",
+            "description": "Signature request's status based on all requested signature's individual statuses.",
+            "enum": [
+              "OPEN",
+              "WAITING",
+              "DECLINED",
+              "WITHDRAWN",
+              "SIGNED",
+              "UNDEFINED",
+              "ERROR"
+            ]
+          },
+          "business": {
+            "type": "string",
+            "description": "Business of signature request."
+          },
+          "signatures": {
+            "type": "array",
+            "description": "Requested signatures of this signature request.",
+            "items": {
+              "$ref": "#/components/schemas/Signature"
+            }
+          },
+          "cc_email_addresses": {
+            "type": "array",
+            "description": "CC e-mail addresses notifications are sent to.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "expiration_date": {
+            "type": "string",
+            "description": "Expiration date of this signature request. Date scheduled at this time when automatic deletion will remove the signature request.",
+            "format": "date",
+            "example": "2099-06-30T00:00:00.000Z"
+          },
+          "attach_on_success": {
+            "type": "array",
+            "description": "Documents that will be attached additionally to the all-signatures-complete email.",
+            "example": "SIGNED_DOCUMENT",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SIGNED_DOCUMENT",
+                "SIGNATURE_PROTOCOL"
+              ]
+            }
+          },
+          "callback_success_url": {
+            "type": "string",
+            "description": "Callback-URL which is called on overall success. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/success?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "callback_error_url": {
+            "type": "string",
+            "description": "Callback-URL which is called in case of an error. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/failure?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "callback_update_url": {
+            "type": "string",
+            "description": "Callback-URL which is called in case of an update. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/update?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "custom": {
+            "type": "string",
+            "description": "Custom field where own/customer settings related to this signature request can be stored for future actions. The field is limited to a maximum of 10000 characters.",
+            "example": "CustomFieldA=customID,CustomFieldB=customValue"
+          },
+          "owner": {
+            "type": "string",
+            "description": "E-mail address of the object owner.",
+            "example": "api@company_a.com"
+          },
+          "attachments": {
+            "type": "array",
+            "description": "File attachments to this signature request",
+            "items": {
+              "$ref": "#/components/schemas/SignatureRequestAttachment"
+            }
+          },
+          "read_access": {
+            "type": "array",
+            "description": "E-mail addresses with read access to the object.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "write_access": {
+            "type": "array",
+            "description": "E-mail addresses with write access to the object.",
+            "example": [
+              "person_1@company_a.com",
+              "person_2@company_b.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The time at which the object was created.",
+            "format": "date-time",
+            "example": "2018-11-28T11:51:58.637Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "The time at which the object was last changed.",
+            "format": "date-time",
+            "example": "2018-12-03T07:01:33.000Z"
+          }
+        }
+      },
+      "SignatureRequestAttachment": {
+        "title": "SignatureRequestAttachment",
+        "type": "object",
+        "properties": {
+          "attachment_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "filename": {
+            "type": "string"
+          }
+        }
+      },
+      "SignatureRequest«object»": {
+        "title": "SignatureRequest«object»",
+        "required": [
+          "created_at",
+          "document_id",
+          "id",
+          "owner",
+          "read_access",
+          "signatures",
+          "title",
+          "updated_at",
+          "write_access"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Signature request's unique ID on Skribble.",
+            "example": "b107da0e-db25-478a-8130-b85e6c57ae83"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the signature request.",
+            "example": "Please sign our NDA"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message sent to the other participants along with this signature request.",
+            "example": "As discussed yesterday ..."
+          },
+          "document_id": {
+            "type": "string",
+            "description": "The document to sign.",
+            "example": "1e471d90-a3a9-4950-b209-d5b6e6107c79"
+          },
+          "legislation": {
+            "type": "string",
+            "description": "Legislation of the signatures for this signature request. Default: ZERTES",
+            "example": "ZERTES",
+            "enum": [
+              "EIDAS",
+              "ZERTES"
+            ]
+          },
+          "quality": {
+            "type": "string",
+            "description": "Minimal quality of the signatures for this signature request. Default: QES",
+            "example": "AES",
+            "enum": [
+              "AES",
+              "QES",
+              "DEMO"
+            ]
+          },
+          "signing_url": {
+            "type": "string",
+            "description": "URL on Skribble's platform where authorized users can view and sign the signature request.",
+            "example": "https://my.skribble.com/sign?id=b107da0e-db25-478a-8130-b85e6c57ae83"
+          },
+          "status_overall": {
+            "type": "string",
+            "description": "Signature request's status based on all requested signature's individual statuses.",
+            "enum": [
+              "OPEN",
+              "WAITING",
+              "DECLINED",
+              "WITHDRAWN",
+              "SIGNED",
+              "UNDEFINED",
+              "ERROR"
+            ]
+          },
+          "business": {
+            "type": "string",
+            "description": "Business of signature request."
+          },
+          "signatures": {
+            "type": "array",
+            "description": "Requested signatures of this signature request.",
+            "items": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "cc_email_addresses": {
+            "type": "array",
+            "description": "CC e-mail addresses notifications are sent to.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "expiration_date": {
+            "type": "string",
+            "description": "Expiration date of this signature request. Date scheduled at this time when automatic deletion will remove the signature request.",
+            "format": "date",
+            "example": "2099-06-30T00:00:00.000Z"
+          },
+          "attach_on_success": {
+            "type": "array",
+            "description": "Documents that will be attached additionally to the all-signatures-complete email.",
+            "example": "SIGNED_DOCUMENT",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SIGNED_DOCUMENT",
+                "SIGNATURE_PROTOCOL"
+              ]
+            }
+          },
+          "callback_success_url": {
+            "type": "string",
+            "description": "Callback-URL which is called on overall success. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/success?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "callback_error_url": {
+            "type": "string",
+            "description": "Callback-URL which is called in case of an error. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/failure?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "callback_update_url": {
+            "type": "string",
+            "description": "Callback-URL which is called in case of an update. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values.",
+            "example": "https://api.company_a.com/callback/update?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "custom": {
+            "type": "string",
+            "description": "Custom field where own/customer settings related to this signature request can be stored for future actions. The field is limited to a maximum of 10000 characters.",
+            "example": "CustomFieldA=customID,CustomFieldB=customValue"
+          },
+          "owner": {
+            "type": "string",
+            "description": "E-mail address of the object owner.",
+            "example": "api@company_a.com"
+          },
+          "attachments": {
+            "type": "array",
+            "description": "File attachments to this signature request",
+            "items": {
+              "$ref": "#/components/schemas/SignatureRequestAttachment"
+            }
+          },
+          "read_access": {
+            "type": "array",
+            "description": "E-mail addresses with read access to the object.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "write_access": {
+            "type": "array",
+            "description": "E-mail addresses with write access to the object.",
+            "example": [
+              "person_1@company_a.com",
+              "person_2@company_b.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "The time at which the object was created.",
+            "format": "date-time",
+            "example": "2018-11-28T11:51:58.637Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "The time at which the object was last changed.",
+            "format": "date-time",
+            "example": "2018-12-03T07:01:33.000Z"
+          }
+        }
+      },
+      "SignerIdentityData": {
+        "title": "SignerIdentityData",
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "description": "Evidence provider",
+            "example": "swisscom_ra_app"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First name of no-account-signer",
+            "example": "Walter"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name of no-account-signer",
+            "example": "Demo"
+          },
+          "mobile_number": {
+            "type": "string",
+            "description": "Mobile number of no-account-signer",
+            "example": "41791234567"
+          },
+          "email_address": {
+            "type": "string",
+            "description": "E-Mail address of no-account-signer",
+            "example": "walter.demo@somecompany.com"
+          },
+          "language": {
+            "type": "string",
+            "description": "Language code for the resulting no-account-signer",
+            "example": "DE"
+          }
+        }
+      },
+      "UpdateSignatureRequest": {
+        "title": "UpdateSignatureRequest",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Signature request's unique ID on Skribble.",
+            "example": "b107da0e-db25-478a-8130-b85e6c57ae83"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the signature request. Need `UPDATE` right to change.",
+            "example": "Please sign our NDA"
+          },
+          "message": {
+            "type": "string",
+            "description": "Message sent to the other participants along with this signature request. Need `UPDATE` right to change.",
+            "example": "As discussed yesterday ..."
+          },
+          "legislation": {
+            "type": "string",
+            "description": "Legislation of the signatures for this signature request. Default: ZERTES",
+            "example": "ZERTES",
+            "enum": [
+              "EIDAS",
+              "ZERTES"
+            ]
+          },
+          "quality": {
+            "type": "string",
+            "description": "Minimal quality of the signatures for this signature request. Default: QES",
+            "example": "AES",
+            "enum": [
+              "AES",
+              "QES",
+              "DEMO"
+            ]
+          },
+          "signatures": {
+            "type": "array",
+            "description": "Which signatures should be created within this signature request. Need `MODIFY_SIGNERS` right to change.",
+            "items": {
+              "$ref": "#/components/schemas/CreateSignature"
+            }
+          },
+          "cc_email_addresses": {
+            "type": "array",
+            "description": "CC e-mail addresses notifications are sent to. Need `MODIFY_ACCESS` right to change.",
+            "example": [
+              "backoffice@company_a.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "callback_success_url": {
+            "type": "string",
+            "description": "Callback-URL which is called on overall success. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values. Need `UPDATE` right to change.",
+            "example": "https://api.company_a.com/callback/success?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "callback_error_url": {
+            "type": "string",
+            "description": "Callback-URL which is called in case of an error. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values. Need `UPDATE` right to change.",
+            "example": "https://api.company_a.com/callback/failure?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "callback_update_url": {
+            "type": "string",
+            "description": "Callback-URL which is called in case of an update. There are two template variables: SKRIBBLE_DOCUMENT_ID and SKRIBBLE_SIGNATURE_REQUEST_ID. Both are replaced before the callback by with their current values. Need `UPDATE` right to change.",
+            "example": "https://api.company_a.com/callback/update?document_id=SKRIBBLE_DOCUMENT_ID&req_id=SKRIBBLE_SIGNATURE_REQUEST_ID"
+          },
+          "attach_on_success": {
+            "type": "array",
+            "description": "Documents that will be attached additionally to the all-signatures-complete email.",
+            "example": "SIGNED_DOCUMENT",
+            "items": {
+              "type": "string",
+              "enum": [
+                "SIGNED_DOCUMENT",
+                "SIGNATURE_PROTOCOL"
+              ]
+            }
+          },
+          "write_access": {
+            "type": "array",
+            "description": "E-mail addresses with write access to the object. Need `MODIFY_ACCESS` right to change.",
+            "example": [
+              "person_1@company_a.com",
+              "person_2@company_b.com"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Update an existing `SignatureRequest`. Send only the fields, which shall be updated."
+      },
+      "UserSignatureQualities": {
+        "title": "UserSignatureQualities",
+        "type": "object",
+        "properties": {
+          "qes": {
+            "$ref": "#/components/schemas/UserSignatureQualityQes"
+          },
+          "aes_minimal": {
+            "$ref": "#/components/schemas/UserSignatureQualityAesMinimal"
+          },
+          "aes": {
+            "$ref": "#/components/schemas/UserSignatureQualityAes"
+          },
+          "ses": {
+            "$ref": "#/components/schemas/UserSignatureQualitySes"
+          }
+        }
+      },
+      "UserSignatureQualityAes": {
+        "title": "UserSignatureQualityAes",
+        "type": "object",
+        "properties": {
+          "any": {
+            "type": "string",
+            "description": "SR quality: AES / *",
+            "example": "AES"
+          }
+        },
+        "description": "Closest match to AES"
+      },
+      "UserSignatureQualityAesMinimal": {
+        "title": "UserSignatureQualityAesMinimal",
+        "type": "object",
+        "properties": {
+          "zertes": {
+            "type": "string",
+            "description": "SR quality: AES_MINIMAL / ZERTES",
+            "example": "QES"
+          },
+          "eidas": {
+            "type": "string",
+            "description": "SR quality: AES_MINIMAL / EIDAS",
+            "example": "AES"
+          }
+        },
+        "description": "Best possible quality, but AES at a minimum"
+      },
+      "UserSignatureQualityQes": {
+        "title": "UserSignatureQualityQes",
+        "type": "object",
+        "properties": {
+          "zertes": {
+            "type": "string",
+            "description": "SR quality: QES / ZERTES",
+            "example": "QES"
+          },
+          "eidas": {
+            "type": "string",
+            "description": "SR quality: QES / EIDAS",
+            "example": "null"
+          }
+        }
+      },
+      "UserSignatureQualitySes": {
+        "title": "UserSignatureQualitySes",
+        "type": "object",
+        "properties": {
+          "any": {
+            "type": "string",
+            "description": "SR quality: SES / *",
+            "example": "SES"
+          }
+        }
+      },
+      "VisualSignature": {
+        "title": "VisualSignature",
+        "type": "object",
+        "properties": {
+          "form_field": {
+            "type": "string",
+            "description": "Name of the document’s form field in which the signature is placed. Takes precedence before `position`.",
+            "example": "Signature_field_2"
+          },
+          "position": {
+            "$ref": "#/components/schemas/Position"
+          },
+          "positions": {
+            "type": "array",
+            "description": "List of positions in the PDF coordinate system where the visual signatures will be placed.",
+            "items": {
+              "$ref": "#/components/schemas/Position"
+            }
+          },
+          "image": {
+            "$ref": "#/components/schemas/FieldImage"
+          }
+        },
+        "description": "Defines the appearance of a signature in a document. If no appearance is defined, the signature will be invisible, which is a valid option."
+      },
+      "WithdrawSignature": {
+        "title": "WithdrawSignature",
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Withdraw message.",
+            "example": "The reason for withdrawing the signature."
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Access Token": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "x-original-swagger-version": "2.0"
+}

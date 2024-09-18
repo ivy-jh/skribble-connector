@@ -1,0 +1,136 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition template="/layouts/frame-10-full-width.xhtml">
+		<ui:define name="title">New Document</ui:define>
+		<ui:define name="content">
+
+			<p:growl id="msg" showDetail="true" />
+			<h:form id="form">
+
+				<p:panel header="New Document">
+
+					<f:facet name="actions">
+						<p:commandButton value="send to Skribble" icon="pi pi-send"
+							actionListener="#{logic.sendDoc}" update="@form msg" />
+					</f:facet>
+
+					<p:panelGrid layout="grid" columns="2">
+						<p:outputLabel value="Title" />
+						<p:inputText value="#{data.csr.title}" required="true"
+							requiredMessage="Title is empty">
+							<p:ajax event="change" listener="#{logic.update}"
+								update="@this msg" />
+						</p:inputText>
+
+						<p:outputLabel value="Message" />
+						<p:inputTextarea value="#{data.csr.message}" required="true"
+							requiredMessage="Message is empty">
+							<p:ajax event="change" listener="#{logic.update}"
+								update="@this msg" />
+						</p:inputTextarea>
+
+						<p:outputLabel value="Document: [#{data.file.name}]" />
+						<p:fileUpload
+							label="select your pdf or jpeg to be sign on Skribble"
+							listener="#{logic.uploadFile}" value="#{data.file}"
+							mode="advanced" auto="true" allowTypes="/(\.|\/)(jpeg|pdf?)$/"
+							update="@form" required="true" requiredMessage="File is Empty" >
+						</p:fileUpload>
+					</p:panelGrid>
+
+					<p:panel header="Signers">
+						<f:facet name="actions">
+							<p:commandButton value="Add Signer"
+								icon="fa-solid fa-square-plus"
+								actionListener="#{logic.addSigner}" update="@form" />
+
+						</f:facet>
+
+						<p:dataTable id="si" var="si" value="#{data.csr.signatures}"
+							lazy="false" rowKey="#{si.accountEmail}">
+
+							<p:column headerText="Firstname" width="50">
+								<p:inputText value="#{si.signerIdentityData.firstName}">
+									<p:ajax event="change" listener="#{logic.update}"
+										update="@this" />
+								</p:inputText>
+							</p:column>
+
+							<p:column headerText="Lastname" width="50">
+								<p:inputText value="#{si.signerIdentityData.lastName}">
+									<p:ajax event="change" listener="#{logic.update}"
+										update="@this" />
+								</p:inputText>
+							</p:column>
+
+							<p:column headerText="Email" width="50">
+								<p:inputText value="#{si.signerIdentityData.emailAddress}">
+									<p:ajax event="change" listener="#{logic.updateEmail(si)}"
+										update="@this" />
+								</p:inputText>
+							</p:column>
+
+							<p:column headerText="Position X" width="50">
+								<p:tooltip for="@next"
+									value="The x position indicates the distance in pixel from the left edge."
+									position="top" />
+								<p:inputNumber value="#{si.visualSignature.position.x}"
+									minValue="0" maxValue="1000" decimalPlaces="0">
+									<p:ajax event="change" listener="#{logic.update}"
+										update="@this" />
+								</p:inputNumber>
+							</p:column>
+
+							<p:column headerText="Position Y" width="50">
+								<p:tooltip for="@next"
+									value="The y value indicates the distance in pixel from the bottom."
+									position="top" />
+								<p:inputNumber value="#{si.visualSignature.position.y}"
+									minValue="0" maxValue="1000" decimalPlaces="0">
+									<p:ajax event="change" listener="#{logic.update}"
+										update="@this" />
+								</p:inputNumber>
+							</p:column>
+
+							<p:column headerText="Width" width="50">
+								<p:tooltip for="@next"
+									value="The width of the visual signature appearance in pixel."
+									position="top" />
+								<p:inputNumber value="#{si.visualSignature.position.width}"
+									minValue="0" maxValue="1000" decimalPlaces="0">
+									<p:ajax event="change" listener="#{logic.update}"
+										update="@this" />
+								</p:inputNumber>
+							</p:column>
+
+							<p:column headerText="Height" width="50">
+								<p:tooltip for="@next"
+									value="The height of the visual signature appearance in pixel."
+									position="top" />
+								<p:inputNumber value="#{si.visualSignature.position.height}"
+									minValue="0" maxValue="1000" decimalPlaces="0">
+									<p:ajax event="change" listener="#{logic.update}"
+										update="@this" />
+								</p:inputNumber>
+							</p:column>
+
+							<p:column headerText="Function" width="50">
+								<p:tooltip for="@next" value="delete" position="top" />
+								<p:commandButton actionListener="#{logic.deleteSigner(si)}"
+									icon="fa-solid fa-trash" update="@form msg" />
+							</p:column>
+
+						</p:dataTable>
+					</p:panel>
+				</p:panel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

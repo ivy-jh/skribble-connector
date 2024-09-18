@@ -1,0 +1,90 @@
+{
+  "format" : "10.0.0",
+  "id" : "191739E06E060E63",
+  "config" : {
+    "data" : "com.axonivy.connector.skribble.demo.SampleProcessData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "signNewDocument.ivp",
+      "config" : {
+        "callSignature" : "signNewDocument",
+        "outLink" : "signNewDocument.ivp",
+        "startDescription" : "Upload your document for signing and define the requirement signers",
+        "startName" : "Upload document for signing",
+        "tags" : "demo",
+        "case" : { }
+      },
+      "visual" : {
+        "at" : { "x" : 88, "y" : 144 }
+      },
+      "connect" : { "id" : "f14", "to" : "f9" }
+    }, {
+      "id" : "f4",
+      "type" : "RequestStart",
+      "name" : "showOverview.ivp",
+      "config" : {
+        "callSignature" : "showOverview",
+        "input" : {
+          "map" : {
+            "out.nextView" : "\"overview\""
+          }
+        },
+        "outLink" : "showOverview.ivp",
+        "startDescription" : "Loads all your documents from the Skribble-platform.",
+        "startName" : "Show documents status",
+        "tags" : "demo",
+        "case" : { }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 232 }
+      },
+      "connect" : { "id" : "f7", "to" : "f6" }
+    }, {
+      "id" : "f6",
+      "type" : "DialogCall",
+      "name" : [
+        "show Document Overview",
+        "on Skribble"
+      ],
+      "config" : {
+        "dialogId" : "com.axonivy.connector.skribble.demo.Overview",
+        "startMethod" : "start()",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.nextView" : "result.nextView"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 256, "y" : 232 }
+      },
+      "connect" : { "id" : "f16", "to" : "f10" }
+    }, {
+      "id" : "f9",
+      "type" : "DialogCall",
+      "name" : "Upload document for signing",
+      "config" : {
+        "dialogId" : "com.axonivy.connector.skribble.demo.SignRequest",
+        "startMethod" : "start()"
+      },
+      "visual" : {
+        "at" : { "x" : 256, "y" : 144 }
+      },
+      "connect" : { "id" : "f17", "to" : "f15" }
+    }, {
+      "id" : "f10",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 400, "y" : 232 }
+      }
+    }, {
+      "id" : "f15",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 400, "y" : 144 }
+      }
+    } ]
+}

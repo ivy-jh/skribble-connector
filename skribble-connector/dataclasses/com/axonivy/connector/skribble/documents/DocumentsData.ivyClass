@@ -1,0 +1,8 @@
+DocumentsData #class
+com.axonivy.connector.skribble.documents #namespace
+document com.skribble.api.v2.client.Document #field
+document PERSISTENT #fieldModifier
+content String #field
+content PERSISTENT #fieldModifier
+file File #field
+file PERSISTENT #fieldModifier

@@ -1,0 +1,266 @@
+{
+  "format" : "10.0.0",
+  "id" : "1916B6CA7C4F939C",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "com.axonivy.connector.skribble.documents.DocumentsData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "getMetaData(String)",
+      "config" : {
+        "callSignature" : "getMetaData",
+        "input" : {
+          "params" : [
+            { "name" : "documentId", "type" : "String" }
+          ],
+          "map" : {
+            "out.document.id" : "param.documentId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "document", "type" : "com.skribble.api.v2.client.Document" }
+          ],
+          "map" : {
+            "result.document" : "in.document"
+          }
+        },
+        "tags" : "connector"
+      },
+      "visual" : {
+        "at" : { "x" : 120, "y" : 64 }
+      },
+      "connect" : { "id" : "f14", "to" : "f4" }
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 624, "y" : 64 }
+      }
+    }, {
+      "id" : "f4",
+      "type" : "RestClientCall",
+      "name" : [
+        "get document ",
+        "Metadata"
+      ],
+      "config" : {
+        "bodyRaw" : [
+          "{",
+          "    \"title\": \"<%=in.createSignatureRequest.title%>\",",
+          "    \"message\": \"<%=in.createSignatureRequest.message%>\",",
+          "    \"content\": \"<%=in.createSignatureRequest.content%>\",",
+          "    \"signatures\": [",
+          "        {            ",
+          "           \"account_email\" : \"test@yxz.com\"",
+          "        }      ",
+          "    ] ",
+          "}"
+        ],
+        "bodyForm" : {
+          "" : ""
+        },
+        "path" : "v2/documents/{id}",
+        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "method" : "GET",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "responseMapping" : {
+          "out.document" : "result"
+        },
+        "templateParams" : {
+          "id" : "in.document.id"
+        },
+        "resultType" : "com.skribble.api.v2.client.Document",
+        "bodyInputType" : "ENTITY"
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      },
+      "connect" : { "id" : "f9", "to" : "f1" }
+    }, {
+      "id" : "f2",
+      "type" : "CallSubStart",
+      "name" : "getContentData(String)",
+      "config" : {
+        "callSignature" : "getContentData",
+        "input" : {
+          "params" : [
+            { "name" : "documentId", "type" : "String" }
+          ],
+          "map" : {
+            "out.document.id" : "param.documentId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "content", "type" : "String" },
+            { "name" : "file", "type" : "File" }
+          ],
+          "map" : {
+            "result.content" : "in.content",
+            "result.file" : "in.file"
+          }
+        },
+        "tags" : "connector"
+      },
+      "visual" : {
+        "at" : { "x" : 120, "y" : 184 }
+      },
+      "connect" : { "id" : "f6", "to" : "f5" }
+    }, {
+      "id" : "f3",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 640, "y" : 184 }
+      }
+    }, {
+      "id" : "f5",
+      "type" : "RestClientCall",
+      "name" : [
+        "get document",
+        "content"
+      ],
+      "config" : {
+        "bodyRaw" : [
+          "{",
+          "    \"title\": \"<%=in.createSignatureRequest.title%>\",",
+          "    \"message\": \"<%=in.createSignatureRequest.message%>\",",
+          "    \"content\": \"<%=in.createSignatureRequest.content%>\",",
+          "    \"signatures\": [",
+          "        {            ",
+          "           \"account_email\" : \"test@yxz.com\"",
+          "        }      ",
+          "    ] ",
+          "}"
+        ],
+        "headers" : {
+          "Accept" : "application/json"
+        },
+        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "method" : "GET",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "bodyInputType" : "ENTITY",
+        "responseCode" : "out.content = result.get(\"content\").asText();",
+        "bodyForm" : {
+          "" : ""
+        },
+        "path" : "v2/documents/{id}/content",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "templateParams" : {
+          "id" : "in.document.id"
+        },
+        "resultType" : "com.fasterxml.jackson.databind.JsonNode"
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 184 }
+      },
+      "connect" : { "id" : "f7", "to" : "f3" }
+    }, {
+      "id" : "f8",
+      "type" : "CallSubStart",
+      "name" : "getContentDataAsFile(String)",
+      "config" : {
+        "callSignature" : "getContentDataAsFile",
+        "input" : {
+          "params" : [
+            { "name" : "documentId", "type" : "String" }
+          ],
+          "map" : {
+            "out.document.id" : "param.documentId"
+          }
+        },
+        "result" : {
+          "params" : [
+            { "name" : "file", "type" : "File" }
+          ],
+          "map" : {
+            "result.file" : "in.file"
+          }
+        },
+        "tags" : "connector"
+      },
+      "visual" : {
+        "at" : { "x" : 120, "y" : 288 }
+      },
+      "connect" : { "id" : "f12", "to" : "f11" }
+    }, {
+      "id" : "f10",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 640, "y" : 288 }
+      }
+    }, {
+      "id" : "f11",
+      "type" : "RestClientCall",
+      "name" : [
+        "get document",
+        "content"
+      ],
+      "config" : {
+        "bodyRaw" : [
+          "{",
+          "    \"title\": \"<%=in.createSignatureRequest.title%>\",",
+          "    \"message\": \"<%=in.createSignatureRequest.message%>\",",
+          "    \"content\": \"<%=in.createSignatureRequest.content%>\",",
+          "    \"signatures\": [",
+          "        {            ",
+          "           \"account_email\" : \"test@yxz.com\"",
+          "        }      ",
+          "    ] ",
+          "}"
+        ],
+        "headers" : {
+          "Accept" : "application/json"
+        },
+        "clientId" : "6c92d3d7-cb33-4cfa-964a-8242ad165742",
+        "method" : "GET",
+        "statusErrorCode" : "ivy:error:rest:client",
+        "bodyInputType" : "ENTITY",
+        "responseCode" : "out.content = result.get(\"content\").asText();",
+        "bodyForm" : {
+          "" : ""
+        },
+        "path" : "v2/documents/{id}/content",
+        "clientErrorCode" : "ivy:error:rest:client",
+        "templateParams" : {
+          "id" : "in.document.id"
+        },
+        "resultType" : "com.fasterxml.jackson.databind.JsonNode"
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 288 }
+      },
+      "connect" : { "id" : "f16", "to" : "f15" }
+    }, {
+      "id" : "f15",
+      "type" : "Script",
+      "name" : [
+        "convert to",
+        "file"
+      ],
+      "config" : {
+        "output" : {
+          "code" : [
+            "import java.util.Base64;",
+            "",
+            "try{",
+            "  out.file = new File(\"Skribble/\"+in.document.id+\".pdf\", true);",
+            "  ",
+            "  Binary base64 = Base64.getDecoder().decode(in.content);",
+            "  out.file.writeBinary(base64);",
+            "",
+            "} catch(Exception e){",
+            "  ivy.log.error(e);",
+            "}  "
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 512, "y" : 288 }
+      },
+      "connect" : { "id" : "f13", "to" : "f10" }
+    } ]
+}

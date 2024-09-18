@@ -1,0 +1,101 @@
+[
+  {
+    "id": "b54821fc-231a-ff71-bc25-390e9b89c1c9",
+    "title": "Document-Title",
+    "message": "this is your Document-Description",
+    "document_id": "20c535e0-4260-f52a-b2ba-a45eb280d9a3",
+    "legislation": "ZERTES",
+    "quality": "DEMO",
+    "signing_url": "https://my.skribble.com/view/b54821fc-231a-ff71-bc25-390e9b89c1c9",
+    "status_overall": "OPEN",
+    "business": "biz-e989cba7b6537b578963df30566fdbf9",
+    "signatures": [
+      {
+        "sid": "53766479-b59c-d21e-3c79-0abca86812a5",
+        "account_email": "max.muster@yxz.com",
+        "signer_identity_data": {
+          "first_name": "Max",
+          "last_name": "Muster",
+          "email_address": "max.muster@yxz.com"
+        },
+        "sequence": 1,
+        "status_code": "OPEN",
+        "notify": true,
+        "visual_signature": {
+          "position": {
+            "x": 100.0,
+            "y": 600.0,
+            "width": 160.0,
+            "height": 60.0,
+            "page": "0",
+            "rotation": 0,
+            "invisible": false
+          },
+          "positions": [
+            {
+              "x": 100.0,
+              "y": 600.0,
+              "width": 160.0,
+              "height": 60.0,
+              "page": "0",
+              "rotation": 0,
+              "invisible": false
+            }
+          ]
+        }
+      },
+      {
+        "sid": "7ca98f98-22bb-7d2d-6f37-89d1473f4fe7",
+        "account_email": "ac7ca7deea004608a7d101cdddf8b060",
+        "signer_identity_data": {
+          "first_name": "John",
+          "last_name": "Doe",
+          "email_address": "john.doe@yxz.com"
+        },
+        "sequence": 1,
+        "status_code": "OPEN",
+        "notify": false,
+        "signing_url": "https://my.skribble.com/view/b54821fc-231a-ff71-bc25-390e9b89c1c9/ac7ca7deea004608a7d101cdddf8b060",
+        "visual_signature": {
+          "position": {
+            "x": 300.0,
+            "y": 600.0,
+            "width": 160.0,
+            "height": 60.0,
+            "page": "0",
+            "rotation": 0,
+            "invisible": false
+          },
+          "positions": [
+            {
+              "x": 300.0,
+              "y": 600.0,
+              "width": 160.0,
+              "height": 60.0,
+              "page": "0",
+              "rotation": 0,
+              "invisible": false
+            }
+          ]
+        },
+        "language": "German"
+      }
+    ],
+    "cc_email_addresses": [
+    ],
+    "expiration_date": "2024-08-26",
+    "attachments": [
+    ],
+    "owner": "api_demo_axonivy_e989_0",
+    "read_access": [
+      "api_demo_axonivy_e989_0",
+      "ac7ca7deea004608a7d101cdddf8b060",
+      "max.muster@yxz.com"
+    ],
+    "write_access": [
+      "api_demo_axonivy_e989_0"
+    ],
+    "created_at": "2024-08-21T08:02:35.395Z",
+    "updated_at": "2024-08-21T08:02:35.395Z"
+  }
+]

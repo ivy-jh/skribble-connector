@@ -1,0 +1,30 @@
+SignatureRequestSearchParameters #class
+com.axonivy.connector.skribble.signaturerequest #namespace
+id String #field
+id PERSISTENT #fieldModifier
+version String #field
+version PERSISTENT #fieldModifier
+account_email String #field
+account_email 'Filter on the field signatures.account_email' #fieldComment
+account_email PERSISTENT #fieldModifier
+created_by String #field
+created_by PERSISTENT #fieldModifier
+page_number Integer #field
+page_number 'Page number must be greater than or equal to 0' #fieldComment
+page_number PERSISTENT #fieldModifier
+page_size Integer #field
+page_size 'Page size must be greater than or equal to 0' #fieldComment
+page_size PERSISTENT #fieldModifier
+search String #field
+search 'Filter on the field title to search for documents containing the search term.' #fieldComment
+search PERSISTENT #fieldModifier
+signature_status String #field
+signature_status 'Filter on the field signatures.status_code with one of the valid Signature states' #fieldComment
+signature_status PERSISTENT #fieldModifier
+signatures_count Integer #field
+signatures_count PERSISTENT #fieldModifier
+signer_email_address String #field
+signer_email_address PERSISTENT #fieldModifier
+status_overall String #field
+status_overall 'Filter on the field status_overall with one of the valid Signature states' #fieldComment
+status_overall PERSISTENT #fieldModifier

@@ -1,7 +1,7 @@
-# MY-PRODUCT-NAME
+# Skribble-Connector
 
-[![CI Build](https://github.com/axonivy-market/REPO-NAME/actions/workflows/ci.yml/badge.svg)](https://github.com/axonivy-market/REPO-NAME/actions/workflows/ci.yml)
+[![CI Build](https://github.com/axonivy-market/skribble-connector/actions/workflows/ci.yml/badge.svg)](https://github.com/axonivy-market/skribble-connector/actions/workflows/ci.yml)
 
-"YOUR SHORT DESCRIPTION GOES HERE"
+The Skribble API allows businesses and teams of any size to fully integrate the e-signing solution of Skribble with any internal systems, software or SaaS solution.
 
-Read our [documentation](MY-PRODUCT-NAME-product/README.md).
+Read our [documentation](skribble-connector-product/README.md).
