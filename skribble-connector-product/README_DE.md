@@ -1,11 +1,12 @@
 # Skribble-Connector
 
-[Skribble](https://www.skribble.com/de-de/) is a modern digital signature platform that provides legally binding electronic signatures compliant with European laws.  Use our Skribble connector to gain access to the Skribble features, like
+[Skribble](https://www.skribble.com/de-de/) ist eine moderne Plattform für digitale Signaturen, die rechtsverbindliche elektronische Unterschriften gemäß europäischen Gesetzen bietet. Mit unserem Skribble Konnektor hast du Zugriff auf Skribble-Funktionen wie:
  
-- creating signatures in a secure and legally compliant way
-- monitoring signature processes
+- sichere und gesetzeskonforme Erstellung von Unterschriften
+- Überwachung von Unterschriftsprozessen
  
-Just download the connector into your Axon Ivy designer and start the demo process!
+Lade einfach den Konnektor in deinen Axon Ivy Designer herunter und starte den Demo-Prozess!
+
 
 ## Demo
 

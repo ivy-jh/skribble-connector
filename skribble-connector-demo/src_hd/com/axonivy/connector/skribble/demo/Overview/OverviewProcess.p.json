@@ -150,12 +150,13 @@
             { "name" : "signatureRequestSearchParameters", "type" : "com.axonivy.connector.skribble.signaturerequest.SignatureRequestSearchParameters" }
           ],
           "map" : {
-            "param.signatureRequestSearchParameters.created_by" : "ivy.var.skribbleConnector_username"
+            "param.signatureRequestSearchParameters.created_by" : "ivy.var.get(\"skribbleConnector.username\")"
           }
         }
       },
       "visual" : {
-        "at" : { "x" : 376, "y" : 64 }
+        "at" : { "x" : 383, "y" : 63 },
+        "size" : { "width" : 151, "height" : 55 }
       },
       "connect" : { "id" : "f22", "to" : "f1" }
     }, {
@@ -213,9 +214,10 @@
         }
       },
       "visual" : {
-        "at" : { "x" : 232, "y" : 240 }
+        "at" : { "x" : 256, "y" : 240 },
+        "size" : { "width" : 160, "height" : 60 }
       },
-      "connect" : { "id" : "f11", "to" : "f2", "via" : [ { "x" : 376, "y" : 240 } ] }
+      "connect" : { "id" : "f11", "to" : "f2", "via" : [ { "x" : 383, "y" : 240 } ] }
     }, {
       "id" : "f6",
       "type" : "HtmlDialogEventStart",
@@ -226,6 +228,6 @@
       "visual" : {
         "at" : { "x" : 96, "y" : 160 }
       },
-      "connect" : { "id" : "f15", "to" : "f2", "via" : [ { "x" : 376, "y" : 160 } ] }
+      "connect" : { "id" : "f15", "to" : "f2", "via" : [ { "x" : 383, "y" : 160 } ] }
     } ]
 }
