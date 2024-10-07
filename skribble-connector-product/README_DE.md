@@ -16,17 +16,17 @@ Each participant has full access to their own documents and can sign or decline 
 On the demo there are two processes: The first process is an easy dialog to create a new signature request and the second shows all the signature request with their own status.
 
 Creating a new Signer Request, upload your document which has to be sign and add your signer.
-![image](doc/img/request1.png)
+![image](images/request1.png)
 
 Loads all your documents from the Skribbleplatform.
 If you created successfully a Request you will see it here. 
-![image](doc/img/overview1.png)
+![image](images/overview1.png)
 
 Document view on the Skribbleplatform as a signer
-![image](doc/img/skribble_doc_view1.png)
+![image](images/skribble_doc_view1.png)
 
 Refresh the overviewpage and you will see the status on the signer and the overallstatus are changed.
-![image](doc/img/overview2.png)
+![image](images/overview2.png)
 
 To get a Sign from a signer there are two easy options:
 	-set the notify parameter off the signer on true and he will recieve directly a mail from the skribble platform shorty after the request.
