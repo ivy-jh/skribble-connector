@@ -3,7 +3,7 @@
   <groupId>com.axonivy.connector.skribble</groupId>
   <name>skribble-connector</name>
   <artifactId>skribble-connector-modules</artifactId>
-  <version>10.0.22-SNAPSHOT</version>
+  <version>10.0.24-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>

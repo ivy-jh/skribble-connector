@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.axonivy.connector.skribble</groupId>
   <artifactId>skribble-connector-product</artifactId>
-  <version>10.0.22-SNAPSHOT</version>
+  <version>10.0.24-SNAPSHOT</version>
   <packaging>pom</packaging>
   <properties>
     <variables.yaml.file>../skribble-connector/config/variables.yaml</variables.yaml.file>
